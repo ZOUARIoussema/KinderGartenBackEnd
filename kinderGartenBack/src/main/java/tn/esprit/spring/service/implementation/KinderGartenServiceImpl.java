@@ -14,11 +14,11 @@ public class KinderGartenServiceImpl implements IKinderGartenService {
 	
 	@Autowired
 	IKinderGartenRepository kinderRepo;
-
+	
 	@Override
 	public List<KinderGarten> getAllKinderGartens() {
 		
-		List<KinderGarten> listekindergartens =  (List<KinderGarten>)kinderRepo.findAll();
+		List<KinderGarten> listekindergartens =  (List<KinderGarten>) kinderRepo.findAll();
 		return listekindergartens;
 	}
 
