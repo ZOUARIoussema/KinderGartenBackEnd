@@ -13,6 +13,13 @@ public interface IUserService {
 	
 	public void initialize();
 	
+	public void delete(int id);
+	
+	public void update(User u);
+	
+	
+	
+	
 	
 	public User findByEmail(String email);
 	
