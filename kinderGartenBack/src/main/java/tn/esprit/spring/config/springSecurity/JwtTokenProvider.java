@@ -1,4 +1,4 @@
-package tn.esprit.spring.config;
+package tn.esprit.spring.config.springSecurity;
 
 import java.io.Serializable;
 import java.util.Base64;

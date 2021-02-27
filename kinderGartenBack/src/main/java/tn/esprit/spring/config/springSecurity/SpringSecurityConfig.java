@@ -1,4 +1,4 @@
-package tn.esprit.spring.config;
+package tn.esprit.spring.config.springSecurity;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
