@@ -7,6 +7,8 @@ import tn.esprit.spring.entity.Notice;
 public interface INoticeService {
 	
 	public List<Notice> getAllNotices();
-	public List<Notice> getAllNoticesByScore(Notice n);
+	//public List<Notice> getAllNoticesByScore(Notice n);
+	public void deletNoticeById(int noticeId);
+	
 
 }
