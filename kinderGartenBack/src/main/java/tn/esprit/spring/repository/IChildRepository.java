@@ -7,4 +7,5 @@ import tn.esprit.spring.entity.Child;
 @Repository
 public interface IChildRepository extends CrudRepository<Child, Integer>  {
 
+	
 }

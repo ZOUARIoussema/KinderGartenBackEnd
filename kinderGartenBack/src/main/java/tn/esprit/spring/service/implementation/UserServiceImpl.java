@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import tn.esprit.spring.entity.User;
 import tn.esprit.spring.entity.enumeration.Role;
+import tn.esprit.spring.entity.enumeration.RoleSwitch;
+import tn.esprit.spring.entity.enumeration.StateUser;
 import tn.esprit.spring.repository.IUserRepository;
 import tn.esprit.spring.service.interfaceS.IUserService;
 
@@ -90,6 +92,30 @@ public class UserServiceImpl implements IUserService {
 
 		}
 
+	}
+
+	@Override
+	public List<User> getParentsByKinderGartens() {
+		
+	List<User> listusers = userR.getParentsByKinderGarten();
+	return listusers;
+		
+	}
+
+	@Override
+	public void ChangeStateUser(User u) {
+		
+		if (u.getStateUser().equals(StateUser.watting))
+			
+		{
+			u.setStateUser(StateUser.active);
+		}
+		
+		if (u.getStateUser().equals(StateUser.active))
+		{
+			u.setStateUser(StateUser.blocked);
+		}
+		
 	}
 
 }

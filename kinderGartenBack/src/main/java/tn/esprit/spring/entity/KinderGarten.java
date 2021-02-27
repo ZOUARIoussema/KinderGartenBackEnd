@@ -34,7 +34,6 @@ public class KinderGarten implements Serializable {
 	private int scoreEval;
 
 	private String logo;
-
 	@OneToMany(mappedBy = "kinderGartenInscription")
 	private List<User> listParent = new ArrayList<User>();
 
