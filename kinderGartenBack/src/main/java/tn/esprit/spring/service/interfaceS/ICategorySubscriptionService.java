@@ -1,5 +1,16 @@
 package tn.esprit.spring.service.interfaceS;
 
-public interface ICategorySubscriptionService {
+import java.util.List;
 
+import tn.esprit.spring.entity.CategorySubscription;
+
+
+
+public interface ICategorySubscriptionService {
+	public int addCategorySubscription(CategorySubscription categorySubscription);
+	public void updateCategorySubscription(String description,double price,int categorySubscriptionId);
+	public List<CategorySubscription> getAllCategorySubscription();
+	public void deleteCategorySubscriptionById(int categorySubscriptionId);
+	public CategorySubscription getCategorySubscriptionById(int categorySubscriptionId);
+	public void affecterCategorySubscriptionAkinderGarten(int categorySubscriptionId, int kinderId);
 }
