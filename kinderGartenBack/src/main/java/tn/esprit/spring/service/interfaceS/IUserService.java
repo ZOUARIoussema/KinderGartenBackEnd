@@ -16,6 +16,10 @@ public interface IUserService {
 	
 	public User findByEmail(String email);
 	
+	public List<User> getParentsByKinderGartens();
+	
+	public void ChangeStateUser(User u);
+	
 	
 	
 
