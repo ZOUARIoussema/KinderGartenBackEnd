@@ -9,4 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 @PreAuthorize("hasRole('ROLE_admin')")
 public class AdminController {
 
+	
+	
 }

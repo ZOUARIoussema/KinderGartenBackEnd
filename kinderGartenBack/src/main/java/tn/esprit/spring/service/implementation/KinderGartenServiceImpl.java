@@ -1,10 +1,10 @@
 package tn.esprit.spring.service.implementation;
 
 
-<<<<<<< HEAD
+
 import java.util.ArrayList;
-=======
->>>>>>> 99bf506d3e5cf36fdfc6f122a87288ec94174114
+
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +12,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import tn.esprit.spring.entity.KinderGarten;
-<<<<<<< HEAD
+
 import tn.esprit.spring.entity.User;
 import tn.esprit.spring.repository.IKinderGartenRepository;
 import tn.esprit.spring.repository.IUserRepository;
-=======
+
 import tn.esprit.spring.repository.IKinderGartenRepository;
->>>>>>> 99bf506d3e5cf36fdfc6f122a87288ec94174114
+
 import tn.esprit.spring.service.interfaceS.IKinderGartenService;
 @Service
 public class KinderGartenServiceImpl implements IKinderGartenService {
@@ -26,12 +26,7 @@ public class KinderGartenServiceImpl implements IKinderGartenService {
 	@Autowired
 	IKinderGartenRepository kinderRepo;
 	
-	@Override
-	public List<KinderGarten> getAllKinderGartens() {
-		
-		List<KinderGarten> listekindergartens =  (List<KinderGarten>) kinderRepo.findAll();
-		return listekindergartens;
-	}
+	
 
 	@Autowired
 	IKinderGartenRepository iKinderGartenRepository;
