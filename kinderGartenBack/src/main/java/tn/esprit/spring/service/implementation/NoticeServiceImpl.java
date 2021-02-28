@@ -22,10 +22,16 @@ public class NoticeServiceImpl implements INoticeService {
 		return listnotices;
 	}
 
-	@Override
+	/*@Override
 	public List<Notice> getAllNoticesByScore(Notice n) {
-		// TODO Auto-generated method stub
-		return null;
+		
+	}*/
+
+	@Override
+	public void deletNoticeById(int noticeId) {
+		noticeRepo.deleteById(noticeId);	
 	}
+
+	
 
 }

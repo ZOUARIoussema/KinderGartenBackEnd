@@ -1,4 +1,4 @@
-package tn.esprit.spring.config;
+package tn.esprit.spring.config.springSecurity;
 
 import java.io.Serializable;
 import java.util.Base64;
@@ -32,7 +32,7 @@ public class JwtTokenProvider implements Serializable {
 		secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
 	}
 
-	private long validityInMilliseconds = 50 * 60 * 60; // 2 minute
+	private long validityInMilliseconds =  864_000_000; // 10 days 
 
 	public String createToken(String username, String role) {
 		Claims claims = Jwts.claims().setSubject(username);

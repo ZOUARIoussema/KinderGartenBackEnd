@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import tn.esprit.spring.entity.User;
 import tn.esprit.spring.entity.enumeration.Role;
-import tn.esprit.spring.entity.enumeration.RoleSwitch;
 import tn.esprit.spring.entity.enumeration.StateUser;
 import tn.esprit.spring.repository.IUserRepository;
 import tn.esprit.spring.service.interfaceS.IUserService;
@@ -34,7 +33,7 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public User findByEmail(String email) {
 
-		return null;
+		return userR.findByEmail(email);
 	}
 
 	@Override
@@ -88,7 +87,15 @@ public class UserServiceImpl implements IUserService {
 			user6.setTel(97874565);
 			user6.setRole(Role.ROLE_visitor);
 			user6.setPassword(new BCryptPasswordEncoder().encode("testuser"));
-			this.add(user4);
+			this.add(user6);
+
+			User user7 = new User();
+			user7.setEmail("testparent@user.com");
+			user7.setFirstName("Test User parent");
+			user7.setTel(97874565);
+			user7.setRole(Role.ROLE_parent);
+			user7.setPassword(new BCryptPasswordEncoder().encode("testuser"));
+			this.add(user7);
 
 		}
 
@@ -96,26 +103,48 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public List<User> getParentsByKinderGartens() {
-		
-	List<User> listusers = userR.getParentsByKinderGarten();
-	return listusers;
-		
+
+		List<User> listusers = userR.getParentsByKinderGarten();
+		return listusers;
+
 	}
 
 	@Override
 	public void ChangeStateUser(User u) {
-		
+
 		if (u.getStateUser().equals(StateUser.watting))
-			
+
 		{
 			u.setStateUser(StateUser.active);
 		}
-		
-		if (u.getStateUser().equals(StateUser.active))
-		{
+
+		if (u.getStateUser().equals(StateUser.active)) {
 			u.setStateUser(StateUser.blocked);
 		}
-		
+
+	}
+
+	@Override
+	public void delete(int id) {
+
+		User u = userR.findById(id).get();
+
+		if (u != null) {
+
+			userR.delete(u);
+		}
+
+	}
+
+	@Override
+	public void update(User u) {
+
+		String pwd = new BCryptPasswordEncoder().encode(u.getPassword());
+
+		u.setPassword(pwd);
+
+		userR.save(u);
+
 	}
 
 }

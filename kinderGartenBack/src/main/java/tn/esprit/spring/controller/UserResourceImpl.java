@@ -12,13 +12,16 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import tn.esprit.spring.config.JwtTokenProvider;
+import tn.esprit.spring.config.springSecurity.JwtTokenProvider;
 import tn.esprit.spring.entity.User;
 import tn.esprit.spring.repository.IUserRepository;
+import tn.esprit.spring.service.implementation.MailServiceImpl;
+import tn.esprit.spring.service.interfaceS.IMailService;
 import tn.esprit.spring.service.interfaceS.IUserService;
 
 @RestController
@@ -38,6 +41,9 @@ public class UserResourceImpl {
 
 	@Autowired
 	private IUserService userS;
+
+	@Autowired
+	private IMailService mailS;
 
 	@PostMapping(value = "/authenticate")
 	public ResponseEntity<String> authenticate(@RequestBody User user) {
@@ -69,10 +75,20 @@ public class UserResourceImpl {
 	@PostMapping("/add")
 	public void addUser(@RequestBody User user) {
 
-		
 		user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-		
+
 		userS.add(user);
+	}
+
+	@PostMapping("/sendSecretKey")
+	public void sendSecretKey(String key) {
+
+		mailS.sendSimpleMail("oussema.zouari@esprit.tn", "ttt", "tt");
+
+	}
+
+	public void changePassword() {
+
 	}
 
 }
