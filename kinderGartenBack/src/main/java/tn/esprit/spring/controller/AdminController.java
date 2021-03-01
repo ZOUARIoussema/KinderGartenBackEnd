@@ -53,9 +53,10 @@ public class AdminController {
 	public Claim SearchClaimByParent(@RequestBody User u)
 	{
 		return claimServ.SearchClaimByParent(u);
+		
 	}
 
-	
+
 	
 	
 }
