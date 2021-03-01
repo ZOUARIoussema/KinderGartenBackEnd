@@ -15,6 +15,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Child implements Serializable {
 
@@ -41,6 +43,7 @@ public class Child implements Serializable {
 	private User parent;
 
 	@OneToMany(mappedBy = "child")
+	@JsonIgnore
 	private List<SubscriptionChild> lisSubscriptionChilds = new ArrayList<SubscriptionChild>();
 
 	@OneToOne(mappedBy = "child")

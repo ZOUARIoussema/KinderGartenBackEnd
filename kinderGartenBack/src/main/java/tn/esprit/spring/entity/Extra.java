@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Extra implements Serializable {
 	
@@ -34,6 +36,7 @@ public class Extra implements Serializable {
 	
 	
 	@OneToMany(mappedBy = "extra")
+	@JsonIgnore
 	private List<SubscriptionChild>listSubscriptionChilds = new ArrayList<SubscriptionChild>();
 	
 	

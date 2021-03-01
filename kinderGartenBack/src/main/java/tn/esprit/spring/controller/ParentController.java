@@ -19,18 +19,19 @@ import tn.esprit.spring.entity.Comment;
 import tn.esprit.spring.entity.JustificationAbsence;
 import tn.esprit.spring.entity.Notice;
 import tn.esprit.spring.entity.Publication;
+import tn.esprit.spring.entity.SubscriptionChild;
 import tn.esprit.spring.service.interfaceS.IChildService;
 import tn.esprit.spring.service.interfaceS.ICommentService;
 import tn.esprit.spring.service.interfaceS.IJustificationAbsenceService;
 import tn.esprit.spring.service.interfaceS.INoticeService;
 import tn.esprit.spring.service.interfaceS.IPublicationService;
+import tn.esprit.spring.service.interfaceS.ISubscriptionChildService;
 
 @RestController
 @RequestMapping("/parent")
 @PreAuthorize("hasRole('ROLE_parent')")
 public class ParentController {
-	
-	
+
 	@Autowired
 	IPublicationService publicationService;
 	@Autowired
@@ -41,105 +42,135 @@ public class ParentController {
 	IChildService childService;
 	@Autowired
 	INoticeService noticeService;
-	
-	/*Publication*/
-	
+	@Autowired
+	ISubscriptionChildService subscriptionChildService;
+
+	/* Publication */
+
 	@PostMapping("/addPublication")
 	@ResponseBody
-	public Publication addPublication(@RequestBody Publication publication){
+	public Publication addPublication(@RequestBody Publication publication) {
 		publicationService.addPublication(publication);
 		return publication;
 	}
-	
+
 	@DeleteMapping("/deletePublicationById/{idPub}")
 	@ResponseBody
-	public void deletePublication (@PathVariable("idPub") int publicationId){
+	public void deletePublication(@PathVariable("idPub") int publicationId) {
 		publicationService.deletePublication(publicationId);
 	}
-	
-	
-	@PutMapping(value="/updateDescription/{id}/{newDescription}")
+
+	@PutMapping(value = "/updateDescription/{id}/{newDescription}")
 	@ResponseBody
-	public void updateDescriptionByPublicationId(@PathVariable("newDescription") String description , @PathVariable("id") int publicationId){
+	public void updateDescriptionByPublicationId(@PathVariable("newDescription") String description,
+			@PathVariable("id") int publicationId) {
 		publicationService.updateDescriptionByPublicationId(description, publicationId);
 	}
-	
-	
+
 	@GetMapping(value = "/getAllPublication")
-    @ResponseBody
+	@ResponseBody
 	public List<Publication> getAllPublication() {
-		
+
 		return publicationService.getAllPublication();
 	}
-	
-	/*Comment*/
-	
+
+	/* Comment */
+
 	@PostMapping("/addComment")
 	@ResponseBody
-	public Comment addComment(@RequestBody Comment comment){
+	public Comment addComment(@RequestBody Comment comment) {
 		commentService.addComment(comment);
 		return comment;
 	}
-	
+
 	@DeleteMapping("/deleteComment/{idComment}")
 	@ResponseBody
-	public void deleteComment (@PathVariable("idComment") int commentId){
+	public void deleteComment(@PathVariable("idComment") int commentId) {
 		commentService.deleteComment(commentId);
 	}
-	
-	
-	@PutMapping(value="/updateComment/{id}/{newDescription}")
+
+	@PutMapping(value = "/updateComment/{id}/{newDescription}")
 	@ResponseBody
-	public void updateComment(@PathVariable("newDescription") String description , @PathVariable("id") int commentId){
+	public void updateComment(@PathVariable("newDescription") String description, @PathVariable("id") int commentId) {
 		commentService.updateComment(description, commentId);
 	}
-	
-	/*Add JustificationAbsence*/
-	
+
+	/* Add JustificationAbsence */
+
 	@PostMapping("/addJustification")
 	@ResponseBody
-	public JustificationAbsence addJustificationAbsence(@RequestBody JustificationAbsence justificationAbsence){
+	public JustificationAbsence addJustificationAbsence(@RequestBody JustificationAbsence justificationAbsence) {
 		justificationService.addJustification(justificationAbsence);
 		return justificationAbsence;
 	}
-	
-	/*Child */
+
+	/* Child */
 	@PostMapping("/addChild")
 	@ResponseBody
-	public Child addChild(@RequestBody Child child){
+	public Child addChild(@RequestBody Child child) {
 		childService.addChild(child);
 		return child;
 	}
-	
+
 	@GetMapping(value = "/getAllChild")
-    @ResponseBody
+	@ResponseBody
 	public List<Child> getAllChild() {
-		
+
 		return childService.getAllChild();
 	}
-	
-	/*Notice*/
-	@GetMapping(value="/getAllNotice")
+
+	/* Notice */
+	@GetMapping(value = "/getAllNotice")
 	@ResponseBody
-	public List<Notice> getAllNotices(){
+	public List<Notice> getAllNotices() {
 		return noticeService.getAllNotices();
 	}
-	
+
 	@DeleteMapping("/deleteNotice/{idNotice}")
 	@ResponseBody
-	public void deletNoticeById (@PathVariable("idNotice") int noticeId){
+	public void deletNoticeById(@PathVariable("idNotice") int noticeId) {
 		noticeService.deletNoticeById(noticeId);
 	}
-	
-	@GetMapping(value="/GetNoticesByScore")
-	
+
+	@GetMapping(value = "/GetNoticesByScore")
+
 	public List<Notice> getAllNoticesByScore() {
-		
+
 		return noticeService.getAllNoticesByScore();
 	}
-	
-	
 
-	
-	
+	/***
+	 * 
+	 * 
+	 * Crud subscription child
+	 */
+
+	@PostMapping("/addSubscriptionChild")
+	@ResponseBody
+	public void add(@RequestBody SubscriptionChild s) {
+
+		subscriptionChildService.addSubscriptionChild(s);
+
+	}
+
+	@DeleteMapping("/deleteSubscriptionChild/{id}")
+	@ResponseBody
+	public void delete(@PathVariable int id) {
+		subscriptionChildService.delete(id);
+	}
+
+	@GetMapping("/getListSubscriptionByChild/{id}")
+	@ResponseBody
+	public List<SubscriptionChild> getListSubscriptionByChild(@PathVariable int id) {
+
+		return subscriptionChildService.getAllSubscriptionByChild(id);
+	}
+
+	@PutMapping("/updateSubscription")
+	public void updateSubscriptionChild(@RequestBody SubscriptionChild s) {
+
+		subscriptionChildService.update(s);
+
+	}
+
 }
