@@ -147,4 +147,18 @@ public class UserServiceImpl implements IUserService {
 
 	}
 
+	@Override
+	public void changePassWord(int id, String pwd) {
+
+		User u = userR.findById(id).get();
+
+		if (u != null) {
+
+			u.setPassword(pwd);
+
+			this.update(u);
+		}
+
+	}
+
 }

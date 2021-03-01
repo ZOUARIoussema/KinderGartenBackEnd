@@ -17,6 +17,8 @@ public interface IUserService {
 	
 	public void update(User u);
 	
+	public void changePassWord(int id,String pwd);
+	
 	
 	
 	
@@ -26,6 +28,7 @@ public interface IUserService {
 	public List<User> getParentsByKinderGartens();
 	
 	public void ChangeStateUser(User u);
+	
 	
 	
 	
