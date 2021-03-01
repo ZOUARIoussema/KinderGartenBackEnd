@@ -1,5 +1,7 @@
 package tn.esprit.spring.controller;
 
+import java.util.Random;
+
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 import org.slf4j.Logger;
@@ -11,22 +13,24 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import tn.esprit.spring.config.springSecurity.JwtTokenProvider;
 import tn.esprit.spring.entity.User;
 import tn.esprit.spring.repository.IUserRepository;
-import tn.esprit.spring.service.implementation.MailServiceImpl;
 import tn.esprit.spring.service.interfaceS.IMailService;
 import tn.esprit.spring.service.interfaceS.IUserService;
 
 @RestController
 @RequestMapping("/user")
 public class UserResourceImpl {
+
+	private String code;
 
 	private static Logger log = LoggerFactory.getLogger(UserResourceImpl.class);
 
@@ -80,14 +84,26 @@ public class UserResourceImpl {
 		userS.add(user);
 	}
 
-	@PostMapping("/sendSecretKey")
-	public void sendSecretKey(String key) {
+	@PostMapping("/sendSecretKey/{mail}")
+	public void sendSecretKey(@PathVariable("mail") String mail) {
 
-		mailS.sendSimpleMail("oussema.zouari@esprit.tn", "ttt", "tt");
+		Random r = new Random();
+
+		code = String.valueOf(r.nextInt(9999));
+
+		mailS.sendSimpleMail(mail, "Code", code);
 
 	}
 
-	public void changePassword() {
+	@PutMapping("/changepwd/{id}/{pwd}/{code}")
+	public void changePassword(@PathVariable("id") int id, @PathVariable("pwd") String pwd,
+			@PathVariable("code") String code) {
+
+		if (this.code != null && this.code.equals(code)) {
+
+			userS.changePassWord(id, pwd);
+
+		}
 
 	}
 

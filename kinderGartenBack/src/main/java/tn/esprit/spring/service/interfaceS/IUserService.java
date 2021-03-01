@@ -17,10 +17,20 @@ public interface IUserService {
 	
 	public void update(User u);
 	
+<<<<<<< HEAD
 
+=======
+	public void changePassWord(int id,String pwd);
+	
+	
+	
+	
+	
+>>>>>>> 2dae691cbac7ddc556778d8bc9574087c6d6ed3b
 	public User findByEmail(String email);
 	
 	public void ChangeStateUser(User u);
+	
 	
 	
 	

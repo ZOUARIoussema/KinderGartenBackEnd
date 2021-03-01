@@ -44,7 +44,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
          .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
          .and()
          .authorizeRequests()
-         .antMatchers("/servlet/user/***").permitAll()
+         .antMatchers("/servlet/user/**").permitAll()
          .anyRequest().authenticated();
 		 
 		 http.apply(new JwtTokenConfigurer(tokenProvider));
