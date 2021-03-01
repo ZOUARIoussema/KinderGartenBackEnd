@@ -3,12 +3,14 @@ package tn.esprit.spring.service.implementation;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 import javax.print.attribute.standard.DateTimeAtCompleted;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import tn.esprit.spring.entity.KinderGarten;
 import tn.esprit.spring.entity.SwitchAccount;
 import tn.esprit.spring.entity.User;
 import tn.esprit.spring.entity.enumeration.Role;
@@ -43,14 +45,21 @@ public class SwitchAccountServiceImpl implements ISwitchAccountService {
 	}
 
 	@Override
-	public int addSwitchAccount(SwitchAccount sw) 
+	public int addSwitchAccount(SwitchAccount switchaccount) 
 	{
 		
-	switchRepo.save(sw);
+	switchRepo.save(switchaccount);
 		
-	return sw.getId();
+	return switchaccount.getId();
 			
 	}
+
+	@Override
+	public List<KinderGarten> getKinderGarten(String adress) {
+		return (List<KinderGarten>)switchRepo.getKinderByAdress(adress);
+		
+	}
+	
 
 
 }
