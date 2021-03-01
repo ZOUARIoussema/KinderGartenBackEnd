@@ -131,10 +131,15 @@ public class ParentController {
 		noticeService.deletNoticeById(noticeId);
 	}
 	
+	@GetMapping(value="/GetNoticesByScore")
+	
+	public List<Notice> getAllNoticesByScore() {
+		
+		return noticeService.getAllNoticesByScore();
+	}
 	
 	
-	
-	
+
 	
 	
 }

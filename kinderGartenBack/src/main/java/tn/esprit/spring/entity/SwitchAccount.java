@@ -11,6 +11,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import tn.esprit.spring.entity.enumeration.RoleSwitch;
+
 @Entity
 public class SwitchAccount implements Serializable {
 
@@ -31,14 +33,22 @@ public class SwitchAccount implements Serializable {
 	private String state;
 	
 	
+	private RoleSwitch roleswitch;
 	
 	@OneToOne
 	private User visitor;
 	
 	
 	
-	
-	
+	public RoleSwitch getRoleswitch() {
+		return roleswitch;
+	}
+
+	public void setRoleswitch(RoleSwitch roleswitch) {
+		this.roleswitch = roleswitch;
+	}
+
+
 	
 
 	public User getVisitor() {

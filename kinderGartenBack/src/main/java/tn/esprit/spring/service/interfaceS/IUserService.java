@@ -17,13 +17,8 @@ public interface IUserService {
 	
 	public void update(User u);
 	
-	
-	
-	
-	
+
 	public User findByEmail(String email);
-	
-	public List<User> getParentsByKinderGartens();
 	
 	public void ChangeStateUser(User u);
 	

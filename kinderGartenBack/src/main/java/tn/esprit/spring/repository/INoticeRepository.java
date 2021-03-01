@@ -10,8 +10,8 @@ import org.springframework.stereotype.Repository;
 import tn.esprit.spring.entity.Notice;
 @Repository
 public interface INoticeRepository extends CrudRepository<Notice, Integer>  {
-	/*
-	@Query("select * from notice n where n.score=:score")
-	public List<Notice> getNoticesByScore(@Param("score") Notice notice );
-	*/
+	
+	@Query(value="select * from notice order by score",nativeQuery=true)
+	public List<Notice> getNoticesByScore();
+
 }

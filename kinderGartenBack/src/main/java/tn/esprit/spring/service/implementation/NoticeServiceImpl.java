@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import tn.esprit.spring.entity.Notice;
 import tn.esprit.spring.repository.INoticeRepository;
 import tn.esprit.spring.service.interfaceS.INoticeService;
+
 @Service
 public class NoticeServiceImpl implements INoticeService {
 
@@ -22,14 +23,20 @@ public class NoticeServiceImpl implements INoticeService {
 		return listnotices;
 	}
 
-	/*@Override
-	public List<Notice> getAllNoticesByScore(Notice n) {
+	@Override
+	public List<Notice> getAllNoticesByScore() {
 		
-	}*/
+		return (List<Notice>) noticeRepo.getNoticesByScore();
+		
+	}
+	
 
 	@Override
-	public void deletNoticeById(int noticeId) {
-		noticeRepo.deleteById(noticeId);	
+	public void deletNoticeById(int noticeId) 
+	{
+		
+		noticeRepo.deleteById(noticeId);
+		
 	}
 
 	

@@ -1,14 +1,17 @@
 package tn.esprit.spring.service.implementation;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import tn.esprit.spring.entity.KinderGarten;
 import tn.esprit.spring.entity.User;
 import tn.esprit.spring.entity.enumeration.Role;
 import tn.esprit.spring.entity.enumeration.StateUser;
+import tn.esprit.spring.repository.IKinderGartenRepository;
 import tn.esprit.spring.repository.IUserRepository;
 import tn.esprit.spring.service.interfaceS.IUserService;
 
@@ -17,6 +20,10 @@ public class UserServiceImpl implements IUserService {
 
 	@Autowired
 	IUserRepository userR;
+	
+	
+	@Autowired 
+	IKinderGartenRepository kinderRepo;
 
 	@Override
 	public void add(User u) {
@@ -101,14 +108,9 @@ public class UserServiceImpl implements IUserService {
 
 	}
 
-	@Override
-	public List<User> getParentsByKinderGartens() {
-
-		List<User> listusers = userR.getParentsByKinderGarten();
-		return listusers;
-
-	}
-
+	
+	
+		
 	@Override
 	public void ChangeStateUser(User u) {
 
@@ -125,7 +127,8 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public void delete(int id) {
+	public void delete(int id) 
+	{
 
 		User u = userR.findById(id).get();
 
@@ -146,5 +149,8 @@ public class UserServiceImpl implements IUserService {
 		userR.save(u);
 
 	}
+
+	
+
 
 }

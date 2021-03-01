@@ -6,11 +6,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import tn.esprit.spring.entity.KinderGarten;
 
-import tn.esprit.spring.entity.User;
 import tn.esprit.spring.repository.IKinderGartenRepository;
 import tn.esprit.spring.repository.IUserRepository;
 
@@ -18,7 +15,7 @@ import tn.esprit.spring.service.interfaceS.IKinderGartenService;
 
 
 @Service
-public class KinderGartenServiceImpl implements IKinderGartenService {
+public  class KinderGartenServiceImpl implements IKinderGartenService {
 	
 	@Autowired
 	IKinderGartenRepository kinderRepo;
@@ -61,17 +58,15 @@ public class KinderGartenServiceImpl implements IKinderGartenService {
 		
 	}
 
-	@Override
-	public List<KinderGarten> getAllKinderGartens() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	@Override
 	public List<KinderGarten> getAllkinder() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
 
 	/*@Transactional	
 	public void affecterKinderAResponsible(int kinderId, int ReponsibleId) {
