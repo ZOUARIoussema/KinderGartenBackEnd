@@ -18,6 +18,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import tn.esprit.spring.entity.enumeration.Role;
 import tn.esprit.spring.entity.enumeration.StateUser;
 
@@ -91,6 +93,7 @@ public class User implements Serializable {
 	
 	
 	@OneToMany(mappedBy = "doctor")
+	@JsonIgnore
 	private List<MedicalVisitKinderGarten>listMedicalVisitKinderGartens = new ArrayList<MedicalVisitKinderGarten>();
 	
 	

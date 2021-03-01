@@ -25,7 +25,8 @@ import tn.esprit.spring.service.interfaceS.IUserService;
 
 @RestController
 @RequestMapping("/useradmin")
-@PreAuthorize("hasRole('ROLE_admin')")
+@PreAuthorize("hasRole('ROLE_admin') or hasRole ('ROLE_adminGarten')")
+
 public class UserController {
  
 	
