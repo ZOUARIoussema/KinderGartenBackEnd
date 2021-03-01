@@ -6,5 +6,7 @@ import org.springframework.stereotype.Repository;
 import tn.esprit.spring.entity.SwitchAccount;
 @Repository
 public interface ISwitchAccountRepository extends CrudRepository<SwitchAccount, Integer>  {
+	
+	
 
 }

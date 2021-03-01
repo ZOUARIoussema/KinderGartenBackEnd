@@ -6,14 +6,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-<<<<<<< HEAD
-=======
+
 import org.springframework.transaction.annotation.Transactional;
 
 import tn.esprit.spring.entity.Extra;
->>>>>>> 2dae691cbac7ddc556778d8bc9574087c6d6ed3b
 import tn.esprit.spring.entity.KinderGarten;
-
+import tn.esprit.spring.entity.User;
 import tn.esprit.spring.repository.IKinderGartenRepository;
 import tn.esprit.spring.repository.IUserRepository;
 
@@ -63,37 +61,20 @@ public  class KinderGartenServiceImpl implements IKinderGartenService {
 		KinderGarten kinderManagedEntity = kinderRepo.findById(kinderId).get();
 		User userManagedEntity = iUserRepository.findById(ReponsibleId).get();
 		
-<<<<<<< HEAD
-	}
 
 	
-=======
+
 		kinderManagedEntity.setResponsible(userManagedEntity);
 		kinderRepo.save(kinderManagedEntity);
-	}
->>>>>>> 2dae691cbac7ddc556778d8bc9574087c6d6ed3b
 
+
+	}
+
+		
 	@Override
 	public List<KinderGarten> getAllkinder() {
 		return (List<KinderGarten>) iKinderGartenRepository.findAll();
-
-<<<<<<< HEAD
-	
-
-	/*@Transactional	
-	public void affecterKinderAResponsible(int kinderId, int ReponsibleId) {
-		KinderGarten kinderGarten = iKinderGartenRepository.findById(kinderId).get();
-		int id = iUserRepository.findUserByRole();
-			
-		User user = iUserRepository.findById(id).get();
-		if(kinderGarten.getResponsible() == null){
-
-			kinderGarten.setResponsible(user);
-		}
-=======
 	}
->>>>>>> 2dae691cbac7ddc556778d8bc9574087c6d6ed3b
 
-	
 
 }

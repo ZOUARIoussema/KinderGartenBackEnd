@@ -150,10 +150,7 @@ public class UserServiceImpl implements IUserService {
 
 	}
 
-<<<<<<< HEAD
-	
 
-=======
 	@Override
 	public void changePassWord(int id, String pwd) {
 
@@ -167,6 +164,6 @@ public class UserServiceImpl implements IUserService {
 		}
 
 	}
->>>>>>> 2dae691cbac7ddc556778d8bc9574087c6d6ed3b
+
 
 }
