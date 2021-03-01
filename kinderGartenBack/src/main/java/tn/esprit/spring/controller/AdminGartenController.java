@@ -14,12 +14,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import tn.esprit.spring.entity.Activity;
+import tn.esprit.spring.entity.Category;
 import tn.esprit.spring.entity.CategorySubscription;
+import tn.esprit.spring.entity.Club;
+import tn.esprit.spring.entity.Event;
 import tn.esprit.spring.entity.Extra;
 import tn.esprit.spring.entity.KinderGarten;
+import tn.esprit.spring.entity.Meeting;
+import tn.esprit.spring.service.interfaceS.IActivityService;
+import tn.esprit.spring.service.interfaceS.ICategoryService;
 import tn.esprit.spring.service.interfaceS.ICategorySubscriptionService;
+import tn.esprit.spring.service.interfaceS.IClubService;
+import tn.esprit.spring.service.interfaceS.IEventService;
 import tn.esprit.spring.service.interfaceS.IExtraService;
 import tn.esprit.spring.service.interfaceS.IKinderGartenService;
+import tn.esprit.spring.service.interfaceS.IMeetingService;
 
 @RestController
 @RequestMapping("/admingarten")
@@ -32,6 +42,16 @@ public class AdminGartenController {
 	IExtraService iExtraService;
 	@Autowired
 	ICategorySubscriptionService iCategorySubscriptionService;
+	@Autowired
+	IMeetingService iMeetingService;
+	@Autowired
+	IActivityService iActivityService;
+	@Autowired
+	IEventService iEventService;
+	@Autowired
+	ICategoryService iCategoryService;
+	@Autowired
+	IClubService iClubService;
 
 	@PostMapping("/addKinderGarten")
 	@ResponseBody
@@ -68,14 +88,12 @@ public class AdminGartenController {
 		;
 	}
 
-	/*
-	 * @PutMapping(value =
-	 * "/affecterKinderAResponsible/{kinderId}/{ReponsibleId}") public void
-	 * affecterKinderAResponsible(@PathVariable("kinderId")int
-	 * kinderId, @PathVariable("ReponsibleId")int ReponsibleId) {
-	 * iKinderGartenService.affecterKinderAResponsible(kinderId, ReponsibleId);
-	 * }
-	 */
+	
+	  @PutMapping(value = "/affecterKinderAResponsible/{kinderId}/{ReponsibleId}") 
+	  public void affecterKinderAResponsible(@PathVariable("kinderId")int kinderId, @PathVariable("ReponsibleId")int ReponsibleId) {
+	  iKinderGartenService.affecterKinderAResponsible(kinderId, ReponsibleId);
+	  }
+	 
 
 	// Extra ...
 
@@ -160,5 +178,227 @@ public class AdminGartenController {
 		iCategorySubscriptionService.affecterCategorySubscriptionAkinderGarten(categorySubscriptionId, kinderId);
 		
 	}
+
+	// Meeting ...
+	
+	
+
+	@PostMapping("/addMeeting")
+	@ResponseBody
+	public Meeting addMeeting(@RequestBody Meeting meeting) {
+		iMeetingService.addMeeting(meeting);
+		return meeting;
+	}
+
+	@GetMapping(value = "/getMeetingById/{meetingId}")
+	@ResponseBody
+	public Meeting getMeetingById(@PathVariable("meetingId") int meetingId) {
+		return iMeetingService.getMeetingById(meetingId);
+	}
+
+	@GetMapping(value = "/getAllmeeting")
+	@ResponseBody
+	public List<Meeting> getAllmeeting() {
+
+		return iMeetingService.getAllmeeting();
+	}
+
+	@PutMapping(value = "/updateMeeting/{id}")
+	@ResponseBody
+	public void updateMeeting(@PathVariable("id") int meetingId, @RequestBody Meeting meeting) {
+		iMeetingService.updateMeeting(meeting.getDateStart(), meeting.getDateEnd(), meetingId);
+
+	}
+
+	@DeleteMapping("/deleteMeetingById/{meetingId}")
+	@ResponseBody
+	public void deleteMeetingById(@PathVariable("meetingId") int meetingId) {
+		iMeetingService.deleteMeetingById(meetingId);
+	}
+
+	@PutMapping(value = "/affecterMeetingAkinderGarten/{meetingId}/{kinderId}")
+	public void affecterMeetingAkinderGarten(@PathVariable("meetingId") int meetingId,
+			@PathVariable("kinderId") int kinderId) {
+		iMeetingService.affecterMeetingAkinderGarten(meetingId, kinderId);
+		
+	}
+	
+// activity ...
+	
+	
+	
+	@PostMapping("/addActivity")
+	@ResponseBody
+	public Activity addActivity(@RequestBody Activity activity) {
+		iActivityService.addActivity(activity);
+		return activity;
+	}
+
+	@GetMapping(value = "/getActivityById/{activityaId}")
+	@ResponseBody
+	public Activity getActivityById(@PathVariable("activityaId") int activityaId) {
+		return iActivityService.getActivityById(activityaId);
+	}
+
+	@GetMapping(value = "/getAllactivity")
+	@ResponseBody
+	public List<Activity> getAllactivity() {
+
+		return iActivityService.getAllactivity();
+	}
+
+	@PutMapping(value = "/updateActivity/{id}")
+	@ResponseBody
+	public void updateActivity(@PathVariable("id") int activityId, @RequestBody Activity activity) {
+		iActivityService.updateActivity(activity.getDescription(), activity.getPhoto(), activityId);
+
+	}
+
+	@DeleteMapping("/deleteActivityById/{activityId}")
+	@ResponseBody
+	public void deleteActivityById(@PathVariable("activityId") int activityId) {
+		iActivityService.deleteActivityById(activityId);
+	}
+
+	@PutMapping(value = "/affecterActivityAkinderGarten/{activityId}/{kinderId}")
+	public void affecterActivityAkinderGarten(@PathVariable("activityId") int activityId,
+			@PathVariable("kinderId") int kinderId) {
+		iActivityService.affecterActivityAkinderGarten(activityId, kinderId);
+		
+	}
+	
+// Event...
+	
+	
+	@PostMapping("/addEvent")
+	@ResponseBody
+	public Event addEvent(@RequestBody Event event) {
+		iEventService.addEvent(event);
+		return event;
+	}
+
+	@GetMapping(value = "/getEventById/{eventId}")
+	@ResponseBody
+	public Event getEventById(@PathVariable("eventId") int eventId) {
+		return iEventService.getEventById(eventId);
+	}
+
+	@GetMapping(value = "/getAllevent")
+	@ResponseBody
+	public List<Event> getAllevent() {
+
+		return iEventService.getAllevent();
+	}
+
+	@PutMapping(value = "/updateEvent/{id}")
+	@ResponseBody
+	public void updateEvent(@PathVariable("id") int eventId, @RequestBody Event event) {
+		iEventService.updateEvent(event.getDescription(), event.getDate(), eventId);
+
+	}
+
+	@DeleteMapping("/deleteEventById/{eventId}")
+	@ResponseBody
+	public void deleteEventById(@PathVariable("eventId") int eventId) {
+		iEventService.deleteEventaById(eventId);
+	}
+
+	@PutMapping(value = "/affecterEventAkinderGarten/{eventId}/{kinderId}")
+	public void affecterEventAkinderGarten(@PathVariable("eventId") int eventId,
+			@PathVariable("kinderId") int kinderId) {
+		iEventService.affecterEventAkinderGarten(eventId, kinderId);
+		
+	}
+	
+// Category ...	
+	
+	
+	@PostMapping("/addCategory")
+	@ResponseBody
+	public Category addCategory(@RequestBody Category category) {
+		iCategoryService.addCategory(category);
+		return category;
+	}
+
+	@GetMapping(value = "/getCategoryById/{categoryId}")
+	@ResponseBody
+	public Category getCategoryById(@PathVariable("categoryId") int categoryId) {
+		return iCategoryService.getCategoryById(categoryId);
+	}
+
+	@GetMapping(value = "/getAllcategory")
+	@ResponseBody
+	public List<Category> getAllcategory() {
+
+		return iCategoryService.getAllcategory();
+	}
+
+	@PutMapping(value = "/updateCategory/{id}")
+	@ResponseBody
+	public void updateCategory(@PathVariable("id") int categoryId, @RequestBody Category category) {
+		iCategoryService.updateCategory(category.getDescription(), categoryId);
+
+	}
+
+	@DeleteMapping("/deleteCategoryById/{categoryId}")
+	@ResponseBody
+	public void deleteCategoryById(@PathVariable("categoryId") int categoryId) {
+		iCategoryService.deleteCategoryById(categoryId);
+	}
+
+// Club ...
+	
+	
+	
+	@PostMapping("/addClub")
+	@ResponseBody
+	public Club addClub(@RequestBody Club club) {
+		iClubService.addClub(club);
+		return club;
+	}
+
+	@GetMapping(value = "/getClubById/{clubId}")
+	@ResponseBody
+	public Club getClubById(@PathVariable("clubId") int clubId) {
+		return iClubService.getClubById(clubId);
+	}
+
+	@GetMapping(value = "/getAllclub")
+	@ResponseBody
+	public List<Club> getAllclub() {
+
+		return iClubService.getAllclub();
+	}
+
+	@PutMapping(value = "/updateClub/{id}")
+	@ResponseBody
+	public void updateClub(@PathVariable("id") int clubId, @RequestBody Club club) {
+		iClubService.updateClub(club.getDescription(), clubId);
+
+	}
+
+	@DeleteMapping("/deleteClubById/{clubId}")
+	@ResponseBody
+	public void deleteClubById(@PathVariable("clubId") int clubId) {
+		iClubService.deleteClubById(clubId);
+	}
+
+	@PutMapping(value = "/affecterClubAkinderGarten/{clubId}/{kinderId}")
+	public void affecterClubAkinderGarten(@PathVariable("clubId") int clubId,
+			@PathVariable("kinderId") int kinderId) {
+		iClubService.affecterClubAkinderGarten(clubId, kinderId);
+		
+	}
+		
+	@PutMapping(value = "/affecterCategoryAClub/{clubId}/{categoryId}")
+	public void affecterCategoryAClub(@PathVariable("clubId") int clubId,
+			@PathVariable("categoryId") int categoryId) {
+		iClubService.affecterCategoryAClub(clubId, categoryId);
+		
+	}
+	
+	
+	
+	
 	
 }

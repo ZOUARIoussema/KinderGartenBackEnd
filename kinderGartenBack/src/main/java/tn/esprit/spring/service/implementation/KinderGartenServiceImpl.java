@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import tn.esprit.spring.entity.Extra;
 import tn.esprit.spring.entity.KinderGarten;
 
 import tn.esprit.spring.entity.User;
@@ -57,33 +58,19 @@ public class KinderGartenServiceImpl implements IKinderGartenService {
 
 	@Override
 	public void affecterKinderAResponsible(int kinderId, int ReponsibleId) {
-		// TODO Auto-generated method stub
+		KinderGarten kinderManagedEntity = kinderRepo.findById(kinderId).get();
+		User userManagedEntity = iUserRepository.findById(ReponsibleId).get();
 		
-	}
-
-	@Override
-	public List<KinderGarten> getAllKinderGartens() {
-		// TODO Auto-generated method stub
-		return null;
+		kinderManagedEntity.setResponsible(userManagedEntity);
+		kinderRepo.save(kinderManagedEntity);
 	}
 
 	@Override
 	public List<KinderGarten> getAllkinder() {
-		// TODO Auto-generated method stub
-		return null;
+		return (List<KinderGarten>) iKinderGartenRepository.findAll();
+
 	}
 
-	/*@Transactional	
-	public void affecterKinderAResponsible(int kinderId, int ReponsibleId) {
-		KinderGarten kinderGarten = iKinderGartenRepository.findById(kinderId).get();
-		int id = iUserRepository.findUserByRole();
-			
-		User user = iUserRepository.findById(id).get();
-		if(kinderGarten.getResponsible() == null){
-
-			kinderGarten.setResponsible(user);
-		}
-
-	}*/
+	
 
 }

@@ -1,5 +1,14 @@
 package tn.esprit.spring.service.interfaceS;
 
-public interface IActivityService {
+import java.util.List;
 
+import tn.esprit.spring.entity.Activity;
+
+public interface IActivityService {
+	public int addActivity(Activity activity);
+	public void updateActivity(String description,String photo,int activityId);
+	public List<Activity> getAllactivity();
+	public void deleteActivityById(int activityId);
+	public Activity getActivityById(int activityaId);
+	public void affecterActivityAkinderGarten(int activityId, int kinderId);
 }
