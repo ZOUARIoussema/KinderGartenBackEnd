@@ -71,6 +71,7 @@ public class User implements Serializable {
 	
 	
 	@OneToMany(mappedBy = "parent")
+	@JsonIgnore
 	private List<Child>listChilds = new ArrayList<Child>();
 	
 	@OneToOne(mappedBy = "visitor")

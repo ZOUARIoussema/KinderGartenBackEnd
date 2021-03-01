@@ -47,6 +47,7 @@ public class Child implements Serializable {
 	private List<SubscriptionChild> lisSubscriptionChilds = new ArrayList<SubscriptionChild>();
 
 	@OneToOne(mappedBy = "child")
+	@JsonIgnore
 	private FolderMedical folderMedical;
 	
 	
