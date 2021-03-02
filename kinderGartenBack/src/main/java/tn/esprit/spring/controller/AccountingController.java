@@ -14,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import tn.esprit.spring.entity.PayementSubscription;
 import tn.esprit.spring.entity.Spent;
+import tn.esprit.spring.service.implementation.SpentServiceImpl;
+import tn.esprit.spring.service.interfaceS.IPayementSubscriptionService;
 import tn.esprit.spring.service.interfaceS.ISpentService;
 
 @RestController
@@ -24,6 +27,9 @@ public class AccountingController {
 
 	@Autowired
 	private ISpentService spentS;
+
+	@Autowired
+	private IPayementSubscriptionService payementS;
 
 	/**
 	 * 
@@ -61,6 +67,42 @@ public class AccountingController {
 	public List<Spent> getAllByAgent(@PathVariable int id) {
 
 		return spentS.getAllByAgentCashier(id);
+	}
+
+	/**
+	 * 
+	 * crud payement subscription
+	 * 
+	 * 
+	 */
+
+	@PostMapping("/addPayementHandToHand")
+	@ResponseBody
+	public void addPayementSubscription(@RequestBody PayementSubscription p) {
+
+		payementS.add(p);
+
+	}
+
+	@PutMapping("/updatePayementHandToHand")
+	@ResponseBody
+	public void updatePayementSubscriptionHandToHand(@RequestBody PayementSubscription p) {
+
+		payementS.update(p);
+	}
+
+	@GetMapping("/getAllPayementByUser/{id}")
+	@ResponseBody
+	public List<PayementSubscription> getAllByUser(@PathVariable("id") int id) {
+
+		return payementS.getAllByUser(id);
+	}
+	
+	@GetMapping("/getAllPayementBySubscription/{id}")
+	@ResponseBody
+	public List<PayementSubscription> getAllBySubscription(@PathVariable("id") int id) {
+
+		return payementS.getAllBySubscriptionChild(id);
 	}
 
 }

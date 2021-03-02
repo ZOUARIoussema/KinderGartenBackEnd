@@ -103,6 +103,10 @@ public class User implements Serializable {
 	@JsonIgnore
 	private List<Spent>lisSpents = new ArrayList<Spent>();
 	
+	@OneToMany(mappedBy = "user")
+	@JsonIgnore
+	private List<PayementSubscription>lisPayementSubscriptions = new ArrayList<PayementSubscription>();
+	
 	
 	
 	
@@ -257,6 +261,14 @@ public class User implements Serializable {
 	public void setLisSpents(List<Spent> lisSpents) {
 		this.lisSpents = lisSpents;
 	}
+	public List<PayementSubscription> getLisPayementSubscriptions() {
+		return lisPayementSubscriptions;
+	}
+	public void setLisPayementSubscriptions(List<PayementSubscription> lisPayementSubscriptions) {
+		this.lisPayementSubscriptions = lisPayementSubscriptions;
+	}
+	
+	
 	
 	
 	
