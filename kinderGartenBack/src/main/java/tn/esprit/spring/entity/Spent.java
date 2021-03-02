@@ -1,6 +1,7 @@
 package tn.esprit.spring.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -9,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import tn.esprit.spring.entity.enumeration.TypeSepent;
 @Entity
@@ -29,6 +32,10 @@ public class Spent implements Serializable {
 	private double total ;
 	@Enumerated(EnumType.STRING)
 	private TypeSepent type;
+	
+	
+	@Temporal(TemporalType.DATE)
+	private Date dateC;
 	
 	
 	@ManyToOne
@@ -82,6 +89,16 @@ public class Spent implements Serializable {
 
 	public void setAgentCashier(User agentCashie) {
 		this.agentCashier = agentCashie;
+	}
+
+
+	public Date getDateC() {
+		return dateC;
+	}
+
+
+	public void setDateC(Date dateC) {
+		this.dateC = dateC;
 	}
 	
 	

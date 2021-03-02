@@ -99,7 +99,9 @@ public class User implements Serializable {
 	private List<MedicalVisitKinderGarten>listMedicalVisitKinderGartens = new ArrayList<MedicalVisitKinderGarten>();
 	
 	
-	
+	@OneToMany(mappedBy = "agentCashier")
+	@JsonIgnore
+	private List<Spent>lisSpents = new ArrayList<Spent>();
 	
 	
 	
@@ -249,6 +251,14 @@ public class User implements Serializable {
 	public void setStateUser(StateUser stateUser) {
 		this.stateUser = stateUser;
 	}
+	public List<Spent> getLisSpents() {
+		return lisSpents;
+	}
+	public void setLisSpents(List<Spent> lisSpents) {
+		this.lisSpents = lisSpents;
+	}
+	
+	
 	
 	
 	
