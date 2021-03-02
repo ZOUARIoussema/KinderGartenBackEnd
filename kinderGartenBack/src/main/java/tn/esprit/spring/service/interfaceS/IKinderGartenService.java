@@ -13,5 +13,7 @@ public interface IKinderGartenService {
 	public void deleteKindergartenById(int kenderId);
 	public KinderGarten getKindergartenById(int kinderId);
 	public void affecterKinderAResponsible(int kinderId, int ReponsibleId);
+	
+
 }
 

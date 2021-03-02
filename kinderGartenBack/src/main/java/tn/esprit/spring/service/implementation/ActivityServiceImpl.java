@@ -58,4 +58,14 @@ public class ActivityServiceImpl implements IActivityService {
 		
 	}
 
+	@Override
+	public List<Activity> findAllActivityByKinderGarten(int kinderId) {
+		return iActivityRepository.findAllActivityByKinderGartenJPQL(kinderId);
+	}
+
+	@Override
+	public void deleteAllActivity(int kinderId) {
+		iActivityRepository.deleteAllActivityJPQL(kinderId);	
+	}
+	
 }

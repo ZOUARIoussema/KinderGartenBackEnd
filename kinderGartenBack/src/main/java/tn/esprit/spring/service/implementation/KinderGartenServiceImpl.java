@@ -76,5 +76,6 @@ public  class KinderGartenServiceImpl implements IKinderGartenService {
 		return (List<KinderGarten>) iKinderGartenRepository.findAll();
 	}
 
+	
 
 }

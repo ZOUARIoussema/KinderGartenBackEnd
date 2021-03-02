@@ -239,7 +239,7 @@ public class AdminGartenController {
 	public Activity getActivityById(@PathVariable("activityaId") int activityaId) {
 		return iActivityService.getActivityById(activityaId);
 	}
-
+	
 	@GetMapping(value = "/getAllactivity")
 	@ResponseBody
 	public List<Activity> getAllactivity() {
@@ -267,6 +267,18 @@ public class AdminGartenController {
 		
 	}
 	
+	@PutMapping(value = "/deleteAllActivity/{kinderId}")
+	public void deleteAllActivity(@PathVariable("kinderId") int kinderId) {
+		iActivityService.deleteAllActivity(kinderId);
+	}
+
+	
+	@GetMapping(value = "/findAllActivityByKinderGarten/{kinderId}")
+	@ResponseBody
+	public List<Activity> findAllActivityByKinderGarten(@PathVariable("kinderId") int kinderId) {
+		return iActivityService.findAllActivityByKinderGarten(kinderId);
+	}
+
 // Event...
 	
 	
@@ -309,6 +321,7 @@ public class AdminGartenController {
 		iEventService.affecterEventAkinderGarten(eventId, kinderId);
 		
 	}
+	
 	
 // Category ...	
 	
