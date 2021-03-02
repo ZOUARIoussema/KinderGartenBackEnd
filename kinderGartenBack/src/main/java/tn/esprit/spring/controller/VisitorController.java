@@ -27,11 +27,9 @@ public class VisitorController {
 		iswitchaccount.addSwitchAccount(switchAccount);
 		return switchAccount;
 	}
-	@GetMapping(value = "/getKinderByAdress/{adress}")
-	@ResponseBody
-	public List<KinderGarten> getKinderByAdress(@PathVariable("adress") String adress) {
-
-		return (List<KinderGarten>)iswitchaccount.getKinderGarten(adress);
+	@GetMapping(value="/getKinderGartenByAdress/{adress}")
+	public List<KinderGarten> getKinderGartenByAdress(@PathVariable("adress")String adress) {
+		return iswitchaccount.getKinderGartenByAdress(adress);
 	}
 
 }

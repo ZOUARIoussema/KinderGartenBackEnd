@@ -12,8 +12,6 @@ import tn.esprit.spring.entity.KinderGarten;
 import tn.esprit.spring.entity.SwitchAccount;
 @Repository
 public interface ISwitchAccountRepository extends CrudRepository<SwitchAccount, Integer>  {
-	@Query(value="select * from kinder_garten k where k.adress=:adress", nativeQuery=true)
-	public List<KinderGarten> getKinderByAdress(@Param("adress") String adress);
 	
 	
 

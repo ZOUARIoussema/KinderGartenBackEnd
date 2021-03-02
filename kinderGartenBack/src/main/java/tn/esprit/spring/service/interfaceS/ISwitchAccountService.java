@@ -1,5 +1,6 @@
 package tn.esprit.spring.service.interfaceS;
 
+
 import java.util.List;
 
 import tn.esprit.spring.entity.KinderGarten;
@@ -11,6 +12,6 @@ public interface ISwitchAccountService {
 	public void RequestForSwitchingAccount(SwitchAccount sw);
 	
 	public int addSwitchAccount(SwitchAccount switchaccount);
-	public List<KinderGarten> getKinderGarten(String adress);
 	
+	public List<KinderGarten> getKinderGartenByAdress(String adress);
 }

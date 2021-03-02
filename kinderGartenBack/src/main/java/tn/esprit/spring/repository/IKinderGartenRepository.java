@@ -1,5 +1,7 @@
 package tn.esprit.spring.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -16,4 +18,12 @@ public interface IKinderGartenRepository extends CrudRepository<KinderGarten, In
 	@Query("update KinderGarten e set e.name = :name ,e.adress = :adress,e.email = :email,e.tel = :tel,e.logo = :logo  where e.id = :kinderId")
 	public void updateKindergartenJPQL(@Param("name") String name,@Param("adress") String adress
 			,@Param("email") String email,@Param("tel") int tel,@Param("logo") String logo,@Param("kinderId") int kinderId);
+
+
+	@Query("Select k from KinderGarten k "
+			+ "where k.adress=:adress  "
+			)
+public List<KinderGarten> getKinderGartenByAdress(@Param("adress")String adress);
+
+
 }

@@ -1,21 +1,19 @@
 package tn.esprit.spring.service.implementation;
 
 
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
-import javax.print.attribute.standard.DateTimeAtCompleted;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import tn.esprit.spring.entity.KinderGarten;
 import tn.esprit.spring.entity.SwitchAccount;
-import tn.esprit.spring.entity.User;
 import tn.esprit.spring.entity.enumeration.Role;
 import tn.esprit.spring.entity.enumeration.RoleSwitch;
 import tn.esprit.spring.entity.enumeration.StateUser;
+import tn.esprit.spring.repository.IKinderGartenRepository;
 import tn.esprit.spring.repository.ISwitchAccountRepository;
 import tn.esprit.spring.service.interfaceS.ISwitchAccountService;
 @Service
@@ -23,6 +21,8 @@ public class SwitchAccountServiceImpl implements ISwitchAccountService {
 
 	@Autowired
 	ISwitchAccountRepository switchRepo;
+	@Autowired
+	IKinderGartenRepository iKinderGartenRepository;
 	
 	@Override
 	public void RequestForSwitchingAccount(SwitchAccount sw) 
@@ -55,11 +55,10 @@ public class SwitchAccountServiceImpl implements ISwitchAccountService {
 	}
 
 	@Override
-	public List<KinderGarten> getKinderGarten(String adress) {
-		return (List<KinderGarten>)switchRepo.getKinderByAdress(adress);
-		
+	public List<KinderGarten> getKinderGartenByAdress(String adress) {
+
+		return iKinderGartenRepository.getKinderGartenByAdress(adress);
 	}
-	
 
 
 }
