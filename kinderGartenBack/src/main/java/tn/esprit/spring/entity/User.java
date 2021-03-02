@@ -90,6 +90,7 @@ public class User implements Serializable {
 	
 	 
 	@OneToMany(mappedBy = "doctor")
+	@JsonIgnore
 	private List<Consultation>listConsultations = new ArrayList<Consultation>();
 	
 	

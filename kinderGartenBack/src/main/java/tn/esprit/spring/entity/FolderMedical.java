@@ -1,15 +1,20 @@
 package tn.esprit.spring.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class FolderMedical implements Serializable {
@@ -38,8 +43,9 @@ public class FolderMedical implements Serializable {
 	private Child child;
 	
 	
-	
-	
+	@OneToMany(mappedBy = "folderMedical")
+	@JsonIgnore
+	private List<Consultation>lisConsultations =new ArrayList<Consultation>();
 	
 	
 	
@@ -86,6 +92,14 @@ public class FolderMedical implements Serializable {
 
 	public void setChild(Child child) {
 		this.child = child;
+	}
+
+	public List<Consultation> getLisConsultations() {
+		return lisConsultations;
+	}
+
+	public void setLisConsultations(List<Consultation> lisConsultations) {
+		this.lisConsultations = lisConsultations;
 	}
 	
 	

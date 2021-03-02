@@ -16,8 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import tn.esprit.spring.entity.Consultation;
 import tn.esprit.spring.entity.FolderMedical;
 import tn.esprit.spring.entity.MedicalVisitKinderGarten;
+import tn.esprit.spring.repository.IConsultationRepository;
+import tn.esprit.spring.service.interfaceS.IConsultationService;
 import tn.esprit.spring.service.interfaceS.IFolderMedicalService;
 import tn.esprit.spring.service.interfaceS.IMedicalVisitGartenService;
 
@@ -31,6 +34,9 @@ public class MedicalController {
 
 	@Autowired
 	private IFolderMedicalService folderMS;
+
+	@Autowired
+	private IConsultationService consultationS;
 
 	/***
 	 * 
@@ -101,6 +107,42 @@ public class MedicalController {
 
 		return folderMS.getFolderByChild(id);
 
+	}
+
+	/***
+	 * 
+	 * 
+	 * crud medical consulation
+	 * 
+	 * 
+	 */
+
+	@PostMapping("/addMedicalConsultation")
+	@ResponseBody
+	public void addMedicalConsultation(@RequestBody Consultation c) {
+
+		consultationS.add(c);
+
+	}
+
+	@DeleteMapping("/deleteConsultation/{id}")
+	@ResponseBody
+	public void deleteConsultation(@PathVariable("id") int id) {
+
+		consultationS.delete(id);
+	}
+
+	@PutMapping("/updateConsultationMedical")
+	@ResponseBody
+	public void updateConsultation(@RequestBody Consultation c) {
+		consultationS.update(c);
+
+	}
+
+	@GetMapping("getAllConsultationByFolderMedical/{id}")
+	public List<Consultation> getAllConSultationByFolder(@PathVariable("id")int id) {
+
+		return consultationS.getAllByFolderMedical(id);
 	}
 
 }

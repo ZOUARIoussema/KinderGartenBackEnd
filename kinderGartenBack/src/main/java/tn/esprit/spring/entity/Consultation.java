@@ -34,7 +34,8 @@ public class Consultation  implements Serializable{
 	@ManyToOne
 	private User doctor;
 	
-	
+	@ManyToOne
+	private FolderMedical folderMedical;
 	
 	
 	
@@ -94,6 +95,16 @@ public class Consultation  implements Serializable{
 	public void setDoctor(User doctor) {
 		this.doctor = doctor;
 	}
+
+	public FolderMedical getFolderMedical() {
+		return folderMedical;
+	}
+
+	public void setFolderMedical(FolderMedical folderMedical) {
+		this.folderMedical = folderMedical;
+	}
+	
+	
 	
 	
 	
