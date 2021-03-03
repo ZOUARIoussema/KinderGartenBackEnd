@@ -38,7 +38,7 @@ public class User implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String firstName;
-	private String lasName;
+	private String lastName;
 	private String address;
 	@Enumerated(EnumType.STRING)
 	private Role role;
@@ -198,11 +198,13 @@ public class User implements Serializable {
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
-	public String getLasName() {
-		return lasName;
+	 
+	
+	public String getLastName() {
+		return lastName;
 	}
-	public void setLasName(String lasName) {
-		this.lasName = lasName;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 	public String getAddress() {
 		return address;

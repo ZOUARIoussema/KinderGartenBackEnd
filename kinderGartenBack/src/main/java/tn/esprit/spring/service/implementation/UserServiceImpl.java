@@ -1,5 +1,6 @@
 package tn.esprit.spring.service.implementation;
 
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -24,6 +25,7 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public void add(User u) {
+		u.setDateC(new Date());
 		userR.save(u);
 
 	}

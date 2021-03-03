@@ -106,5 +106,11 @@ public class UserResourceImpl {
 		}
 
 	}
+	
+	@PutMapping("/update")
+	public void update(@RequestBody User user) {
+		
+		userS.update(user);
+	}
 
 }

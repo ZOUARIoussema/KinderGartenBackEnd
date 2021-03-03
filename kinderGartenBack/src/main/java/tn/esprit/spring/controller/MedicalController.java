@@ -87,9 +87,9 @@ public class MedicalController {
 
 	}
 
-	@DeleteMapping("/deleteFolderMedical")
+	@DeleteMapping("/deleteFolderMedical/{id}")
 	@ResponseBody
-	public void deleteFolderMedical(int id) {
+	public void deleteFolderMedical(@PathVariable("id") int id) {
 		folderMS.delete(id);
 	}
 
@@ -101,7 +101,7 @@ public class MedicalController {
 
 	}
 
-	@GetMapping("/getFoldderMedical/{id}")
+	@GetMapping("/getFoldderMedicalByChild/{id}")
 	@ResponseBody
 	public FolderMedical getFolderByChild(@PathVariable int id) {
 
@@ -140,9 +140,14 @@ public class MedicalController {
 	}
 
 	@GetMapping("getAllConsultationByFolderMedical/{id}")
+	@ResponseBody
 	public List<Consultation> getAllConSultationByFolder(@PathVariable("id")int id) {
 
 		return consultationS.getAllByFolderMedical(id);
 	}
+	
+	 
+	
+	
 
 }
