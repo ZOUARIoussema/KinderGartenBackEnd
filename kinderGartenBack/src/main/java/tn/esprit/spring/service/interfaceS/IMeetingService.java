@@ -3,6 +3,7 @@ package tn.esprit.spring.service.interfaceS;
 import java.util.Date;
 import java.util.List;
 
+import tn.esprit.spring.entity.KinderGarten;
 import tn.esprit.spring.entity.Meeting;
 
 
@@ -13,4 +14,6 @@ public interface IMeetingService {
 	public void deleteMeetingById(int meetingId);
 	public Meeting getMeetingById(int meetingId);
 	public void affecterMeetingAkinderGarten(int meetingId, int kinderId);
+	public List<Meeting> getMeetingByKinderGartenAndDate(int kinderId,Date dateStart, Date dateEnd);
+
 }

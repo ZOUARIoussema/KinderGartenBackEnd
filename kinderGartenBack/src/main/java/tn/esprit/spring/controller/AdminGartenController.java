@@ -1,8 +1,10 @@
 package tn.esprit.spring.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -88,12 +90,11 @@ public class AdminGartenController {
 		;
 	}
 
-	
-	  @PutMapping(value = "/affecterKinderAResponsible/{kinderId}/{ReponsibleId}") 
-	  public void affecterKinderAResponsible(@PathVariable("kinderId")int kinderId, @PathVariable("ReponsibleId")int ReponsibleId) {
-	  iKinderGartenService.affecterKinderAResponsible(kinderId, ReponsibleId);
-	  }
-	 
+	@PutMapping(value = "/affecterKinderAResponsible/{kinderId}/{ReponsibleId}")
+	public void affecterKinderAResponsible(@PathVariable("kinderId") int kinderId,
+			@PathVariable("ReponsibleId") int ReponsibleId) {
+		iKinderGartenService.affecterKinderAResponsible(kinderId, ReponsibleId);
+	}
 
 	// Extra ...
 
@@ -134,21 +135,22 @@ public class AdminGartenController {
 	public void affecterExtraAkinderGarten(@PathVariable("extraId") int extraId,
 			@PathVariable("kinderId") int kinderId) {
 		iExtraService.affecterExtraAkinderGarten(extraId, kinderId);
-		
+
 	}
-	
+
 	// categorySubscription...
-	
+
 	@PostMapping("/addCategorySubscription")
 	@ResponseBody
 	public CategorySubscription addCategorySubscription(@RequestBody CategorySubscription categorySubscription) {
 		iCategorySubscriptionService.addCategorySubscription(categorySubscription);
 		return categorySubscription;
 	}
-	
+
 	@GetMapping(value = "/getCategorySubscriptionById/{categorySubscriptionId}")
 	@ResponseBody
-	public CategorySubscription getCategorySubscriptionById(@PathVariable("categorySubscriptionId") int categorySubscriptionId) {
+	public CategorySubscription getCategorySubscriptionById(
+			@PathVariable("categorySubscriptionId") int categorySubscriptionId) {
 		return iCategorySubscriptionService.getCategorySubscriptionById(categorySubscriptionId);
 	}
 
@@ -158,11 +160,13 @@ public class AdminGartenController {
 
 		return iCategorySubscriptionService.getAllCategorySubscription();
 	}
-	
+
 	@PutMapping(value = "/updateCategorySubscription/{id}")
 	@ResponseBody
-	public void updateCategorySubscription(@PathVariable("id") int categorySubscriptionId, @RequestBody CategorySubscription categorySubscription) {
-		iCategorySubscriptionService.updateCategorySubscription(categorySubscription.getDescription(), categorySubscription.getPrice(), categorySubscriptionId);
+	public void updateCategorySubscription(@PathVariable("id") int categorySubscriptionId,
+			@RequestBody CategorySubscription categorySubscription) {
+		iCategorySubscriptionService.updateCategorySubscription(categorySubscription.getDescription(),
+				categorySubscription.getPrice(), categorySubscriptionId);
 
 	}
 
@@ -173,15 +177,21 @@ public class AdminGartenController {
 	}
 
 	@PutMapping(value = "/affecterCategorySubscriptionAkinderGarten/{categorySubscriptionId}/{kinderId}")
-	public void affecterCategorySubscriptionAkinderGarten(@PathVariable("categorySubscriptionId") int categorySubscriptionId,
+	public void affecterCategorySubscriptionAkinderGarten(
+			@PathVariable("categorySubscriptionId") int categorySubscriptionId,
 			@PathVariable("kinderId") int kinderId) {
 		iCategorySubscriptionService.affecterCategorySubscriptionAkinderGarten(categorySubscriptionId, kinderId);
-		
+
 	}
 
 	// Meeting ...
-	
-	
+	@GetMapping(value = "/getMeetingByKinderGartenAndDate/{kinderId}/{dateStart}/{dateEnd}")
+	@ResponseBody
+	public List<Meeting> getMeetingByKinderGartenAndDate(@PathVariable("kinderId") int kinderId,
+			@PathVariable("dateStart") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateStart,
+			@PathVariable("dateEnd") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateEnd) {
+		return iMeetingService.getMeetingByKinderGartenAndDate(kinderId, dateStart, dateEnd);
+	}
 
 	@PostMapping("/addMeeting")
 	@ResponseBody
@@ -220,13 +230,11 @@ public class AdminGartenController {
 	public void affecterMeetingAkinderGarten(@PathVariable("meetingId") int meetingId,
 			@PathVariable("kinderId") int kinderId) {
 		iMeetingService.affecterMeetingAkinderGarten(meetingId, kinderId);
-		
+
 	}
-	
-// activity ...
-	
-	
-	
+
+	// activity ...
+
 	@PostMapping("/addActivity")
 	@ResponseBody
 	public Activity addActivity(@RequestBody Activity activity) {
@@ -239,7 +247,7 @@ public class AdminGartenController {
 	public Activity getActivityById(@PathVariable("activityaId") int activityaId) {
 		return iActivityService.getActivityById(activityaId);
 	}
-	
+
 	@GetMapping(value = "/getAllactivity")
 	@ResponseBody
 	public List<Activity> getAllactivity() {
@@ -264,24 +272,22 @@ public class AdminGartenController {
 	public void affecterActivityAkinderGarten(@PathVariable("activityId") int activityId,
 			@PathVariable("kinderId") int kinderId) {
 		iActivityService.affecterActivityAkinderGarten(activityId, kinderId);
-		
+
 	}
-	
+
 	@PutMapping(value = "/deleteAllActivity/{kinderId}")
 	public void deleteAllActivity(@PathVariable("kinderId") int kinderId) {
 		iActivityService.deleteAllActivity(kinderId);
 	}
 
-	
 	@GetMapping(value = "/findAllActivityByKinderGarten/{kinderId}")
 	@ResponseBody
 	public List<Activity> findAllActivityByKinderGarten(@PathVariable("kinderId") int kinderId) {
 		return iActivityService.findAllActivityByKinderGarten(kinderId);
 	}
 
-// Event...
-	
-	
+	// Event...
+
 	@PostMapping("/addEvent")
 	@ResponseBody
 	public Event addEvent(@RequestBody Event event) {
@@ -319,13 +325,11 @@ public class AdminGartenController {
 	public void affecterEventAkinderGarten(@PathVariable("eventId") int eventId,
 			@PathVariable("kinderId") int kinderId) {
 		iEventService.affecterEventAkinderGarten(eventId, kinderId);
-		
+
 	}
-	
-	
-// Category ...	
-	
-	
+
+	// Category ...
+
 	@PostMapping("/addCategory")
 	@ResponseBody
 	public Category addCategory(@RequestBody Category category) {
@@ -359,10 +363,8 @@ public class AdminGartenController {
 		iCategoryService.deleteCategoryById(categoryId);
 	}
 
-// Club ...
-	
-	
-	
+	// Club ...
+
 	@PostMapping("/addClub")
 	@ResponseBody
 	public Club addClub(@RequestBody Club club) {
@@ -397,21 +399,15 @@ public class AdminGartenController {
 	}
 
 	@PutMapping(value = "/affecterClubAkinderGarten/{clubId}/{kinderId}")
-	public void affecterClubAkinderGarten(@PathVariable("clubId") int clubId,
-			@PathVariable("kinderId") int kinderId) {
+	public void affecterClubAkinderGarten(@PathVariable("clubId") int clubId, @PathVariable("kinderId") int kinderId) {
 		iClubService.affecterClubAkinderGarten(clubId, kinderId);
-		
+
 	}
-		
+
 	@PutMapping(value = "/affecterCategoryAClub/{clubId}/{categoryId}")
-	public void affecterCategoryAClub(@PathVariable("clubId") int clubId,
-			@PathVariable("categoryId") int categoryId) {
+	public void affecterCategoryAClub(@PathVariable("clubId") int clubId, @PathVariable("categoryId") int categoryId) {
 		iClubService.affecterCategoryAClub(clubId, categoryId);
-		
+
 	}
-	
-	
-	
-	
-	
+
 }

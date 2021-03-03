@@ -4,12 +4,17 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import org.hibernate.annotations.Cascade;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class KinderGarten implements Serializable {
@@ -35,24 +40,31 @@ public class KinderGarten implements Serializable {
 
 	private String logo;
 	@OneToMany(mappedBy = "kinderGartenInscription")
+	@JsonIgnore
 	private List<User> listParent = new ArrayList<User>();
 
 	@OneToMany(mappedBy = "kinderGarten")
+	@JsonIgnore
 	private List<Club> listClub = new ArrayList<Club>();
 
 	@OneToMany(mappedBy = "kinderGarten")
+	@JsonIgnore
 	private List<Event> listEvent = new ArrayList<Event>();
 
 	@OneToMany(mappedBy = "kinderGarten")
+	@JsonIgnore
 	private List<Activity> listActivity = new ArrayList<Activity>();
 
 	@OneToMany(mappedBy = "kinderGarten")
+	@JsonIgnore
 	private List<Extra> listExtra = new ArrayList<Extra>();
 
 	@OneToMany(mappedBy = "kinderGarten")
+	@JsonIgnore
 	private List<CategorySubscription> listCategoryS = new ArrayList<CategorySubscription>();
 
 	@OneToMany(mappedBy = "kinderGarten")
+	@JsonIgnore
 	private List<Meeting> listMeeting = new ArrayList<Meeting>();
 
 	public List<Event> getListEvent() {
@@ -119,6 +131,7 @@ public class KinderGarten implements Serializable {
 		this.listClub = listClub;
 	}
 
+	
 	public User getResponsible() {
 		return responsible;
 	}
@@ -135,7 +148,7 @@ public class KinderGarten implements Serializable {
 		this.delegate = delegate;
 	}
 
-	@OneToOne
+	@OneToOne(cascade={CascadeType.ALL})
 	private User responsible;
 
 	@OneToOne
