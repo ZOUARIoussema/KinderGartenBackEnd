@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Comment implements Serializable {
 
@@ -30,23 +32,14 @@ public class Comment implements Serializable {
 	
 	private String description;
 	
-	
-	
-	
 	@ManyToOne
+	@JsonIgnore
 	private User parent;
 	
 	
 	@ManyToOne
+	@JsonIgnore
 	private Publication publication;
-	
-	
-	
-	
-	
-
-	
-	
 	
 
 	public Publication getPublication() {
@@ -58,8 +51,6 @@ public class Comment implements Serializable {
 		this.publication = publication;
 	}
 
-
-	 
 
 
 	public Integer getId() {
@@ -101,11 +92,6 @@ public class Comment implements Serializable {
 		this.parent = parent;
 	}
 	
-	
-	
-	
-	
-	
-	
+
 	
 }

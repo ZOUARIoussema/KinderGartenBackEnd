@@ -1,6 +1,7 @@
 package tn.esprit.spring.service.implementation;
 
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +21,9 @@ public class PublicationServiceImpl implements IPublicationService {
 	
 
 	@Override
-	public int addPublication(Publication publication) {
-		publicationRepository.save(publication);
-		return publication.getId();
+	public void addPublication(Publication publication) {
+		publication.setDate(new Date());
+		publicationRepository.save(publication);	
 		
 	}
 
@@ -34,10 +35,9 @@ public class PublicationServiceImpl implements IPublicationService {
 	
 
 	@Override
-	public void updateDescriptionByPublicationId(String description, int publicationId) {
-		Publication publication = publicationRepository.findById(publicationId).get();
-		publication.setDescription(description);
-		publicationRepository.save(publication);
+	public void updateDescriptionByPublicationId(Publication p ) {
+		
+		publicationRepository.save(p);
 	}
 
 	@Override

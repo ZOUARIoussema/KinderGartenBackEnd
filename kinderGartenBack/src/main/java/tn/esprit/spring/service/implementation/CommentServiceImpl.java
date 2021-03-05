@@ -1,5 +1,7 @@
 package tn.esprit.spring.service.implementation;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +16,9 @@ public class CommentServiceImpl implements ICommentService {
 	ICommentRepository commentRepository;
 	
 	@Override
-	public int addComment(Comment comment) {
+	public void addComment(Comment comment) {
+		comment.setDate(new Date());
 		commentRepository.save(comment);
-		return comment.getId();
 	}
 
 	@Override
@@ -26,10 +28,9 @@ public class CommentServiceImpl implements ICommentService {
 	}
 
 	@Override
-	public void updateComment(String description, int commentId) {
-		Comment comment = commentRepository.findById(commentId).get();
-		comment.setDescription(description);
-		commentRepository.save(comment);
+	public void updateComment(Comment c) {
+		
+		commentRepository.save(c);
 		
 	}
 

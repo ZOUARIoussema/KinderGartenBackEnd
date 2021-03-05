@@ -49,9 +49,9 @@ public class ParentController {
 
 	@PostMapping("/addPublication")
 	@ResponseBody
-	public Publication addPublication(@RequestBody Publication publication) {
+	public void addPublication(@RequestBody Publication publication) {
 		publicationService.addPublication(publication);
-		return publication;
+		
 	}
 
 	@DeleteMapping("/deletePublicationById/{idPub}")
@@ -60,11 +60,10 @@ public class ParentController {
 		publicationService.deletePublication(publicationId);
 	}
 
-	@PutMapping(value = "/updateDescription/{id}/{newDescription}")
-	@ResponseBody
-	public void updateDescriptionByPublicationId(@PathVariable("newDescription") String description,
-			@PathVariable("id") int publicationId) {
-		publicationService.updateDescriptionByPublicationId(description, publicationId);
+	@PutMapping(value = "/updateDescription")
+	
+	public void updateDescriptionByPublicationId(@RequestBody Publication p) {
+		publicationService.updateDescriptionByPublicationId(p);
 	}
 
 	@GetMapping(value = "/getAllPublication")
@@ -78,9 +77,8 @@ public class ParentController {
 
 	@PostMapping("/addComment")
 	@ResponseBody
-	public Comment addComment(@RequestBody Comment comment) {
+	public void addComment(@RequestBody Comment comment) {
 		commentService.addComment(comment);
-		return comment;
 	}
 
 	@DeleteMapping("/deleteComment/{idComment}")
@@ -89,19 +87,19 @@ public class ParentController {
 		commentService.deleteComment(commentId);
 	}
 
-	@PutMapping(value = "/updateComment/{id}/{newDescription}")
+	@PutMapping(value = "/updateComment")
 	@ResponseBody
-	public void updateComment(@PathVariable("newDescription") String description, @PathVariable("id") int commentId) {
-		commentService.updateComment(description, commentId);
+	public void updateComment(@RequestBody Comment c) {
+		commentService.updateComment(c);
 	}
 
 	/* Add JustificationAbsence */
 
 	@PostMapping("/addJustification")
 	@ResponseBody
-	public JustificationAbsence addJustificationAbsence(@RequestBody JustificationAbsence justificationAbsence) {
+	public void addJustificationAbsence(@RequestBody JustificationAbsence justificationAbsence) {
 		justificationService.addJustification(justificationAbsence);
-		return justificationAbsence;
+		
 	}
 
 	/* Child */

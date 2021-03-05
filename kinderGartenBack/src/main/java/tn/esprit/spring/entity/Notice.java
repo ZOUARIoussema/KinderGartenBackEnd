@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Notice implements Serializable {
 
@@ -30,6 +32,7 @@ public class Notice implements Serializable {
 	
 	
 	@ManyToOne
+	@JsonIgnore
 	private User parent;
 	
 	

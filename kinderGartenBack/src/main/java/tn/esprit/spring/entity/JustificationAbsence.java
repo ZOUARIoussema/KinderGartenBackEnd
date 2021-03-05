@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class JustificationAbsence implements Serializable {
 	
@@ -30,23 +32,9 @@ public class JustificationAbsence implements Serializable {
 	private Date date;
 	private String Description;
 	
-	
-	
-	
 	@ManyToOne
 	private User parent;
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	public User getParent() {
 		return parent;
 	}

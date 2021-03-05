@@ -40,6 +40,7 @@ public class Child implements Serializable {
 	private String picture;
 
 	@ManyToOne
+	@JsonIgnore
 	private User parent;
 
 	@OneToMany(mappedBy = "child")

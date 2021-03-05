@@ -14,6 +14,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Publication implements Serializable{
 	
@@ -36,6 +38,7 @@ public class Publication implements Serializable{
 	
 	
 	@ManyToOne
+	@JsonIgnore
 	private User parent;
 	
 	

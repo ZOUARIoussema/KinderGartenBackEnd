@@ -1,5 +1,7 @@
 package tn.esprit.spring.service.implementation;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,9 +14,10 @@ public class JustificationAbsenceServiceImpl implements IJustificationAbsenceSer
 	@Autowired
 	IJustificationAbsenceRepository justificationRepository;
 	@Override
-	public int addJustification(JustificationAbsence justificationAbsence) {
+	public void addJustification(JustificationAbsence justificationAbsence) {
+		justificationAbsence.setDate(new Date());
 		justificationRepository.save(justificationAbsence);
-		return justificationAbsence.getId();
+		
 	}
 
 }
