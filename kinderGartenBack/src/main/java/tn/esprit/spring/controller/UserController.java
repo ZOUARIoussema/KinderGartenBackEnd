@@ -104,5 +104,13 @@ public class UserController {
 		log.info("account switched created successfully !");
 		 switchSer.RequestForSwitchingAccount(sw);
 	}
-
+	
+	@PostMapping("/confirmInscription")
+	@ResponseBody
+	
+	public void confirmInscription(@RequestBody User u)
+	{
+		userS.confirmerInscriptionParMail(u);
+	}
+	
 }

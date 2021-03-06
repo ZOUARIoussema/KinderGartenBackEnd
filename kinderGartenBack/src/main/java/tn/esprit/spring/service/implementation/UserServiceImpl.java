@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import tn.esprit.spring.config.mail.MailConfig;
 import tn.esprit.spring.entity.User;
 import tn.esprit.spring.entity.enumeration.Role;
 import tn.esprit.spring.entity.enumeration.StateUser;
@@ -16,6 +17,11 @@ import tn.esprit.spring.service.interfaceS.IUserService;
 @Service
 public class UserServiceImpl implements IUserService {
 
+	
+	@Autowired
+	MailServiceImpl servicemail;
+	
+	
 	@Autowired
 	IUserRepository userR;
 	
@@ -162,6 +168,13 @@ public class UserServiceImpl implements IUserService {
 			this.update(u);
 		}
 
+	}
+
+	@Override
+	public void confirmerInscriptionParMail(User u) {
+		
+		servicemail.sendSimpleMail(u.getEmail(),"Inscription confirmation", " Your account is active ! you can log on !");
+		
 	}
 
 

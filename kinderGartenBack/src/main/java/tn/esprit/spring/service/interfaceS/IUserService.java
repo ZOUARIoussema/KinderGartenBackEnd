@@ -26,7 +26,7 @@ public interface IUserService {
 	
 	public void ChangeStateUser(User u);
 	
-	
+	public void confirmerInscriptionParMail (User u);
 	
 	
 
