@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import tn.esprit.spring.entity.Child;
 import tn.esprit.spring.entity.Comment;
@@ -26,6 +28,7 @@ import tn.esprit.spring.service.interfaceS.IJustificationAbsenceService;
 import tn.esprit.spring.service.interfaceS.INoticeService;
 import tn.esprit.spring.service.interfaceS.IPublicationService;
 import tn.esprit.spring.service.interfaceS.ISubscriptionChildService;
+import tn.esprit.spring.service.interfaceS.IUploadFileService;
 
 @RestController
 @RequestMapping("/parent")
@@ -44,6 +47,8 @@ public class ParentController {
 	INoticeService noticeService;
 	@Autowired
 	ISubscriptionChildService subscriptionChildService;
+	@Autowired
+	IUploadFileService uploadFileService;
 
 	/* Publication */
 
@@ -108,6 +113,13 @@ public class ParentController {
 	public Child addChild(@RequestBody Child child) {
 		childService.addChild(child);
 		return child;
+	}
+	@PostMapping("/addPictureToChild/{id}")
+	public void addPictureToChild(@PathVariable("id") int id , @RequestParam("file") MultipartFile file){
+		if(uploadFileService.addFile(file)){
+			childService.assignPictureToChild(id, file);
+		}
+		
 	}
 
 	@GetMapping(value = "/getAllChild")

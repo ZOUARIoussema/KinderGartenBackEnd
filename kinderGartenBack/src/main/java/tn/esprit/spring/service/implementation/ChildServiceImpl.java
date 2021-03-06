@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import tn.esprit.spring.entity.Child;
 import tn.esprit.spring.entity.KinderGarten;
@@ -23,12 +25,28 @@ public class ChildServiceImpl implements IChildService {
 	ISubscriptionChildRepository subscriptionChildRepository;
 	
 	@Override
-	public int addChild(Child child) {
-		return childRepository.save(child).getId();
+	public void addChild(Child child) {
+		
+		 childRepository.save(child);
 	}
 	@Override
 	public List<Child> getAllChild() {
 		return (List<Child>) childRepository.findAll();
+	}
+	@Override
+	public void updateChild(Child child) {
+		childRepository.save(child);
+		
+	}
+	@Override
+	public void assignPictureToChild(int id, MultipartFile file) {
+		Child c = childRepository.findById(id).orElse(null);
+		
+		if(c!=null){
+			c.setPicture(file.getOriginalFilename());
+			this.updateChild(c);
+		}
+		
 	}
 	
 		
