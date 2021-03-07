@@ -24,6 +24,7 @@ import tn.esprit.spring.entity.Event;
 import tn.esprit.spring.entity.Extra;
 import tn.esprit.spring.entity.KinderGarten;
 import tn.esprit.spring.entity.Meeting;
+import tn.esprit.spring.entity.User;
 import tn.esprit.spring.service.interfaceS.IActivityService;
 import tn.esprit.spring.service.interfaceS.ICategoryService;
 import tn.esprit.spring.service.interfaceS.ICategorySubscriptionService;
@@ -32,6 +33,7 @@ import tn.esprit.spring.service.interfaceS.IEventService;
 import tn.esprit.spring.service.interfaceS.IExtraService;
 import tn.esprit.spring.service.interfaceS.IKinderGartenService;
 import tn.esprit.spring.service.interfaceS.IMeetingService;
+import tn.esprit.spring.service.interfaceS.IUserService;
 
 @RestController
 @RequestMapping("/admingarten")
@@ -54,6 +56,8 @@ public class AdminGartenController {
 	ICategoryService iCategoryService;
 	@Autowired
 	IClubService iClubService;
+	@Autowired
+	IUserService iUserService;
 
 	@PostMapping("/addKinderGarten")
 	@ResponseBody
@@ -408,6 +412,14 @@ public class AdminGartenController {
 	public void affecterCategoryAClub(@PathVariable("clubId") int clubId, @PathVariable("categoryId") int categoryId) {
 		iClubService.affecterCategoryAClub(clubId, categoryId);
 
+	}
+
+	// metier
+	@GetMapping(value = "/FilterParentForDelegate")
+	@ResponseBody
+	public List<User> FilterParentForDelegate() {
+
+		return iUserService.FilterParentForDelegate();
 	}
 
 }
