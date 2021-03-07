@@ -17,11 +17,9 @@ import tn.esprit.spring.service.interfaceS.IUserService;
 @Service
 public class UserServiceImpl implements IUserService {
 
-	
 	@Autowired
 	MailServiceImpl servicemail;
-	
-	
+
 	@Autowired
 	IUserRepository userR;
 
@@ -164,21 +162,19 @@ public class UserServiceImpl implements IUserService {
 
 	}
 
-<<<<<<< HEAD
 	// ahmed
 	@Override
 	public List<User> FilterParentForDelegate() {
-=======
-	@Override
-	public void confirmerInscriptionParMail(User u) {
-		
-		servicemail.sendSimpleMail(u.getEmail(),"Inscription confirmation", " Your account is active ! you can log on !");
-		
-	}
-
->>>>>>> 65b57c65de6fab3ebb63a318f22529cb0cf8b2fc
 
 		return userR.FilterParentForDelegate();
+	}
+
+	@Override
+	public void confirmerInscriptionParMail(User u) {
+
+		servicemail.sendSimpleMail(u.getEmail(), "Inscription confirmation",
+				" Your account is active ! you can log on !");
+
 	}
 
 	@Override
@@ -193,5 +189,4 @@ public class UserServiceImpl implements IUserService {
 		}
 	}
 
-	
 }
