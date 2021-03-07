@@ -84,15 +84,14 @@ public class PayementSubscriptionServiceImpl implements IPayementSubscriptionSer
 	// *
 
 	public void accountingSubscription(double totalP, int idS) {
-		
-		
 
 		SubscriptionChild s = subR.findById(idS).orElse(null);
 
 		if (s != null) {
 
-			s.setTotalPay(totalP);
+			s.setTotalPay(s.getTotalPay() + totalP);
 			s.setRestPay(s.getTotal() - s.getTotalPay());
+
 			subR.save(s);
 		}
 
