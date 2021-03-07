@@ -2,13 +2,16 @@ package tn.esprit.spring.service.interfaceS;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import tn.esprit.spring.entity.Comment;
 import tn.esprit.spring.entity.Publication;
 
 public interface IPublicationService {
 		public void addPublication(Publication publication); 
 		public void deletePublication (int publicationId);
-		public void updateDescriptionByPublicationId(Publication p );
+		public void update(Publication publication );
+		public void assignAttachementToPost(int id , MultipartFile file);
 		public List<Publication> getAllPublication();
 
 		

@@ -68,7 +68,7 @@ public class ParentController {
 	@PutMapping(value = "/updateDescription")
 	
 	public void updateDescriptionByPublicationId(@RequestBody Publication p) {
-		publicationService.updateDescriptionByPublicationId(p);
+		publicationService.update(p);
 	}
 
 	@GetMapping(value = "/getAllPublication")
@@ -76,6 +76,12 @@ public class ParentController {
 	public List<Publication> getAllPublication() {
 
 		return publicationService.getAllPublication();
+	}
+	@PostMapping("/assignAttachementToPost/{id}")
+	public void assignAttachementToPost(@PathVariable("id") int id , @RequestParam("file") MultipartFile file){
+		if (uploadFileService.addFile(file)){
+			publicationService.assignAttachementToPost(id, file);
+		}
 	}
 
 	/* Comment */

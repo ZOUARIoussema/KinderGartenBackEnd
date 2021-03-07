@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import tn.esprit.spring.entity.Comment;
 import tn.esprit.spring.entity.Publication;
@@ -34,15 +35,26 @@ public class PublicationServiceImpl implements IPublicationService {
 	}
 	
 
-	@Override
-	public void updateDescriptionByPublicationId(Publication p ) {
-		
-		publicationRepository.save(p);
-	}
 
 	@Override
 	public List<Publication> getAllPublication() {
 		return (List<Publication>) publicationRepository.findAll();
+	}
+
+	@Override
+	public void update(Publication publication) {
+		publicationRepository.save(publication);
+		
+	}
+
+	@Override
+	public void assignAttachementToPost(int id, MultipartFile file) {
+		Publication p = publicationRepository.findById(id).orElse(null);
+		if (p!=null){
+			p.setAttachment(file.getOriginalFilename());
+			this.update(p);
+		}
+		
 	}
 
 }

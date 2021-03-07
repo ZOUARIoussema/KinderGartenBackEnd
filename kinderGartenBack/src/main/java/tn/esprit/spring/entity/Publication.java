@@ -35,8 +35,14 @@ public class Publication implements Serializable{
 	private String description;
 	private int numberLike;
 	private int numberDislike;
+	private String attachment;
 	
-	
+	public String getAttachment() {
+		return attachment;
+	}
+	public void setAttachment(String attachment) {
+		this.attachment = attachment;
+	}
 	@ManyToOne
 	@JsonIgnore
 	private User parent;
