@@ -55,18 +55,23 @@ public class User implements Serializable {
 	
 	
 	@OneToMany(mappedBy = "parent")
+	@JsonIgnore
 	private List<Claim>listClaims = new ArrayList<Claim>();
 	
 	@OneToMany(mappedBy = "parent")
+	@JsonIgnore
 	private List<Notice>listNotices = new ArrayList<Notice>();
 	
 	@OneToMany(mappedBy = "parent")
+	@JsonIgnore
 	private List<JustificationAbsence>listJustificationAdsences = new ArrayList<JustificationAbsence>();
 	
 	@OneToMany(mappedBy = "parent")
+	@JsonIgnore
 	private List<Publication>listPublications = new ArrayList<Publication>();
 	
 	@OneToMany(mappedBy = "parent")
+	@JsonIgnore
 	private List<Comment>lisCommentst = new ArrayList<Comment>();
 	
 	
@@ -79,13 +84,16 @@ public class User implements Serializable {
 	
 	
 	@ManyToOne 
+	@JsonIgnore
 	private KinderGarten kinderGartenInscription;
 	
 	@OneToOne(mappedBy = "responsible")
+	@JsonIgnore
 	private KinderGarten kinderGartenResponsible;
 	
 	
 	@OneToOne(mappedBy = "delegate")
+	@JsonIgnore
 	private KinderGarten kinderGartenDelegate;
 	
 	 
@@ -271,7 +279,9 @@ public class User implements Serializable {
 	}
 	
 	
-	
+	public void IncrementScoreDelegate(){
+		this.scoreDelegate ++;
+	}
 	
 	
 	

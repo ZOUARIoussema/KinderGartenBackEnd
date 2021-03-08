@@ -25,6 +25,8 @@ import tn.esprit.spring.entity.Extra;
 import tn.esprit.spring.entity.KinderGarten;
 import tn.esprit.spring.entity.Meeting;
 import tn.esprit.spring.entity.User;
+import tn.esprit.spring.entity.Vote;
+import tn.esprit.spring.repository.IVoteRepository;
 import tn.esprit.spring.service.interfaceS.IActivityService;
 import tn.esprit.spring.service.interfaceS.ICategoryService;
 import tn.esprit.spring.service.interfaceS.ICategorySubscriptionService;
@@ -34,6 +36,7 @@ import tn.esprit.spring.service.interfaceS.IExtraService;
 import tn.esprit.spring.service.interfaceS.IKinderGartenService;
 import tn.esprit.spring.service.interfaceS.IMeetingService;
 import tn.esprit.spring.service.interfaceS.IUserService;
+import tn.esprit.spring.service.interfaceS.IVoteService;
 
 @RestController
 @RequestMapping("/admingarten")
@@ -58,6 +61,8 @@ public class AdminGartenController {
 	IClubService iClubService;
 	@Autowired
 	IUserService iUserService;
+	@Autowired
+	IVoteService iVoteService;
 
 	@PostMapping("/addKinderGarten")
 	@ResponseBody
@@ -414,12 +419,21 @@ public class AdminGartenController {
 
 	}
 
-	// metier
-	@GetMapping(value = "/FilterParentForDelegate")
+	@GetMapping("/kinder_garden/{id}/delegators")
 	@ResponseBody
-	public List<User> FilterParentForDelegate() {
-
-		return iUserService.FilterParentForDelegate();
+	public List<User> listDelegators(@PathVariable int id) {
+		return iKinderGartenService.listDelegators(id);
 	}
 
+	@PostMapping("/kinder_garden/{id}/delegators/vote")
+	@ResponseBody
+	public int addVote(@PathVariable int id,@RequestBody Vote vote) {
+		return iVoteService.addVote(id,vote);
+	}
+
+	@GetMapping("/kinder_garden/{id}/delegator/validate")
+	@ResponseBody
+	public void delegatorsElection(@PathVariable int id) {
+		iKinderGartenService.delegatorsElection(id);
+	}
 }

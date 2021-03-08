@@ -21,13 +21,6 @@ public interface IUserService {
 	public User findByEmail(String email);
 
 	public void ChangeStateUser(User u);
-
-
-	// ahmed
-	public List<User> FilterParentForDelegate();
-
-	public void delegate(User u);
-
 	
 	public void confirmerInscriptionParMail (User u);
 	

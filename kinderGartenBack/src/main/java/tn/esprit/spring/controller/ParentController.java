@@ -22,6 +22,7 @@ import tn.esprit.spring.entity.JustificationAbsence;
 import tn.esprit.spring.entity.Notice;
 import tn.esprit.spring.entity.Publication;
 import tn.esprit.spring.entity.SubscriptionChild;
+import tn.esprit.spring.entity.User;
 import tn.esprit.spring.service.interfaceS.IChildService;
 import tn.esprit.spring.service.interfaceS.ICommentService;
 import tn.esprit.spring.service.interfaceS.IJustificationAbsenceService;
@@ -29,6 +30,7 @@ import tn.esprit.spring.service.interfaceS.INoticeService;
 import tn.esprit.spring.service.interfaceS.IPublicationService;
 import tn.esprit.spring.service.interfaceS.ISubscriptionChildService;
 import tn.esprit.spring.service.interfaceS.IUploadFileService;
+import tn.esprit.spring.service.interfaceS.IUserService;
 
 @RestController
 @RequestMapping("/parent")
@@ -188,5 +190,6 @@ public class ParentController {
 		subscriptionChildService.update(s);
 
 	}
+	
 
 }

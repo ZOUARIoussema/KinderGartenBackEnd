@@ -23,9 +23,6 @@ public  class KinderGartenServiceImpl implements IKinderGartenService {
 	
 	@Autowired
 	IKinderGartenRepository kinderRepo;
-	
-	
-
 	@Autowired
 	IKinderGartenRepository iKinderGartenRepository;
 	@Autowired
@@ -74,6 +71,22 @@ public  class KinderGartenServiceImpl implements IKinderGartenService {
 	@Override
 	public List<KinderGarten> getAllkinder() {
 		return (List<KinderGarten>) iKinderGartenRepository.findAll();
+	}
+
+
+	@Override
+	public User delegatorsElection(int kindergartenId) {
+		User u = iUserRepository.delegatorsElection(kindergartenId);
+		KinderGarten k = iKinderGartenRepository.findById(kindergartenId).orElse(null);
+		k.setDelegate(u);
+		iKinderGartenRepository.save(k);
+		return u;
+		
+	}
+
+	@Override
+	public List<User> listDelegators(int kindergartenId) {
+		return iUserRepository.listDelegators(kindergartenId);
 	}
 
 	

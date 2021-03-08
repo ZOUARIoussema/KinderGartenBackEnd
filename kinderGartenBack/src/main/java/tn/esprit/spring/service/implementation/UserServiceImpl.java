@@ -162,13 +162,6 @@ public class UserServiceImpl implements IUserService {
 
 	}
 
-	// ahmed
-	@Override
-	public List<User> FilterParentForDelegate() {
-
-		return userR.FilterParentForDelegate();
-	}
-
 	@Override
 	public void confirmerInscriptionParMail(User u) {
 
@@ -177,16 +170,5 @@ public class UserServiceImpl implements IUserService {
 
 	}
 
-	@Override
-	public void delegate(User u) {
-		if (u.getRole() == Role.ROLE_parent) {
-			for (int i = 0; i < userR.FilterParentForDelegate().size(); i++) {
-				if (userR.FilterParentForDelegate().get(i).getScoreDelegate() == 0) {
-					userR.FilterParentForDelegate().get(i)
-							.setScoreDelegate(userR.FilterParentForDelegate().get(i).getScoreDelegate() + 1);
-				}
-			}
-		}
-	}
 
 }

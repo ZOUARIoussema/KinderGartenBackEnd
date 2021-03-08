@@ -10,20 +10,22 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import tn.esprit.spring.entity.KinderGarten;
+import tn.esprit.spring.entity.User;
+
 @Repository
-public interface IKinderGartenRepository extends CrudRepository<KinderGarten, Integer>  {
+public interface IKinderGartenRepository extends CrudRepository<KinderGarten, Integer> {
 
 	@Modifying
 	@Transactional
 	@Query("update KinderGarten e set e.name = :name ,e.adress = :adress,e.email = :email,e.tel = :tel,e.logo = :logo  where e.id = :kinderId")
-	public void updateKindergartenJPQL(@Param("name") String name,@Param("adress") String adress
-			,@Param("email") String email,@Param("tel") int tel,@Param("logo") String logo,@Param("kinderId") int kinderId);
+	public void updateKindergartenJPQL(@Param("name") String name, @Param("adress") String adress,
+			@Param("email") String email, @Param("tel") int tel, @Param("logo") String logo,
+			@Param("kinderId") int kinderId);
+
+	@Query("Select k from KinderGarten k " + "where k.adress=:adress  ")
+	public List<KinderGarten> getKinderGartenByAdress(@Param("adress") String adress);
 
 
-	@Query("Select k from KinderGarten k "
-			+ "where k.adress=:adress  "
-			)
-public List<KinderGarten> getKinderGartenByAdress(@Param("adress")String adress);
 
-
+	
 }
