@@ -15,5 +15,7 @@ public interface IPayementSubscriptionService {
 	public List<PayementSubscription> getAllBySubscriptionChild(int id);
 
     public void addPayementEnLigne(PayementSubscription p);
+    
+    public List<PayementSubscription> getAll();
 
 }

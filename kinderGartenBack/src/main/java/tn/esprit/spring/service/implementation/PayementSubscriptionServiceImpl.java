@@ -135,4 +135,9 @@ public class PayementSubscriptionServiceImpl implements IPayementSubscriptionSer
 
 	}
 
+	@Override
+	public List<PayementSubscription> getAll() {
+		return (List<PayementSubscription>) payementSR.findAll();
+	}
+
 }
