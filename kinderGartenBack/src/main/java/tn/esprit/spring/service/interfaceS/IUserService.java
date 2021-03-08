@@ -24,6 +24,8 @@ public interface IUserService {
 	
 	public void confirmerInscriptionParMail (User u);
 	
+	
+	public void DesactivateAccountKinderGarten(int id);
 
 	
 

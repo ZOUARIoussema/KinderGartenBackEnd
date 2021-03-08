@@ -13,7 +13,7 @@ public interface IClaimService {
 	public Claim SearchClaimByType(String Type);
 	public Claim SearchClaimByParent(User u);
 
-	
+	public int countClaimsinKinderGarten(int idkinder);
 	
 	
 }

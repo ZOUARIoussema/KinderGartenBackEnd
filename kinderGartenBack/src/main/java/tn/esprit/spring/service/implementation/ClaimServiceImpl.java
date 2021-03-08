@@ -50,4 +50,13 @@ public class ClaimServiceImpl implements IClaimService {
 		
 	}
 
+	@Override
+	public int countClaimsinKinderGarten(int idkinder) {
+		
+		return claimsRepo.countNbrClaimsKindergarten(idkinder);
+	}
+	
+	
+
+
 }

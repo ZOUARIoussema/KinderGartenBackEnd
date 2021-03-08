@@ -2,6 +2,8 @@ package tn.esprit.spring.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +23,8 @@ import tn.esprit.spring.service.interfaceS.IClaimService;
 @PreAuthorize("hasRole('ROLE_admin')")
 public class AdminController {
 	
+	
+	private static Logger log = LoggerFactory.getLogger(AdminController.class);
 	
 	@Autowired
 	IClaimService claimServ;
@@ -56,7 +60,14 @@ public class AdminController {
 		
 	}
 
-
+	
+	@GetMapping(value="/getNbrClaims/{id}")
+	
+	public int GetNbrClaimsKinderGarten(@PathVariable("id") int id)
+	{
+		log.info("Number of claims in kindergarten is :");
+		return claimServ.countClaimsinKinderGarten(id);
+	}
 	
 	
 }

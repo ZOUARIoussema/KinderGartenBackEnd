@@ -7,6 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import tn.esprit.spring.config.mail.MailConfig;
+import tn.esprit.spring.entity.KinderGarten;
 import tn.esprit.spring.entity.User;
 import tn.esprit.spring.entity.enumeration.Role;
 import tn.esprit.spring.entity.enumeration.StateUser;
@@ -25,6 +26,9 @@ public class UserServiceImpl implements IUserService {
 
 	@Autowired
 	IKinderGartenRepository kinderRepo;
+	
+	@Autowired 
+	ClaimServiceImpl claimserv;
 
 	@Override
 	public void add(User u) {
@@ -170,5 +174,20 @@ public class UserServiceImpl implements IUserService {
 
 	}
 
+
+	@Override
+	public void DesactivateAccountKinderGarten(int kg_id) {
+		
+		KinderGarten kg = kinderRepo.findById(kg_id).get();
+		
+		int ClaimsScoreEval = claimserv.countClaimsinKinderGarten(kg_id) + kg.getScoreEval();
+		
+		if (ClaimsScoreEval >= 50)
+		{
+			kg.getResponsible().setStateUser(StateUser.blocked);
+		}
+		
+			
+	}
 
 }
