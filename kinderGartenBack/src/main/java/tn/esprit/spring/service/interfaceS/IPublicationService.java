@@ -13,6 +13,8 @@ public interface IPublicationService {
 		public void update(Publication publication );
 		public void assignAttachementToPost(int id , MultipartFile file);
 		public List<Publication> getAllPublication();
+		//public void addLike(int idPub,int idLike);
+		//public int likeNumber (int id);
 
 		
 }

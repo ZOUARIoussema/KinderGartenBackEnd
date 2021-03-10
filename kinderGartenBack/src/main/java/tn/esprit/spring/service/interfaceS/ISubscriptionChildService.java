@@ -2,7 +2,9 @@ package tn.esprit.spring.service.interfaceS;
 
 import java.util.List;
 
+import tn.esprit.spring.entity.CategorySubscription;
 import tn.esprit.spring.entity.Child;
+import tn.esprit.spring.entity.Extra;
 import tn.esprit.spring.entity.SubscriptionChild;
 
 public interface ISubscriptionChildService {
