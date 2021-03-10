@@ -12,9 +12,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-
-
-
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -37,20 +34,14 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
-		
-		
-		 http.csrf().disable();
+		http.csrf().disable();
 		// http.authorizeRequests().antMatchers("/**").permitAll().anyRequest().permitAll();
-		 
-		 
-		 http
-        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        .and()
-        .authorizeRequests()
-        .antMatchers("/servlet/user/**","/servlet/accounting/export/excel","/message","/**").permitAll()
-        .anyRequest().authenticated();
-		 
-		 http.apply(new JwtTokenConfigurer(tokenProvider));
+
+		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
+				.antMatchers("/servlet/user/**", "/servlet/accounting/export/excel", "/message", "/**").permitAll()
+				.anyRequest().authenticated();
+
+		http.apply(new JwtTokenConfigurer(tokenProvider));
 
 		/*
 		 * http.csrf().disable().sessionManagement().sessionCreationPolicy(
@@ -59,6 +50,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 		 * anyRequest().authenticated(); http.apply(new
 		 * JwtTokenConfigurer(tokenProvider));
 		 */
+
 	}
 
 }
