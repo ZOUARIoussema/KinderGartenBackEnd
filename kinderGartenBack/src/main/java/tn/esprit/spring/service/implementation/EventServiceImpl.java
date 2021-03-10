@@ -57,4 +57,14 @@ public class EventServiceImpl implements IEventService {
 		iEventRepository.save(eventManagedEntity);		
 	}
 
+	@Override
+	public List<Event> findAllEventByKinderGarten(int kinderId) {
+		return iEventRepository.findAllEventByGartenJPQL(kinderId);
+	}
+
+	@Override
+	public List<Event> getAllEventForToday() {
+		return iEventRepository.getAllEventPourToday();
+	}
+
 }
