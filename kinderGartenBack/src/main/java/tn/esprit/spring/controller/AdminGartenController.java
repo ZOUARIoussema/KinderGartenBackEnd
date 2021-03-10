@@ -296,7 +296,18 @@ public class AdminGartenController {
 	}
 
 	// Event...
-
+	@GetMapping(value = "/findAllEventByKinderGarten/{kinderId}")
+	@ResponseBody
+	public List<Event> findAllEventByKinderGarten(@PathVariable("kinderId") int kinderId) {
+		return iEventService.findAllEventByKinderGarten(kinderId);
+	}
+	
+	@GetMapping(value = "/getAllEventForToday")
+	@ResponseBody
+	public List<Event> getAllEventForToday(){
+		return iEventService.getAllEventForToday();
+	}
+	
 	@PostMapping("/addEvent")
 	@ResponseBody
 	public Event addEvent(@RequestBody Event event) {

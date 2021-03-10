@@ -26,8 +26,7 @@ public class UploadFileServiceImpl implements IUploadFileService {
 		try {
 			File convertFile = new File(pathFile + file.getOriginalFilename());
 
-			
-
+		
 			convertFile.createNewFile();
 			FileOutputStream fout = new FileOutputStream(convertFile);
 			fout.write(file.getBytes());

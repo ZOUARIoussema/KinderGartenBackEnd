@@ -8,12 +8,25 @@ import tn.esprit.spring.entity.User;
 
 public interface IClaimService {
 	
+	public void deleteClaim(int id);
+	
 	public List<Claim> getAllClaims();
+	
 	public void ChangeStateClaim (Claim c);
+	
 	public Claim SearchClaimByType(String Type);
+	
 	public Claim SearchClaimByParent(User u);
 
 	public int countClaimsinKinderGarten(int idkinder);
 	
+	public Claim getClaimsById(int id);
 	
+	public List<Claim>getClaimsByObject();
+	
+	public List<User> getAllParents();
+	
+	public List<Claim> getClaimsByEducation();
+	
+	public List<Claim> getClaimsByCleanliness();
 }

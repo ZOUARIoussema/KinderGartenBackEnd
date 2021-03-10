@@ -32,6 +32,6 @@ public interface IUserRepository extends CrudRepository<User, Integer> {
 	@Query(value = " select * from user  u where  u.score_delegate = ( select Max( score_delegate) from user ) and u.kinder_garten_inscription_id = ?1", nativeQuery = true)
 	public User delegatorsElection(int kindergartenId);
 	
-	@Query(value = " select * from user  u where  u.kinder_garten_inscription_id = ?1 LIMIT 1", nativeQuery = true)
+	@Query(value = " select * from user  u where  u.role=UPPER('ROLE_parent') and u.kinder_garten_inscription_id = ?1 limit 1", nativeQuery = true)
 	public User Votes(int kindergartenId);
 }

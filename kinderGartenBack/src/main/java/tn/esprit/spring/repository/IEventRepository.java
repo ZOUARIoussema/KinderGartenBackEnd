@@ -1,6 +1,7 @@
 package tn.esprit.spring.repository;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -18,4 +19,9 @@ public interface IEventRepository extends CrudRepository<Event, Integer>  {
 	@Query("update Event e set e.description = :description ,e.date = :date  where e.id = :eventId")
 	public void updateEventJPQL(@Param("description") String description,@Param("date") Date date,@Param("eventId") int eventId);
 
+	@Query(value="select * from event where kinder_garten_id=:kinderId",nativeQuery=true)
+	public List<Event> findAllEventByGartenJPQL(@Param("kinderId")int kinderId);
+	
+	@Query("SELECT e from Event e where e.date = CURRENT_DATE()")
+	 public List<Event> getAllEventPourToday();
 }
