@@ -17,5 +17,6 @@ public interface IKinderGartenService {
 	public User delegatorsElection(int kindergartenId);
 	public List<User> listDelegators(int kindergartenId);
 
+
 }
 

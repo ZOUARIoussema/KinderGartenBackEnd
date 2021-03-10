@@ -22,25 +22,21 @@ public class Claim implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+	private String object;
 	private String description;
 	private String type;
-	
-	
 	@ManyToOne
 	private User parent;
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	public String getObject() {
+		return object;
+	}
+	public void setObject(String object) {
+		this.object = object;
+	}
+
+
 	public User getParent() {
 		return parent;
 	}
@@ -48,9 +44,7 @@ public class Claim implements Serializable{
 		this.parent = parent;
 	}
 	
-	
-	
-	 
+
 	public Integer getId() {
 		return id;
 	}

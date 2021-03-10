@@ -18,7 +18,6 @@ public class MailServiceImpl implements IMailService {
 
 		// Create a Simple MailMessage.
 		SimpleMailMessage message = new SimpleMailMessage();
-
 		message.setTo(destination);
 		message.setSubject(subject);
 		message.setText(text);

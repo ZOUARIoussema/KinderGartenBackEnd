@@ -69,5 +69,29 @@ public class AdminController {
 		return claimServ.countClaimsinKinderGarten(id);
 	}
 	
+	@GetMapping(value="/getClaimsByObject")
 	
+	public List<Claim> getClaimsByObject()
+	{
+		return claimServ.getClaimsByObject();
+	}
+	
+	@GetMapping(value="/getAllParents")
+	
+	public List<User> getAllParents()
+	{
+		return claimServ.getAllParents();
+	}
+	
+	@GetMapping(value="/getClaimsByEducation")
+	public List<Claim> getClaimsByEducation() 
+	{
+		return claimServ.getClaimsByEducation();
+	}
+	
+	@GetMapping(value="/getClaimsByCleanliness")
+	public List<Claim> getClaimsByCleanliness() 
+	{
+		return claimServ.getClaimsByCleanliness();
+	}
 }
