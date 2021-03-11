@@ -55,6 +55,7 @@ public class Child implements Serializable {
 	@JsonIgnore
 	private FolderMedical folderMedical;
 
+
 	@ManyToMany
 	private List<Category> listInterest = new ArrayList<Category>();
 
@@ -65,6 +66,7 @@ public class Child implements Serializable {
 	public void setListInterest(List<Category> listInterest) {
 		this.listInterest = listInterest;
 	}
+
 
 	public FolderMedical getFolderMedical() {
 		return folderMedical;
