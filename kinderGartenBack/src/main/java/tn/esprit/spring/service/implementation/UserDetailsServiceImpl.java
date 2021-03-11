@@ -13,38 +13,36 @@ import org.springframework.stereotype.Service;
 
 import tn.esprit.spring.entity.User;
 import tn.esprit.spring.repository.IUserRepository;
+
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
-	
-	
+
 	@Autowired
 	IUserRepository userR;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user=userR.findByEmail(username);
+		User user = userR.findByEmail(username);
 		if (user == null) {
 			throw new UsernameNotFoundException("Email " + username + " not found");
 		}
 		return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
 				getGrantedAuthority(user));
 	}
-	
+
 	private Collection<GrantedAuthority> getGrantedAuthority(User user) {
-		
-		 
-		
+
 		Collection<GrantedAuthority> authorities = new ArrayList<>();
-		
+
 		authorities.add(new SimpleGrantedAuthority(user.getRole().toString()));
 		
-		/*if (user.getRole().toString().equalsIgnoreCase("admin")) {
-			authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-		}*/
-	//	 authorities.add(new SimpleGrantedAuthority("ROLE_USER")); 
+
+		/*
+		 * if (user.getRole().toString().equalsIgnoreCase("admin")) {
+		 * authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN")); }
+		 */
+		// authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 		return authorities;
 	}
-	
-	
 
 }

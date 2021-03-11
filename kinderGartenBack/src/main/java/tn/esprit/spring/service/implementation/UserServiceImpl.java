@@ -109,6 +109,15 @@ public class UserServiceImpl implements IUserService {
 			user7.setRole(Role.ROLE_parent);
 			user7.setPassword(new BCryptPasswordEncoder().encode("testuser"));
 			this.add(user7);
+			
+			
+			User user8 = new User();
+			user8.setEmail("testprovider@user.com");
+			user8.setFirstName("Test User provider");
+			user8.setTel(97874565);
+			user8.setRole(Role.ROLE_provider);
+			user8.setPassword(new BCryptPasswordEncoder().encode("testuser"));
+			this.add(user8);
 
 		}
 

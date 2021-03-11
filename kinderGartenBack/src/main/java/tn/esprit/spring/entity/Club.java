@@ -10,9 +10,7 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class Club implements Serializable {
-	
-	
-	
+
 	/**
 	 * 
 	 */
@@ -21,34 +19,11 @@ public class Club implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	private String description;
-	
-	
-	
-	@ManyToOne
-	private KinderGarten kinderGarten;
-	
-	
-	
-	
+
 	@ManyToOne
 	private Category category;
-	
-	
-	
-	
-	
-	
-	
-
-	public KinderGarten getKinderGarten() {
-		return kinderGarten;
-	}
-
-	public void setKinderGarten(KinderGarten kinderGarten) {
-		this.kinderGarten = kinderGarten;
-	}
 
 	public Category getCategory() {
 		return category;
@@ -57,9 +32,6 @@ public class Club implements Serializable {
 	public void setCategory(Category category) {
 		this.category = category;
 	}
-
-	 
-	
 
 	public Integer getId() {
 		return id;
@@ -76,9 +48,6 @@ public class Club implements Serializable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	
-	
 	
 	
 	

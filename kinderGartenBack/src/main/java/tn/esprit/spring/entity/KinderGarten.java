@@ -45,14 +45,6 @@ public class KinderGarten implements Serializable {
 
 	@OneToMany(mappedBy = "kinderGarten")
 	@JsonIgnore
-	private List<Club> listClub = new ArrayList<Club>();
-
-	@OneToMany(mappedBy = "kinderGarten")
-	@JsonIgnore
-	private List<Event> listEvent = new ArrayList<Event>();
-
-	@OneToMany(mappedBy = "kinderGarten")
-	@JsonIgnore
 	private List<Activity> listActivity = new ArrayList<Activity>();
 
 	@OneToMany(mappedBy = "kinderGarten")
@@ -67,12 +59,16 @@ public class KinderGarten implements Serializable {
 	@JsonIgnore
 	private List<Meeting> listMeeting = new ArrayList<Meeting>();
 
-	public List<Event> getListEvent() {
-		return listEvent;
+	@OneToMany(mappedBy = "kinderGarten")
+	@JsonIgnore
+	private List<Category> listCategory = new ArrayList<Category>();
+
+	public List<Category> getListCategory() {
+		return listCategory;
 	}
 
-	public void setListEvent(List<Event> listEvent) {
-		this.listEvent = listEvent;
+	public void setListCategory(List<Category> listCategory) {
+		this.listCategory = listCategory;
 	}
 
 	public List<Activity> getListActivity() {
@@ -123,15 +119,6 @@ public class KinderGarten implements Serializable {
 		this.listParent = listParent;
 	}
 
-	public List<Club> getListClub() {
-		return listClub;
-	}
-
-	public void setListClub(List<Club> listClub) {
-		this.listClub = listClub;
-	}
-
-	
 	public User getResponsible() {
 		return responsible;
 	}
@@ -148,7 +135,7 @@ public class KinderGarten implements Serializable {
 		this.delegate = delegate;
 	}
 
-	@OneToOne(cascade={CascadeType.ALL})
+	@OneToOne(cascade = { CascadeType.ALL })
 	private User responsible;
 
 	@OneToOne

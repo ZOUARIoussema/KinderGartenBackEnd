@@ -127,7 +127,6 @@ public class AccountingController {
 		String headerValue = "attachment; filename=users_" + currentDateTime + ".xlsx";
 		response.setHeader(headerKey, headerValue);
 
-		
 
 		ReportAccountingExel excelExporter = new ReportAccountingExel(payementS.getAll());
 

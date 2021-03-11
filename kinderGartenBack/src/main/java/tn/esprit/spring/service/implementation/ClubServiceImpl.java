@@ -57,8 +57,8 @@ public class ClubServiceImpl implements IClubService {
 		KinderGarten kinderManagedEntity = kinderRepo.findById(kinderId).get();
 		Club clubManagedEntity = iClubRepository.findById(clubId).get();
 		
-		clubManagedEntity.setKinderGarten(kinderManagedEntity);
-		iClubRepository.save(clubManagedEntity);
+//		clubManagedEntity.setKinderGarten(kinderManagedEntity);
+//		iClubRepository.save(clubManagedEntity);
 		
 	}
 

@@ -53,8 +53,8 @@ public class EventServiceImpl implements IEventService {
 		KinderGarten kinderManagedEntity = kinderRepo.findById(kinderId).get();
 		Event eventManagedEntity = iEventRepository.findById(eventId).get();
 		
-		eventManagedEntity.setKinderGarten(kinderManagedEntity);
-		iEventRepository.save(eventManagedEntity);		
+		/*eventManagedEntity.setKinderGarten(kinderManagedEntity);
+		iEventRepository.save(eventManagedEntity);*/		
 	}
 
 	@Override

@@ -1,6 +1,5 @@
 package tn.esprit.spring.config.webSocket;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -11,7 +10,7 @@ import tn.esprit.spring.entity.User;
 import tn.esprit.spring.repository.IMyMessageRep;
 import tn.esprit.spring.repository.IUserRepository;
 
-@Controller("/message")
+@Controller
 public class SocketController {
 
 	@Autowired
@@ -28,21 +27,19 @@ public class SocketController {
 		String sender = msg.getFrom();
 		String content = msg.getContent();
 		String receiver = msg.getTo();
+
 		
-		
-		System.out.println("******"+sender + " " + content + " " + receiver);
 
 		User senderU = userR.findByEmail(sender);
 
 		User senderR = userR.findByEmail(receiver);
 
 		Message newMessage = new Message(senderU, senderR, msg.getContent());
-		
+
 		mR.save(newMessage);
 
 		simpMessagingTemplate.convertAndSendToUser(receiver, "/queue/reply", msg);
-		
-		
+
 	}
 
 }

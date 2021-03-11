@@ -5,15 +5,19 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.ManyToAny;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -50,18 +54,17 @@ public class Child implements Serializable {
 	@OneToOne(mappedBy = "child")
 	@JsonIgnore
 	private FolderMedical folderMedical;
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+	@ManyToMany
+	private List<Category> listInterest = new ArrayList<Category>();
+
+	public List<Category> getListInterest() {
+		return listInterest;
+	}
+
+	public void setListInterest(List<Category> listInterest) {
+		this.listInterest = listInterest;
+	}
 
 	public FolderMedical getFolderMedical() {
 		return folderMedical;
@@ -86,8 +89,6 @@ public class Child implements Serializable {
 	public void setLisSubscriptionChilds(List<SubscriptionChild> lisSubscriptionChilds) {
 		this.lisSubscriptionChilds = lisSubscriptionChilds;
 	}
-
-	 
 
 	public Integer getId() {
 		return id;
