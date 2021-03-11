@@ -52,16 +52,6 @@ public class Child implements Serializable {
 	private FolderMedical folderMedical;
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 	public FolderMedical getFolderMedical() {
 		return folderMedical;

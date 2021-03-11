@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import tn.esprit.spring.entity.Claim;
 import tn.esprit.spring.entity.User;
 import tn.esprit.spring.service.interfaceS.IClaimService;
+import tn.esprit.spring.service.interfaceS.IStatisticsService;
 
 @RestController
 @RequestMapping("/admin")
@@ -28,6 +29,9 @@ public class AdminController {
 	
 	@Autowired
 	IClaimService claimServ;
+	
+	@Autowired
+	IStatisticsService staticsServ;
 	
 	@GetMapping(value="/getAllClaims")
 	public List<Claim> getAllClaims() 
@@ -94,4 +98,27 @@ public class AdminController {
 	{
 		return claimServ.getClaimsByCleanliness();
 	}
+	
+	
+	// nb des enfants par jardin d'enfant
+	
+	@GetMapping(value ="/retrieve-ChildrensByKinderGarten")
+	public List<?> getEnfantParJardin() {
+		return staticsServ.listChildByKinderGarten();
+	}
+	
+	//best user meilleur score d'évaluation
+	@GetMapping(value ="/bestUser")
+	public List<?> getBestUser() 
+	{
+
+	return staticsServ.BestUser();
+
+	}
+	
+	// number of comments by parent
+	
+	//GetMapping(value="/retrieve-number-comments-user/{id}")
+	
+	
 }

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import tn.esprit.spring.config.mail.MailConfig;
+
 import tn.esprit.spring.entity.KinderGarten;
 import tn.esprit.spring.entity.User;
 import tn.esprit.spring.entity.enumeration.Role;
@@ -166,9 +166,10 @@ public class UserServiceImpl implements IUserService {
 
 	}
 
-	@Override
-	public void confirmerInscriptionParMail(User u) {
 
+	public void confirmerInscriptionParMail(User u) 
+	{
+	
 		servicemail.sendSimpleMail(u.getEmail(), "Inscription confirmation",
 				" Your account is active ! you can log on !");
 
