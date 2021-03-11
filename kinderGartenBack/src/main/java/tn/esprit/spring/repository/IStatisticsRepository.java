@@ -27,8 +27,8 @@ public interface IStatisticsRepository extends CrudRepository<User, Integer>{
     public int nbrPublicationByUser(@Param ("userid") int userid);
 	
 	
-	@Query(value="SELECT count(*) FROM event e,kinder_garten kg,user u where (e.kinder_garten_id=kg.id) and (kg.id=u.kinder_garten_inscription_id) and(u.id=:userid) ")  
-    public int nbrParticpEventByUser (@Param ("userid") int userid);
+	//@Query(value="SELECT count(*) FROM event e,kinder_garten kg,user u where (e.kinder_garten_id=kg.id) and (kg.id=u.kinder_garten_inscription_id) and(u.id=:userid) ")  
+   // public int nbrParticpEventByUser (@Param ("userid") int userid);
 	
 	
 	@Query(value="select Max(kg.scoreEval), u.firstName,u.lastName from KinderGarten kg,User u where kg.id=u.kinderGartenInscription.id")  
@@ -37,7 +37,7 @@ public interface IStatisticsRepository extends CrudRepository<User, Integer>{
 	@Query("SELECT count(*) FROM Child c where c.parent.kinderGartenInscription.id =:kgid ")  
 	public int nbrChildByKinderGarten(@Param ("kgid") int kgid);
 	
-	@Query("select count (*) from SubscriptionChild sc where YEAR(e.dateC)=2021 and sc.child.parent.kinderGartenInscription.id =:jardinid")
-    public int NbrChildSubscribed2021(@Param ("jardinid") int jardinid);
+	//@Query("select count (*) from SubscriptionChild sc where YEAR(e.dateC)=2021 and sc.child.parent.kinderGartenInscription.id =:jardinid")
+   // public int NbrChildSubscribed2021(@Param ("jardinid") int jardinid);
 	
 }

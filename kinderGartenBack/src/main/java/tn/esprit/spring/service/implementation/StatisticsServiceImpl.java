@@ -41,7 +41,8 @@ public class StatisticsServiceImpl implements IStatisticsService {
 	@Override
 	public int nbrParticpEventByUser(int userid)
 	{
-		return StatisticRepository.nbrParticpEventByUser(userid);
+	//	return StatisticRepository.nbrParticpEventByUser(userid);
+		return 0;
 	}
 
 	@Override
@@ -56,7 +57,8 @@ public class StatisticsServiceImpl implements IStatisticsService {
 
 	@Override
 	public int NbrChildSubscribed2021(int jardinid) {
-		return StatisticRepository.NbrChildSubscribed2021(jardinid);
+		return 0;
+	//	return StatisticRepository.NbrChildSubscribed2021(jardinid);
 	}
 	
 	
