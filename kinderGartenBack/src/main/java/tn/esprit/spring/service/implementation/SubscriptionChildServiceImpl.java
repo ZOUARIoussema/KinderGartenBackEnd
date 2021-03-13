@@ -63,6 +63,14 @@ public class SubscriptionChildServiceImpl implements ISubscriptionChildService {
 		}
 
 	}
+	
+	
+	// get subscription by id
+
+	@Override
+	public SubscriptionChild getById(int id) {
+		 return rep.findById(id).get();
+	}
 
 	
 

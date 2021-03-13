@@ -60,4 +60,14 @@ public class SpentServiceImpl implements ISpentService {
 
 	}
 
+	@Override
+	public List<Spent> getAll() {
+		return (List<Spent>) spentR.findAll();
+	}
+
+	@Override
+	public List<Spent> findByDate(Date d) {
+		 return spentR.findByDateC(d);
+	}
+
 }

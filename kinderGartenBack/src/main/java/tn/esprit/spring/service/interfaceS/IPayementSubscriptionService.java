@@ -1,5 +1,6 @@
 package tn.esprit.spring.service.interfaceS;
 
+import java.util.Date;
 import java.util.List;
 
 import tn.esprit.spring.entity.PayementSubscription;
@@ -17,5 +18,7 @@ public interface IPayementSubscriptionService {
     public void addPayementEnLigne(PayementSubscription p);
     
     public List<PayementSubscription> getAll();
+    
+    public List<PayementSubscription> findByDate(Date d);
 
 }

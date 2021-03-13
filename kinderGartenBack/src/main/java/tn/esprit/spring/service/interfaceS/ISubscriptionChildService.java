@@ -14,6 +14,7 @@ public interface ISubscriptionChildService {
 	public List<SubscriptionChild> getAllSubscriptionByChild(int id);
 	public void update(SubscriptionChild s);
 	public void delete(int id);
+	public SubscriptionChild getById(int id);
 	
 	
 

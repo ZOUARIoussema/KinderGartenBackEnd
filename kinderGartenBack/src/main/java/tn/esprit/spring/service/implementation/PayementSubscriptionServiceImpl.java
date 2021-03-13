@@ -140,4 +140,9 @@ public class PayementSubscriptionServiceImpl implements IPayementSubscriptionSer
 		return (List<PayementSubscription>) payementSR.findAll();
 	}
 
+	@Override
+	public List<PayementSubscription> findByDate(Date d) {
+		return payementSR.findByDateC(d);
+	}
+
 }
