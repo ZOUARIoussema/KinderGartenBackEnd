@@ -48,6 +48,8 @@ public class MailServiceImpl implements IMailService {
 	@Override
 	public String sendMailWithFreeMarker(EmailRequestDTO request, Map<String, String> model, String t) {
 
+		System.out.println("---");		
+		
 		String response;
 		MimeMessage message = emailSender.createMimeMessage();
 		try {
@@ -55,14 +57,15 @@ public class MailServiceImpl implements IMailService {
 					StandardCharsets.UTF_8.name());
 
 			Template template = configuration.getTemplate(t);
+			
+			System.out.println("***");			
 			String html = FreeMarkerTemplateUtils.processTemplateIntoString(template, model);
 
 			helper.setTo(request.getTo());
 			helper.setFrom(request.getFrom());
 			helper.setSubject(request.getSubject());
 			helper.setText(html, true);
-			// helper.addInline("asbnotebook", image);
-			// helper.addAttachment("attachment.pdf", pdf);
+			
 
 			emailSender.send(message);
 			response = "Email has been sent to :" + request.getTo();

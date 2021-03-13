@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -45,8 +46,8 @@ public class SubscriptionChild implements Serializable {
 	@ManyToOne
 	private CategorySubscription categorySubscription;
 
-	@ManyToOne
-	private Extra extra;
+	@ManyToMany
+	private List<Extra> lisExtras = new ArrayList<Extra>();
 
 	@ManyToOne
 	private Child child;
@@ -71,12 +72,12 @@ public class SubscriptionChild implements Serializable {
 		this.categorySubscription = categorySubscription;
 	}
 
-	public Extra getExtra() {
-		return extra;
+	public List<Extra> getLisExtras() {
+		return lisExtras;
 	}
 
-	public void setExtra(Extra extra) {
-		this.extra = extra;
+	public void setLisExtras(List<Extra> lisExtras) {
+		this.lisExtras = lisExtras;
 	}
 
 	public Integer getId() {

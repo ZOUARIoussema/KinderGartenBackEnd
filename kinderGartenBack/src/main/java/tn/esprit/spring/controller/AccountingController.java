@@ -32,7 +32,10 @@ import tn.esprit.spring.service.interfaceS.IMailService;
 import tn.esprit.spring.service.interfaceS.IPayementSubscriptionService;
 import tn.esprit.spring.service.interfaceS.ISpentService;
 import tn.esprit.spring.service.interfaceS.ISubscriptionChildService;
+import tn.esprit.spring.utils.DetailSubscriptionChild;
 import tn.esprit.spring.utils.ReportAccountingExel;
+
+import com.lowagie.text.DocumentException;
 
 @RestController
 @RequestMapping("/accounting")
@@ -107,17 +110,17 @@ public class AccountingController {
 		SubscriptionChild subscriptionChild = subscriptionChildS.getById(p.getSubscriptionChild().getId());
 
 		Map<String, String> model = new HashMap<>();
-		model.put("name", "Susbscriptio child: " + subscriptionChild.getChild().getName());
-		model.put("total", String.valueOf(subscriptionChild.getTotal()));
-		model.put("totalP", String.valueOf(subscriptionChild.getTotalPay()));
-		model.put("totalR", String.valueOf(subscriptionChild.getRestPay()));
+		model.put("name", subscriptionChild.getChild().getName());
+		model.put("total", String.valueOf(p.getPrice()));
+		model.put("method",p.getTypePayement().toString());
+		model.put("rest", String.valueOf(subscriptionChild.getRestPay()));
 
 		EmailRequestDTO email = new EmailRequestDTO();
 
 		email.setTo(mail);
 		email.setSubject("recived payement subscription child");
 
-		mailS.sendMailWithFreeMarker(email, model, "recivedPayement");
+		mailS.sendMailWithFreeMarker(email, model, "recivedPayement.ftl");
 
 	}
 
@@ -161,5 +164,26 @@ public class AccountingController {
 
 		excelExporter.export(response);
 	}
+	
+	@PreAuthorize("isAnonymous()")
+	@GetMapping("/detailSubscription/{id}")
+	public void exportToPDF(HttpServletResponse response,@PathVariable("id")int id) throws DocumentException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+         
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=users_" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+         
+        
+        SubscriptionChild s = subscriptionChildS.getById(id);
+        
+         
+        DetailSubscriptionChild exporter = new DetailSubscriptionChild(s);
+        exporter.export(response);
+         
+    }
+	
 
 }
