@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -48,8 +49,8 @@ public class FolderMedical implements Serializable {
 	private List<Consultation>lisConsultations =new ArrayList<Consultation>();
 	
 	
-	
-	
+	@ManyToMany
+	private List<ChildVaccine>lisChildVaccines = new ArrayList<ChildVaccine>();
 	
 
 	 
@@ -100,6 +101,14 @@ public class FolderMedical implements Serializable {
 
 	public void setLisConsultations(List<Consultation> lisConsultations) {
 		this.lisConsultations = lisConsultations;
+	}
+
+	public List<ChildVaccine> getLisChildVaccines() {
+		return lisChildVaccines;
+	}
+
+	public void setLisChildVaccines(List<ChildVaccine> lisChildVaccines) {
+		this.lisChildVaccines = lisChildVaccines;
 	}
 	
 	
