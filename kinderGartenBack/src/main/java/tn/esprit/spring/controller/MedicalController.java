@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import tn.esprit.spring.entity.ChildVaccine;
 import tn.esprit.spring.entity.Consultation;
 import tn.esprit.spring.entity.FolderMedical;
 import tn.esprit.spring.entity.MedicalVisitKinderGarten;
 import tn.esprit.spring.repository.IConsultationRepository;
+import tn.esprit.spring.service.interfaceS.IChildVaccineService;
 import tn.esprit.spring.service.interfaceS.IConsultationService;
 import tn.esprit.spring.service.interfaceS.IFolderMedicalService;
 import tn.esprit.spring.service.interfaceS.IMedicalVisitGartenService;
@@ -37,6 +39,9 @@ public class MedicalController {
 
 	@Autowired
 	private IConsultationService consultationS;
+
+	@Autowired
+	private IChildVaccineService childVaccinServ;
 
 	/***
 	 * 
@@ -141,13 +146,42 @@ public class MedicalController {
 
 	@GetMapping("getAllConsultationByFolderMedical/{id}")
 	@ResponseBody
-	public List<Consultation> getAllConSultationByFolder(@PathVariable("id")int id) {
+	public List<Consultation> getAllConSultationByFolder(@PathVariable("id") int id) {
 
 		return consultationS.getAllByFolderMedical(id);
 	}
+
+	/*
+	 * 
+	 * Crud child vaccine
+	 */
+
+	@PostMapping("/addVaccineChild")
+	@ResponseBody
+	public void addChildVaccine(@RequestBody ChildVaccine c) {
+
+		childVaccinServ.add(c);
+	}
+
+	@PutMapping("/updateVaccineChild")
+	@ResponseBody
+	public void updateVaccineChild(@RequestBody ChildVaccine c) {
+		childVaccinServ.update(c);
+	}
+
+	@DeleteMapping("/delete/{id}")
+	@ResponseBody
+	public void deleteVaccineChild(@PathVariable int id) {
+
+		childVaccinServ.delete(id);
+	}
 	
-	 
 	
-	
+	@GetMapping("/getAllChildVaccine")
+	@ResponseBody
+	public List<ChildVaccine> getAllChildVaccine(){
+		
+		return childVaccinServ.getAll();
+	}
 
 }
