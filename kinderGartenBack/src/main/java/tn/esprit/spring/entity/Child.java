@@ -58,6 +58,10 @@ public class Child implements Serializable {
 
 	@ManyToMany
 	private List<Category> listInterest = new ArrayList<Category>();
+	
+	
+	@ManyToMany
+	private List<Event> lisEvents = new ArrayList<Event>();
 
 	public List<Category> getListInterest() {
 		return listInterest;
@@ -139,5 +143,16 @@ public class Child implements Serializable {
 	public void setPicture(String picture) {
 		this.picture = picture;
 	}
+
+	public List<Event> getLisEvents() {
+		return lisEvents;
+	}
+
+	public void setLisEvents(List<Event> lisEvents) {
+		this.lisEvents = lisEvents;
+	}
+	
+	
+	
 
 }

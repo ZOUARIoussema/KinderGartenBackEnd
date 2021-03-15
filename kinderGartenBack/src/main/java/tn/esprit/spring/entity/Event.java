@@ -1,12 +1,15 @@
 package tn.esprit.spring.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -27,9 +30,9 @@ public class Event implements Serializable {
 	private String description;
 	@Temporal(TemporalType.DATE)
 	private Date date;
-	
+
 	private int nParticipate;
-	
+
 	private double price;
 
 	@ManyToOne
@@ -82,11 +85,16 @@ public class Event implements Serializable {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	
-	
-	
-	
-	
-	
+
+	@ManyToMany(mappedBy = "lisEvents")
+	public List<Child> lisChilds = new ArrayList<Child>();
+
+	public List<Child> getLisChilds() {
+		return lisChilds;
+	}
+
+	public void setLisChilds(List<Child> lisChilds) {
+		this.lisChilds = lisChilds;
+	}
 
 }
