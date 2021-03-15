@@ -3,18 +3,15 @@ package tn.esprit.spring.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.hibernate.annotations.ManyToAny;
 
 @Entity
 public class Vote implements Serializable {
@@ -34,6 +31,9 @@ public class Vote implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date dateVote;
 
+	@ManyToOne
+	private SessionVote sessionVote;
+	
 	public int getId() {
 		return id;
 	}

@@ -24,6 +24,7 @@ import tn.esprit.spring.entity.Event;
 import tn.esprit.spring.entity.Extra;
 import tn.esprit.spring.entity.KinderGarten;
 import tn.esprit.spring.entity.Meeting;
+import tn.esprit.spring.entity.SessionVote;
 import tn.esprit.spring.entity.User;
 import tn.esprit.spring.entity.Vote;
 import tn.esprit.spring.entity.VoteForm;
@@ -36,6 +37,7 @@ import tn.esprit.spring.service.interfaceS.IEventService;
 import tn.esprit.spring.service.interfaceS.IExtraService;
 import tn.esprit.spring.service.interfaceS.IKinderGartenService;
 import tn.esprit.spring.service.interfaceS.IMeetingService;
+import tn.esprit.spring.service.interfaceS.ISessionVoteService;
 import tn.esprit.spring.service.interfaceS.IUserService;
 import tn.esprit.spring.service.interfaceS.IVoteService;
 
@@ -64,6 +66,8 @@ public class AdminGartenController {
 	IUserService iUserService;
 	@Autowired
 	IVoteService iVoteService;
+	@Autowired
+	ISessionVoteService iSessionVoteService;
 
 	@PostMapping("/addKinderGarten")
 	@ResponseBody
@@ -448,4 +452,32 @@ public class AdminGartenController {
 	public void delegatorsElection(@PathVariable int id) {
 		iKinderGartenService.delegatorsElection(id);
 	}
+	// Session Vote
+	@PostMapping("/addSessionVote")
+	@ResponseBody
+	public SessionVote addSessionVote(@RequestBody SessionVote sessionVote) {
+		iSessionVoteService.addSessionVote(sessionVote);
+		return sessionVote;
+	}
+	@GetMapping(value = "/getSessionVoteById/{sessionVoteId}")
+	@ResponseBody
+	public SessionVote getSessionVoteById(@PathVariable("sessionVoteId") int sessionVoteId) {
+		return iSessionVoteService.getSessionVoteById(sessionVoteId);
+	}
+	@GetMapping(value = "/getAllSessionVote")
+	@ResponseBody
+	public List<SessionVote> getAllSessionVote() {
+		return iSessionVoteService.getAllSessionVote();
+	}
+	@PutMapping(value = "/updateSessionVote/{id}")
+	@ResponseBody
+	public void updateSessionVote(@PathVariable("id") int sessionVoteId, @RequestBody SessionVote sessionVote) {
+		iSessionVoteService.updateSessionVote(sessionVote.getWinner(), sessionVote.getDateStart(), sessionVote.getDateEnd(), sessionVoteId);
+	}
+	@DeleteMapping("/deleteSessionVoteById/{sessionVoteId}")
+	@ResponseBody
+	public void deleteSessionVoteById(@PathVariable("sessionVoteId") int sessionVoteId) {
+		iSessionVoteService.deleteSessionVoteById(sessionVoteId);
+	}
+
 }
