@@ -183,5 +183,12 @@ public class MedicalController {
 		
 		return childVaccinServ.getAll();
 	}
+	
+	
+	
+		
+		
+		
+	
 
 }

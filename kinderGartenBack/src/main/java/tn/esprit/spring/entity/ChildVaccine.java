@@ -10,12 +10,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class ChildVaccine implements Serializable {
 
-	
 	/**
 	 * 
 	 */
@@ -25,12 +24,13 @@ public class ChildVaccine implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	private int age;
+	private int monthNumber;
 
 	private String description;
-	
+
+	@JsonIgnore
 	@ManyToMany(mappedBy = "lisChildVaccines")
-	private List<FolderMedical>lisFolderMedicals = new ArrayList<FolderMedical>();
+	private List<FolderMedical> lisFolderMedicals = new ArrayList<FolderMedical>();
 
 	public int getId() {
 		return id;
@@ -40,12 +40,12 @@ public class ChildVaccine implements Serializable {
 		this.id = id;
 	}
 
-	public int getAge() {
-		return age;
+	public int getMonthNumber() {
+		return monthNumber;
 	}
 
-	public void setAge(int age) {
-		this.age = age;
+	public void setMonthNumber(int monthNumber) {
+		this.monthNumber = monthNumber;
 	}
 
 	public String getDescription() {
@@ -62,6 +62,28 @@ public class ChildVaccine implements Serializable {
 
 	public void setLisFolderMedicals(List<FolderMedical> lisFolderMedicals) {
 		this.lisFolderMedicals = lisFolderMedicals;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ChildVaccine other = (ChildVaccine) obj;
+		if (id != other.id)
+			return false;
+		return true;
 	}
 	
 	
