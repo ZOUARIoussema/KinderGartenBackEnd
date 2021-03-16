@@ -479,5 +479,9 @@ public class AdminGartenController {
 	public void deleteSessionVoteById(@PathVariable("sessionVoteId") int sessionVoteId) {
 		iSessionVoteService.deleteSessionVoteById(sessionVoteId);
 	}
-
+	@GetMapping("/kinder_garden/{id}/delegators/{sessionVoteId}/Winner")
+	@ResponseBody
+	public void delegatorsWinner(@PathVariable int id,@PathVariable int sessionVoteId) {
+		iSessionVoteService.delegatorsWinner(id, sessionVoteId);
+	}
 }

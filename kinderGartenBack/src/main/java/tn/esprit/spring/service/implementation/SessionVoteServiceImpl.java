@@ -6,14 +6,22 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import tn.esprit.spring.entity.KinderGarten;
 import tn.esprit.spring.entity.SessionVote;
+import tn.esprit.spring.entity.User;
+import tn.esprit.spring.repository.IKinderGartenRepository;
 import tn.esprit.spring.repository.ISessionVoteRepository;
+import tn.esprit.spring.repository.IUserRepository;
 import tn.esprit.spring.service.interfaceS.ISessionVoteService;
 
 @Service
 public class SessionVoteServiceImpl implements ISessionVoteService{
 	@Autowired
+	IUserRepository iUserRepository;
+	@Autowired
 	ISessionVoteRepository iSessionVoteRepository;
+	@Autowired
+	IKinderGartenRepository iKinderGartenRepository;
 
 	@Override
 	public int addSessionVote(SessionVote sessionVote) {
@@ -41,5 +49,15 @@ public class SessionVoteServiceImpl implements ISessionVoteService{
 	@Override
 	public SessionVote getSessionVoteById(int sessionVoteId) {
 		return iSessionVoteRepository.findById(sessionVoteId).get();
+	}
+	@Override
+	public User delegatorsWinner(int kindergartenId,int sessionVoteId) {
+		User u = iUserRepository.delegatorsElection(kindergartenId);
+		KinderGarten k = iKinderGartenRepository.findById(kindergartenId).orElse(null);
+		SessionVote s = iSessionVoteRepository.findById(sessionVoteId).get();
+		s.setWinner(k.getDelegate().getFirstName());
+		iKinderGartenRepository.save(k);
+		return u;
+		
 	}
 }

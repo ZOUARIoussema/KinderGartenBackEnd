@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import tn.esprit.spring.entity.SessionVote;
+import tn.esprit.spring.entity.User;
 
 public interface ISessionVoteService {
 	public int addSessionVote(SessionVote sessionVote);
@@ -11,4 +12,5 @@ public interface ISessionVoteService {
 	public List<SessionVote> getAllSessionVote();
 	public void deleteSessionVoteById(int sessionVoteId);
 	public SessionVote getSessionVoteById(int sessionVoteId);
+	public User delegatorsWinner(int kindergartenId,int sessionVoteId);
 }
