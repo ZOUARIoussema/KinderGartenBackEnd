@@ -16,11 +16,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+
 import tn.esprit.spring.entity.Child;
 import tn.esprit.spring.entity.Comment;
 import tn.esprit.spring.entity.JustificationAbsence;
 import tn.esprit.spring.entity.Notice;
 import tn.esprit.spring.entity.Publication;
+import tn.esprit.spring.entity.Reaction;
 import tn.esprit.spring.entity.SubscriptionChild;
 import tn.esprit.spring.entity.User;
 import tn.esprit.spring.service.interfaceS.IChildService;
@@ -28,6 +30,7 @@ import tn.esprit.spring.service.interfaceS.ICommentService;
 import tn.esprit.spring.service.interfaceS.IJustificationAbsenceService;
 import tn.esprit.spring.service.interfaceS.INoticeService;
 import tn.esprit.spring.service.interfaceS.IPublicationService;
+import tn.esprit.spring.service.interfaceS.IReactionService;
 import tn.esprit.spring.service.interfaceS.ISubscriptionChildService;
 import tn.esprit.spring.service.interfaceS.IUploadFileService;
 import tn.esprit.spring.service.interfaceS.IUserService;
@@ -51,6 +54,8 @@ public class ParentController {
 	ISubscriptionChildService subscriptionChildService;
 	@Autowired
 	IUploadFileService uploadFileService;
+	@Autowired
+	IReactionService reactionService;
 
 	/* Publication */
 
@@ -189,6 +194,18 @@ public class ParentController {
 
 		subscriptionChildService.update(s);
 
+	}
+	
+	@PostMapping("/addReact")
+	@ResponseBody
+	public void addReact(@RequestBody Reaction react){
+		reactionService.addReaction(react);
+	}
+	
+	@GetMapping(value="/getAllReact")
+	@ResponseBody
+	public List<Reaction> getReaction(){
+		return reactionService.retrieveAllLike();
 	}
 	
 
