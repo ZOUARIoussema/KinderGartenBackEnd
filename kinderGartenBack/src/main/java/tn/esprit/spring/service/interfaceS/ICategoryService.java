@@ -10,4 +10,5 @@ public interface ICategoryService {
 	public List<Category> getAllcategory();
 	public void deleteCategoryById(int categoryId);
 	public Category getCategoryById(int categoryId);
+	public void affecterCategoryAkinderGarten(int categoryId, int kinderId);
 }

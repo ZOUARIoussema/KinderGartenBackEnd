@@ -1,13 +1,16 @@
 package tn.esprit.spring.service.implementation;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import tn.esprit.spring.entity.SessionVote;
 import tn.esprit.spring.entity.User;
 import tn.esprit.spring.entity.Vote;
 import tn.esprit.spring.entity.VoteForm;
+import tn.esprit.spring.repository.ISessionVoteRepository;
 import tn.esprit.spring.repository.IUserRepository;
 import tn.esprit.spring.repository.IVoteRepository;
 import tn.esprit.spring.service.interfaceS.IVoteService;
@@ -29,11 +32,11 @@ public class VoteService implements IVoteService {
 				int id = iVoteRepository.save(vote).getId();
 				u.IncrementScoreDelegate();
 				iUserRepository.save(u);
+
 				return id;
 			}
 		}
 		return 0;
 
 	}
-
 }

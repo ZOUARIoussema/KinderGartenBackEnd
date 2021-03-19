@@ -336,7 +336,7 @@ public class AdminGartenController {
 	@PutMapping(value = "/updateEvent/{id}")
 	@ResponseBody
 	public void updateEvent(@PathVariable("id") int eventId, @RequestBody Event event) {
-		iEventService.updateEvent(event.getDescription(), event.getDate(), eventId);
+		iEventService.updateEvent(event.getDescription(), event.getDate(),event.getPrice(), eventId);
 
 	}
 
@@ -346,10 +346,10 @@ public class AdminGartenController {
 		iEventService.deleteEventaById(eventId);
 	}
 
-	@PutMapping(value = "/affecterEventAkinderGarten/{eventId}/{kinderId}")
-	public void affecterEventAkinderGarten(@PathVariable("eventId") int eventId,
-			@PathVariable("kinderId") int kinderId) {
-		iEventService.affecterEventAkinderGarten(eventId, kinderId);
+	@PutMapping(value = "/affecterEventACategory/{eventId}/{categoryId}")
+	public void affecterEventACategory(@PathVariable("eventId") int eventId,
+			@PathVariable("categoryId") int categoryId) {
+		iEventService.affecterEventACategory(eventId,categoryId);
 
 	}
 
@@ -388,6 +388,13 @@ public class AdminGartenController {
 		iCategoryService.deleteCategoryById(categoryId);
 	}
 
+	@PutMapping(value = "/affecterCategoryAkinderGarten/{categoryId}/{kinderId}")
+	public void affecterCategoryAkinderGarten(@PathVariable("categoryId")int categoryId,@PathVariable("kinderId") int kinderId) {
+		iCategoryService.affecterCategoryAkinderGarten(categoryId, kinderId);
+
+	}
+	
+	
 	// Club ...
 
 	@PostMapping("/addClub")
@@ -423,15 +430,9 @@ public class AdminGartenController {
 		iClubService.deleteClubById(clubId);
 	}
 
-	@PutMapping(value = "/affecterClubAkinderGarten/{clubId}/{kinderId}")
-	public void affecterClubAkinderGarten(@PathVariable("clubId") int clubId, @PathVariable("kinderId") int kinderId) {
-		iClubService.affecterClubAkinderGarten(clubId, kinderId);
-
-	}
-
-	@PutMapping(value = "/affecterCategoryAClub/{clubId}/{categoryId}")
-	public void affecterCategoryAClub(@PathVariable("clubId") int clubId, @PathVariable("categoryId") int categoryId) {
-		iClubService.affecterCategoryAClub(clubId, categoryId);
+	@PutMapping(value = "/affecterClubACategory/{clubId}/{kinderId}")
+	public void affecterClubACategory(@PathVariable("clubId") int clubId, @PathVariable("categoryId") int categoryId) {
+		iClubService.affecterClubACategory(clubId, categoryId);
 
 	}
 

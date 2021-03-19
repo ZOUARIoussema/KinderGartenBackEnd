@@ -6,13 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import tn.esprit.spring.entity.Category;
+import tn.esprit.spring.entity.Event;
+import tn.esprit.spring.entity.KinderGarten;
 import tn.esprit.spring.repository.ICategoryRepository;
+import tn.esprit.spring.repository.IKinderGartenRepository;
 import tn.esprit.spring.service.interfaceS.ICategoryService;
 @Service
 public class CategoryServiceImpl implements ICategoryService {
 	@Autowired
 	ICategoryRepository iCategoryRepository;
-	
+	@Autowired
+	IKinderGartenRepository kinderRepo;
 	
 	@Override
 	public int addCategory(Category category) {
@@ -42,6 +46,14 @@ public class CategoryServiceImpl implements ICategoryService {
 	@Override
 	public Category getCategoryById(int categoryId) {
 		return iCategoryRepository.findById(categoryId).get();
+	}
+	@Override
+	public void affecterCategoryAkinderGarten(int categoryId, int kinderId) {
+		KinderGarten kinderManagedEntity = kinderRepo.findById(kinderId).get();
+		Category categoryManagedEntity = iCategoryRepository.findById(categoryId).get();
+		
+		categoryManagedEntity.setKinderGarten(kinderManagedEntity);
+		iCategoryRepository.save(categoryManagedEntity);		
 	}
 
 }

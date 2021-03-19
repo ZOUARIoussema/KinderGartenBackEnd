@@ -12,6 +12,5 @@ public interface IClubService {
 	public List<Club> getAllclub();
 	public void deleteClubById(int clubId);
 	public Club getClubById(int clubId);
-	public void affecterClubAkinderGarten(int clubId, int kinderId);
-	public void affecterCategoryAClub(int clubId, int categoryId);
+	public void affecterClubACategory(int clubId, int categoryId);
 }

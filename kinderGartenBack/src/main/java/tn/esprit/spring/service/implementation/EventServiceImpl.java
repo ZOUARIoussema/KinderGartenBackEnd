@@ -7,8 +7,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import tn.esprit.spring.entity.Category;
 import tn.esprit.spring.entity.Event;
 import tn.esprit.spring.entity.KinderGarten;
+import tn.esprit.spring.repository.ICategoryRepository;
 import tn.esprit.spring.repository.IEventRepository;
 import tn.esprit.spring.repository.IKinderGartenRepository;
 import tn.esprit.spring.service.interfaceS.IEventService;
@@ -17,7 +19,7 @@ public class EventServiceImpl implements IEventService {
 	@Autowired
 	IEventRepository iEventRepository;
 	@Autowired
-	IKinderGartenRepository kinderRepo;
+	ICategoryRepository iCategoryRepository;
 	
 	@Override
 	public int addEvent(Event event) {
@@ -26,8 +28,8 @@ public class EventServiceImpl implements IEventService {
 	}
 
 	@Override
-	public void updateEvent(String description, Date date, int eventId) {
-		iEventRepository.updateEventJPQL(description, date, eventId);
+	public void updateEvent(String description, Date date,double price, int eventId) {
+		iEventRepository.updateEventJPQL(description, date,price, eventId);
 		
 	}
 
@@ -49,12 +51,12 @@ public class EventServiceImpl implements IEventService {
 	}
 
 	@Override
-	public void affecterEventAkinderGarten(int eventId, int kinderId) {
-		KinderGarten kinderManagedEntity = kinderRepo.findById(kinderId).get();
+	public void affecterEventACategory(int eventId, int categoryId) {
+		Category categoryManagedEntity = iCategoryRepository.findById(categoryId).get();
 		Event eventManagedEntity = iEventRepository.findById(eventId).get();
 		
-		/*eventManagedEntity.setKinderGarten(kinderManagedEntity);
-		iEventRepository.save(eventManagedEntity);*/		
+		eventManagedEntity.setCategory(categoryManagedEntity);
+		iEventRepository.save(eventManagedEntity);	
 	}
 
 	@Override
