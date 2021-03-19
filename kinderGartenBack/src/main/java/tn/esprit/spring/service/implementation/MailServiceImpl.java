@@ -48,7 +48,7 @@ public class MailServiceImpl implements IMailService {
 	@Override
 	public String sendMailWithFreeMarker(EmailRequestDTO request, Map<String, String> model, String t) {
 
-		System.out.println("---");		
+		
 		
 		String response;
 		MimeMessage message = emailSender.createMimeMessage();
@@ -58,7 +58,7 @@ public class MailServiceImpl implements IMailService {
 
 			Template template = configuration.getTemplate(t);
 			
-			System.out.println("***");			
+					
 			String html = FreeMarkerTemplateUtils.processTemplateIntoString(template, model);
 
 			helper.setTo(request.getTo());

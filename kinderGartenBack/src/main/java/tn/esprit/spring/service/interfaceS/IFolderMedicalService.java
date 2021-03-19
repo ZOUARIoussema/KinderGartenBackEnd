@@ -10,6 +10,8 @@ public interface IFolderMedicalService {
 	public void delete(int id);
 	public void update(FolderMedical f);
 	public FolderMedical getFolderByChild(int id);
+	public void alertVaccineChildToDo();
+	public FolderMedical getFolderById(int id);
 	
 
 }

@@ -14,6 +14,7 @@ import com.stripe.Stripe;
 import com.stripe.model.Charge;
 import com.stripe.model.Customer;
 
+import tn.esprit.spring.config.mail.EmailRequestDTO;
 import tn.esprit.spring.controller.UserResourceImpl;
 import tn.esprit.spring.entity.PayementSubscription;
 import tn.esprit.spring.entity.SubscriptionChild;
@@ -22,6 +23,7 @@ import tn.esprit.spring.entity.enumeration.TypePayement;
 import tn.esprit.spring.repository.IPayementSubscriptionRepository;
 import tn.esprit.spring.repository.ISubscriptionChildRepository;
 import tn.esprit.spring.repository.IUserRepository;
+import tn.esprit.spring.service.interfaceS.IMailService;
 import tn.esprit.spring.service.interfaceS.IPayementSubscriptionService;
 
 @Service
@@ -37,6 +39,9 @@ public class PayementSubscriptionServiceImpl implements IPayementSubscriptionSer
 
 	@Autowired
 	private ISubscriptionChildRepository subR;
+	
+	@Autowired
+	private IMailService mailS;
 
 	@Override
 	public void add(PayementSubscription p) {
@@ -143,6 +148,35 @@ public class PayementSubscriptionServiceImpl implements IPayementSubscriptionSer
 	@Override
 	public List<PayementSubscription> findByDate(Date d) {
 		return payementSR.findByDateC(d);
+	}
+
+	@Override
+	public void alertPayement() {
+		
+		for(SubscriptionChild s :subR.findAll()) {
+			
+			if(s.getRestPay()!=0) {
+				
+				Map<String, String> model = new HashMap<>();
+				model.put("name",s.getChild().getName());
+				model.put("lien", "http://localhost:8081/accounting/detailSubscription/" + s.getId());
+
+				EmailRequestDTO email = new EmailRequestDTO();
+
+				// email.setTo("oussema.zouari@esprit.tn");
+				email.setTo(s.getChild().getParent().getEmail());
+				email.setSubject("Payement Subscription");
+
+				mailS.sendMailWithFreeMarker(email, model, "alertPayementSubscription.ftl");
+				
+				
+				
+			}
+			
+		}
+		
+		
+		
 	}
 
 }

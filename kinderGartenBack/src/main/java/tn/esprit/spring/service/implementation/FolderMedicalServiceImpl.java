@@ -8,11 +8,14 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import tn.esprit.spring.config.mail.EmailRequestDTO;
 import tn.esprit.spring.entity.Child;
 import tn.esprit.spring.entity.ChildVaccine;
 import tn.esprit.spring.entity.FolderMedical;
@@ -20,6 +23,7 @@ import tn.esprit.spring.repository.IChildRepository;
 import tn.esprit.spring.repository.IChildVaccineRep;
 import tn.esprit.spring.repository.IFolderMedicalRepository;
 import tn.esprit.spring.service.interfaceS.IFolderMedicalService;
+import tn.esprit.spring.service.interfaceS.IMailService;
 
 @Service
 public class FolderMedicalServiceImpl implements IFolderMedicalService {
@@ -30,6 +34,9 @@ public class FolderMedicalServiceImpl implements IFolderMedicalService {
 	IChildRepository childR;
 	@Autowired
 	IChildVaccineRep childVR;
+
+	@Autowired
+	IMailService mailS;
 
 	@Override
 	public void add(FolderMedical f) {
@@ -87,7 +94,7 @@ public class FolderMedicalServiceImpl implements IFolderMedicalService {
 	@Override
 	public FolderMedical getFolderByChild(int id) {
 
-		FolderMedical folderMedical = null;
+		FolderMedical folderMedical = new FolderMedical();
 
 		List<ChildVaccine> listVaccineToDo = new ArrayList<ChildVaccine>();
 
@@ -105,9 +112,9 @@ public class FolderMedicalServiceImpl implements IFolderMedicalService {
 
 			nbM = (int) durationMonths(LocalDate.parse(dOfBirth), LocalDate.parse(dSystem));
 
-			System.out.println("resulta:" + nbM);
-
 			folderMedical = c.getFolderMedical();
+
+			folderMedical.getChild().setAge(nbM);
 
 			listVaccineToDo = this.listChildVaccineToDo(folderMedical, nbM);
 
@@ -122,6 +129,42 @@ public class FolderMedicalServiceImpl implements IFolderMedicalService {
 
 		return folderMedical;
 
+	}
+
+	@Override
+	public void alertVaccineChildToDo() {
+
+		DateFormat dateFormatter = new SimpleDateFormat("dd");
+
+		if (dateFormatter.format(new Date()).equals("19")) {
+
+			for (Child child : childR.findAll()) {
+
+				if (this.getFolderByChild(child.getId()).getListVaccinesToDo().size() != 0) {
+
+					
+
+					Map<String, String> model = new HashMap<>();
+					model.put("name", child.getName());
+					model.put("lien", "http://localhost:8081/medical/alertVaccineChild/" + child.getId());
+
+					EmailRequestDTO email = new EmailRequestDTO();
+
+					// email.setTo("oussema.zouari@esprit.tn");
+					email.setTo(child.getParent().getEmail());
+					email.setSubject("Vaccine child");
+
+					mailS.sendMailWithFreeMarker(email, model, "alertVaccineChild.ftl");
+
+				}
+
+			}
+		}
+	}
+
+	@Override
+	public FolderMedical getFolderById(int id) {
+		return folderR.findById(id).orElse(null);
 	}
 
 }
