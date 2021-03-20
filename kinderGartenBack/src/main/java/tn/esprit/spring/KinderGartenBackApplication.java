@@ -30,9 +30,9 @@ public class KinderGartenBackApplication implements CommandLineRunner {
 		// initialize
 		users.initialize();
 		//alert vaccine child to do
-		//folderMedicalService.alertVaccineChildToDo();
+		// folderMedicalService.alertVaccineChildToDo();
 		//alert payement subscription
-		//paSubscriptionService.alertPayement();
+		// paSubscriptionService.alertPayement();
 
 	}
 
