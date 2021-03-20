@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import tn.esprit.spring.entity.Child;
 import tn.esprit.spring.entity.Comment;
+import tn.esprit.spring.entity.Dictionary;
 import tn.esprit.spring.entity.JustificationAbsence;
 import tn.esprit.spring.entity.Notice;
 import tn.esprit.spring.entity.Publication;
@@ -27,6 +28,7 @@ import tn.esprit.spring.entity.SubscriptionChild;
 import tn.esprit.spring.entity.User;
 import tn.esprit.spring.service.interfaceS.IChildService;
 import tn.esprit.spring.service.interfaceS.ICommentService;
+import tn.esprit.spring.service.interfaceS.IDictionaryService;
 import tn.esprit.spring.service.interfaceS.IJustificationAbsenceService;
 import tn.esprit.spring.service.interfaceS.INoticeService;
 import tn.esprit.spring.service.interfaceS.IPublicationService;
@@ -56,6 +58,8 @@ public class ParentController {
 	IUploadFileService uploadFileService;
 	@Autowired
 	IReactionService reactionService;
+	@Autowired
+	IDictionaryService dictionaryService;
 
 	/* Publication */
 
@@ -206,6 +210,30 @@ public class ParentController {
 	@ResponseBody
 	public List<Reaction> getReaction(){
 		return reactionService.retrieveAllLike();
+	}
+	
+	/***
+	 * 
+	 * 
+	 * Crud Dictionray bad words 
+	 */
+	@PostMapping("/addword")
+	@ResponseBody
+	public void addWord(@RequestBody Dictionary dictionary) {
+		dictionaryService.addWord(dictionary);
+		
+		
+	}
+	
+	@GetMapping(value = "/getAllWords")
+	public List<Dictionary> getAll(){
+		return dictionaryService.getAll();
+	}
+	
+	
+	@GetMapping(value ="/getWordsInDisc")
+	public List<?> getWords(){
+		return dictionaryService.listWordsDic();
 	}
 	
 
