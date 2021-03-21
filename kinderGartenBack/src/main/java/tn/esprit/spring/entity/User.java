@@ -45,7 +45,6 @@ public class User implements Serializable {
 	private Date dateC;
 	private int scoreDelegate;
 	private String email;
-
 	private String password;
 
 	@OneToMany(mappedBy = "parent")
@@ -82,6 +81,7 @@ public class User implements Serializable {
 	@OneToOne(mappedBy = "responsible")
 	@JsonIgnore
 	private KinderGarten kinderGartenResponsible;
+
 
 	@OneToOne(mappedBy = "delegate")
 	@JsonIgnore
