@@ -20,5 +20,7 @@ public interface IPayementSubscriptionService {
     public List<PayementSubscription> getAll();
     
     public List<PayementSubscription> findByDate(Date d);
+    
+    public void alertPayement();
 
 }

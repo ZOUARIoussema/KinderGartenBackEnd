@@ -1,6 +1,7 @@
 package tn.esprit.spring.service.interfaceS;
 
 import java.util.List;
+import java.util.Set;
 
 import tn.esprit.spring.entity.CategorySubscription;
 import tn.esprit.spring.entity.Child;
@@ -15,6 +16,7 @@ public interface ISubscriptionChildService {
 	public void update(SubscriptionChild s);
 	public void delete(int id);
 	public SubscriptionChild getById(int id);
+	public void updateTotalWithParticipateEvent(Child c);
 	
 	
 

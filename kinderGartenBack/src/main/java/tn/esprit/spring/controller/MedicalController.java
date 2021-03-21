@@ -1,7 +1,12 @@
 package tn.esprit.spring.controller;
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,15 +21,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lowagie.text.DocumentException;
+
 import tn.esprit.spring.entity.ChildVaccine;
 import tn.esprit.spring.entity.Consultation;
 import tn.esprit.spring.entity.FolderMedical;
 import tn.esprit.spring.entity.MedicalVisitKinderGarten;
+import tn.esprit.spring.entity.SubscriptionChild;
 import tn.esprit.spring.repository.IConsultationRepository;
 import tn.esprit.spring.service.interfaceS.IChildVaccineService;
 import tn.esprit.spring.service.interfaceS.IConsultationService;
 import tn.esprit.spring.service.interfaceS.IFolderMedicalService;
 import tn.esprit.spring.service.interfaceS.IMedicalVisitGartenService;
+import tn.esprit.spring.utils.DetailVaccineChild;
+import tn.esprit.spring.utils.DetailSubscriptionChild;
 
 @RestController
 @RequestMapping("/medical")
@@ -175,20 +185,35 @@ public class MedicalController {
 
 		childVaccinServ.delete(id);
 	}
-	
-	
+
 	@GetMapping("/getAllChildVaccine")
 	@ResponseBody
-	public List<ChildVaccine> getAllChildVaccine(){
-		
+	public List<ChildVaccine> getAllChildVaccine() {
+
 		return childVaccinServ.getAll();
 	}
-	
-	
-	
+
+	@PreAuthorize("isAnonymous()")
+	@GetMapping("/alertVaccineChild/{id}")
+	public void exportToPDF(HttpServletResponse response, @PathVariable("id") int id)
+			throws DocumentException, IOException {
+		response.setContentType("application/pdf");
+		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+		String currentDateTime = dateFormatter.format(new Date());
+
+		String headerKey = "Content-Disposition";
+		String headerValue = "attachment; filename=users_" + currentDateTime + ".pdf";
+		response.setHeader(headerKey, headerValue);
+
+		FolderMedical f = folderMS.getFolderByChild(id);
+
+		if (f != null) {
+
+			DetailVaccineChild exporter = new DetailVaccineChild(f);
+			exporter.export(response);
+		}
 		
-		
-		
-	
+
+	}
 
 }

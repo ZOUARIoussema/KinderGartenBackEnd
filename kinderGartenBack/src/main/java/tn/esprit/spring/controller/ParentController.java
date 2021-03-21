@@ -1,6 +1,8 @@
 package tn.esprit.spring.controller;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,9 +18,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-
 import tn.esprit.spring.entity.Child;
 import tn.esprit.spring.entity.Comment;
+import tn.esprit.spring.entity.Dictionary;
+import tn.esprit.spring.entity.Extra;
 import tn.esprit.spring.entity.JustificationAbsence;
 import tn.esprit.spring.entity.Notice;
 import tn.esprit.spring.entity.Publication;
@@ -27,6 +30,7 @@ import tn.esprit.spring.entity.SubscriptionChild;
 import tn.esprit.spring.entity.User;
 import tn.esprit.spring.service.interfaceS.IChildService;
 import tn.esprit.spring.service.interfaceS.ICommentService;
+import tn.esprit.spring.service.interfaceS.IDictionaryService;
 import tn.esprit.spring.service.interfaceS.IJustificationAbsenceService;
 import tn.esprit.spring.service.interfaceS.INoticeService;
 import tn.esprit.spring.service.interfaceS.IPublicationService;
@@ -56,6 +60,8 @@ public class ParentController {
 	IUploadFileService uploadFileService;
 	@Autowired
 	IReactionService reactionService;
+	@Autowired
+	IDictionaryService dictionaryService;
 
 	/* Publication */
 
@@ -63,7 +69,7 @@ public class ParentController {
 	@ResponseBody
 	public void addPublication(@RequestBody Publication publication) {
 		publicationService.addPublication(publication);
-		
+
 	}
 
 	@DeleteMapping("/deletePublicationById/{idPub}")
@@ -73,7 +79,7 @@ public class ParentController {
 	}
 
 	@PutMapping(value = "/updateDescription")
-	
+
 	public void updateDescriptionByPublicationId(@RequestBody Publication p) {
 		publicationService.update(p);
 	}
@@ -84,9 +90,10 @@ public class ParentController {
 
 		return publicationService.getAllPublication();
 	}
+
 	@PostMapping("/assignAttachementToPost/{id}")
-	public void assignAttachementToPost(@PathVariable("id") int id , @RequestParam("file") MultipartFile file){
-		if (uploadFileService.addFile(file)){
+	public void assignAttachementToPost(@PathVariable("id") int id, @RequestParam("file") MultipartFile file) {
+		if (uploadFileService.addFile(file)) {
 			publicationService.assignAttachementToPost(id, file);
 		}
 	}
@@ -117,7 +124,7 @@ public class ParentController {
 	@ResponseBody
 	public void addJustificationAbsence(@RequestBody JustificationAbsence justificationAbsence) {
 		justificationService.addJustification(justificationAbsence);
-		
+
 	}
 
 	/* Child */
@@ -127,12 +134,13 @@ public class ParentController {
 		childService.addChild(child);
 		return child;
 	}
+
 	@PostMapping("/addPictureToChild/{id}")
-	public void addPictureToChild(@PathVariable("id") int id , @RequestParam("file") MultipartFile file){
-		if(uploadFileService.addFile(file)){
+	public void addPictureToChild(@PathVariable("id") int id, @RequestParam("file") MultipartFile file) {
+		if (uploadFileService.addFile(file)) {
 			childService.assignPictureToChild(id, file);
 		}
-		
+
 	}
 
 	@GetMapping(value = "/getAllChild")
@@ -172,6 +180,25 @@ public class ParentController {
 	@ResponseBody
 	public void add(@RequestBody SubscriptionChild s) {
 
+		/**
+		 * 
+		 * total extra
+		 */
+
+		double totalExtrat = 0;
+
+		if (s.getLisExtras().size() != 0) {
+
+			for (Extra e : s.getLisExtras()) {
+				totalExtrat = totalExtrat + e.getPrice();
+			}
+		}
+
+		s.setTotal(s.getCategorySubscription().getPrice() + totalExtrat);
+		s.setRestPay(s.getCategorySubscription().getPrice() + totalExtrat);
+		s.setTotalPay(0);
+		s.setDateC(new Date());
+
 		subscriptionChildService.addSubscriptionChild(s);
 
 	}
@@ -195,18 +222,58 @@ public class ParentController {
 		subscriptionChildService.update(s);
 
 	}
-	
+
 	@PostMapping("/addReact")
 	@ResponseBody
-	public void addReact(@RequestBody Reaction react){
+	public void addReact(@RequestBody Reaction react) {
 		reactionService.addReaction(react);
 	}
-	
-	@GetMapping(value="/getAllReact")
+
+	@GetMapping(value = "/getAllReact")
 	@ResponseBody
-	public List<Reaction> getReaction(){
+	public List<Reaction> getReaction() {
 		return reactionService.retrieveAllLike();
 	}
-	
+
+	/***
+	 * 
+	 * 
+	 * Crud Dictionray bad words
+	 */
+	@PostMapping("/addword")
+	@ResponseBody
+	public void addWord(@RequestBody Dictionary dictionary) {
+		dictionaryService.addWord(dictionary);
+
+	}
+
+	@GetMapping(value = "/getAllWords")
+	public List<Dictionary> getAll() {
+		return dictionaryService.getAll();
+	}
+
+	@GetMapping(value = "/getWordsInDisc")
+	public List<?> getWords() {
+		return dictionaryService.listWordsDic();
+	}
+
+	/*
+	 * add event to child
+	 *
+	 */
+
+	@PutMapping("/addEventChild")
+	@ResponseBody
+	public void addEvent(@RequestBody Child c) {
+
+		childService.updateChild(c);
+
+		/**
+		 * add total to current subscription child
+		 */
+
+		subscriptionChildService.updateTotalWithParticipateEvent(c);
+
+	}
 
 }

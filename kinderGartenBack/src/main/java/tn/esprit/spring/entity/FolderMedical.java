@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -44,10 +45,10 @@ public class FolderMedical implements Serializable {
 	@JsonIgnore
 	private List<Consultation> lisConsultations = new ArrayList<Consultation>();
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	private List<ChildVaccine> lisChildVaccines = new ArrayList<ChildVaccine>();
 
-	@Transient
+	@Transient()
 	private List<ChildVaccine> listVaccinesToDo = new ArrayList<ChildVaccine>();
 
 	public Integer getId() {

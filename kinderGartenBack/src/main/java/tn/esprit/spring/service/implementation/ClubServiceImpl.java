@@ -53,23 +53,12 @@ public class ClubServiceImpl implements IClubService {
 	}
 
 	@Override
-	public void affecterClubAkinderGarten(int clubId, int kinderId) {
-		KinderGarten kinderManagedEntity = kinderRepo.findById(kinderId).get();
-		Club clubManagedEntity = iClubRepository.findById(clubId).get();
-		
-//		clubManagedEntity.setKinderGarten(kinderManagedEntity);
-//		iClubRepository.save(clubManagedEntity);
-		
-	}
-
-	@Override
-	public void affecterCategoryAClub(int clubId, int categoryId) {
+	public void affecterClubACategory(int clubId, int categoryId) {
 		Category categoryManagedEntity = iCategoryRepository.findById(categoryId).get();
 		Club clubManagedEntity = iClubRepository.findById(clubId).get();
-
-		clubManagedEntity.setCategory(categoryManagedEntity);;
-		iClubRepository.save(clubManagedEntity);
 		
+		clubManagedEntity.setCategory(categoryManagedEntity);
+		iClubRepository.save(clubManagedEntity);
 		
 	}
 
