@@ -32,7 +32,7 @@ public class KinderGartenBackApplication implements CommandLineRunner {
 		//alert vaccine child to do
 		// folderMedicalService.alertVaccineChildToDo();
 		//alert payement subscription
-		 paSubscriptionService.alertPayement();
+		// paSubscriptionService.alertPayement();
 
 	}
 
