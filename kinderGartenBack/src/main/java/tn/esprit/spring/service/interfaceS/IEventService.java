@@ -15,4 +15,5 @@ public interface IEventService {
 	public void affecterEventACategory(int eventId, int categoryId) ;
 	public List<Event> findAllEventByKinderGarten(int kinderId) ;
 	public List<Event> getAllEventForToday();
+	public void Participate(int id_event, int userId, int kindergartenId);
 }
