@@ -39,6 +39,9 @@ public class KinderGarten implements Serializable {
 	private int scoreEval;
 
 	private String logo;
+	
+	private double latitude;
+	private double longitude;
 	@OneToMany(mappedBy = "kinderGartenInscription")
 	@JsonIgnore
 	private List<User> listParent = new ArrayList<User>();
@@ -187,6 +190,18 @@ public class KinderGarten implements Serializable {
 
 	public void setLogo(String logo) {
 		this.logo = logo;
+	}
+	public double getLatitude() {
+		return latitude;
+	}
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
+	public double getLongitude() {
+		return longitude;
+	}
+	public void setalt(double longitude) {
+		this.longitude = longitude;
 	}
 
 }

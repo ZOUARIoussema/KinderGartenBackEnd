@@ -22,10 +22,14 @@ public interface IKinderGartenRepository extends CrudRepository<KinderGarten, In
 			@Param("email") String email, @Param("tel") int tel, @Param("logo") String logo,
 			@Param("kinderId") int kinderId);
 
-	@Query("Select k from KinderGarten k " + "where k.adress=:adress  ")
+/*	@Query("Select k from KinderGarten k " + "where k.adress=:adress  ")
 	public List<KinderGarten> getKinderGartenByAdress(@Param("adress") String adress);
+*/
+	public List<KinderGarten> findByAdress(@Param("adress") String adress);
+	public List<KinderGarten> findAll();
 
-
+	/*@Query("Select k from KinderGarten k " + "where k.name=:name  ")
+	public List<KinderGarten> getKinderGartenByName(@Param("name") String name);*/
 
 	
 }

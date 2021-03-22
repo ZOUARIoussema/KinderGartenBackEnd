@@ -57,7 +57,14 @@ public class SwitchAccountServiceImpl implements ISwitchAccountService {
 	@Override
 	public List<KinderGarten> getKinderGartenByAdress(String adress) {
 
-		return iKinderGartenRepository.getKinderGartenByAdress(adress);
+		return iKinderGartenRepository.findByAdress(adress);
+	}
+
+
+	@Override
+	public List<KinderGarten> getAllKinderGarden() {
+		// TODO Auto-generated method stub
+		return iKinderGartenRepository.findAll();
 	}
 
 

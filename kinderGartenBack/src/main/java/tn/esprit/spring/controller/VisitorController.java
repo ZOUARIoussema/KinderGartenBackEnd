@@ -31,5 +31,8 @@ public class VisitorController {
 	public List<KinderGarten> getKinderGartenByAdress(@PathVariable("adress")String adress) {
 		return iswitchaccount.getKinderGartenByAdress(adress);
 	}
-
+	@GetMapping(value="/getAllKinderGarten/")
+	public List<KinderGarten> getAllKinderGarten() {
+		return iswitchaccount.getAllKinderGarden();
+	}
 }

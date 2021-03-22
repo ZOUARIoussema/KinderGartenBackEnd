@@ -14,4 +14,7 @@ public interface ISwitchAccountService {
 	public int addSwitchAccount(SwitchAccount switchaccount);
 	
 	public List<KinderGarten> getKinderGartenByAdress(String adress);
+
+	public List<KinderGarten> getAllKinderGarden();
+
 }
