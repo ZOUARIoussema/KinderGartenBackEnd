@@ -8,6 +8,8 @@ import tn.esprit.spring.entity.User;
 
 public interface IClaimService {
 	
+	public int addClaim (Claim c);
+	
 	public void deleteClaim(int id);
 	
 	public List<Claim> getAllClaims();

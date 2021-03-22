@@ -2,6 +2,7 @@ package tn.esprit.spring.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.websocket.server.PathParam;
 
 import org.slf4j.Logger;
@@ -78,14 +79,31 @@ public class UserController {
 	}
 	
 	
-	@PostMapping("/ChangeStateUser")
+	@PutMapping("/ChangeStateUser/{id}")
     @ResponseBody
 			
-	public void ChangeStateUser(@RequestBody User u)
+	public String ChangeStateUser(@PathVariable("id") int id)
 	{
-		log.info("User state changed  sucessfully !!!");
-		userS.ChangeStateUser(u);
+		
+		userS.ChangeStateUser(id);
+		
+		return "User state changed  sucessfully !!!";
+		
+		
 	}
+	
+	@PutMapping("/blockAccount/{id}")
+    @ResponseBody
+			
+	public String blockAccount(@PathVariable("id") int id)
+	{
+		
+		userS.blockAccount(id);
+		
+		return "account locked !!";
+	}
+	
+
 	
 	@PostMapping("/CreateRequestForSwitchingAccount")
 	@ResponseBody
@@ -105,12 +123,6 @@ public class UserController {
 		 switchSer.RequestForSwitchingAccount(sw);
 	}
 	
-	@PostMapping("/confirmInscription")
-	@ResponseBody
-	
-	public void confirmInscription(@RequestBody User u)
-	{
-		userS.confirmerInscriptionParMail(u);
-	}
+
 	
 }

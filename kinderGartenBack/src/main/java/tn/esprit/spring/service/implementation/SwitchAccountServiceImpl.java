@@ -27,7 +27,7 @@ public class SwitchAccountServiceImpl implements ISwitchAccountService {
 	@Override
 	public void RequestForSwitchingAccount(SwitchAccount sw) 
 	{
-		if (sw.getRoleswitch().equals(RoleSwitch.futureParent) || sw.getState().equals(StateUser.watting))
+		if (sw.getRoleswitch().equals(RoleSwitch.futureParent) || sw.getState().equals(StateUser.waiting))
 			
 		{
 			sw.getVisitor().setRole(Role.ROLE_futurParent);

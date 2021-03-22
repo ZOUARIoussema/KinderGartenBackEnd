@@ -96,4 +96,11 @@ public class ClaimServiceImpl implements IClaimService {
 		Claim c = claimsRepo.findById(id).get();
 		claimsRepo.delete(c);
 	}
+
+	@Override
+	public int addClaim(Claim c) {
+		return claimsRepo.save(c).getId();
+		
+		
+	}
 }
