@@ -80,7 +80,8 @@ public class UserResourceImpl {
 	public void addUser(@RequestBody User user) {
 
 		user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-
+		
+		
 		userS.add(user);
 	}
 

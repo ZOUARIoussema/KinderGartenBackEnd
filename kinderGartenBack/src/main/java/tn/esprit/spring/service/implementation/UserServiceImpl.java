@@ -2,11 +2,14 @@ package tn.esprit.spring.service.implementation;
 
 import java.util.Date;
 import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-
+import tn.esprit.spring.controller.UserResourceImpl;
 import tn.esprit.spring.entity.KinderGarten;
 import tn.esprit.spring.entity.User;
 import tn.esprit.spring.entity.enumeration.Role;
@@ -17,6 +20,9 @@ import tn.esprit.spring.service.interfaceS.IUserService;
 
 @Service
 public class UserServiceImpl implements IUserService {
+	
+	
+	private static Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
 
 	@Autowired
 	MailServiceImpl servicemail;
@@ -33,6 +39,7 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public void add(User u) {
 		u.setDateC(new Date());
+		u.setStateUser(StateUser.waiting);
 		userR.save(u);
 
 	}
@@ -124,18 +131,37 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public void ChangeStateUser(User u) {
+	public void ChangeStateUser(int id) {
+		
+		User u = userR.findById(id).get();
 
-		if (u.getStateUser().equals(StateUser.watting))
+		if (u.getStateUser().equals(StateUser.waiting))
 
 		{
 			u.setStateUser(StateUser.active);
+			
+			confirmerInscriptionParMail(u);
+			userR.save(u);
 		}
 
-		if (u.getStateUser().equals(StateUser.active)) {
+		
+
+	}
+	
+	
+	@Override
+	public void blockAccount(int id)
+	{
+		User u = userR.findById(id).get();
+		
+		if (u.getStateUser().equals(StateUser.active))
+		{
 			u.setStateUser(StateUser.blocked);
+			log.info("account locked");
+			sendingMailForBlockAccount(u);
+			userR.save(u);
 		}
-
+		
 	}
 
 	@Override
@@ -156,7 +182,8 @@ public class UserServiceImpl implements IUserService {
 		String pwd = new BCryptPasswordEncoder().encode(u.getPassword());
 
 		u.setPassword(pwd);
-
+		u.setDateC(new Date());
+		u.setStateUser(StateUser.waiting);
 		userR.save(u);
 
 	}
@@ -181,6 +208,16 @@ public class UserServiceImpl implements IUserService {
 	
 		servicemail.sendSimpleMail(u.getEmail(), "Inscription confirmation",
 				" Your account is active ! you can log on !");
+
+	}
+	
+	
+
+	public void sendingMailForBlockAccount(User u) 
+	{
+	
+		servicemail.sendSimpleMail(u.getEmail(), "Account Locked !",
+				" Your account is locked !");
 
 	}
 

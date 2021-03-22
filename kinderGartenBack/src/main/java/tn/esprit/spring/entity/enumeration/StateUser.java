@@ -2,6 +2,6 @@ package tn.esprit.spring.entity.enumeration;
 
 public enum StateUser {
 	
-	active,blocked,watting
+	active,blocked,waiting
 
 }
