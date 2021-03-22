@@ -20,7 +20,9 @@ public interface IUserService {
 
 	public User findByEmail(String email);
 
-	public void ChangeStateUser(User u);
+	public void ChangeStateUser(int id);
+	
+	public void blockAccount(int id);
 	
 	public void confirmerInscriptionParMail (User u);
 	

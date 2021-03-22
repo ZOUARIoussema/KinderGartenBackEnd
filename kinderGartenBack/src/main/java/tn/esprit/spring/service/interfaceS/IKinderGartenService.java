@@ -13,7 +13,6 @@ public interface IKinderGartenService {
 	public List<KinderGarten> getAllkinder();
 	public void deleteKindergartenById(int kenderId);
 	public KinderGarten getKindergartenById(int kinderId);
-	public void affecterKinderAResponsible(int kinderId, int ReponsibleId);
 	public User delegatorsElection(int kindergartenId);
 	public List<User> listDelegators(int kindergartenId);
 

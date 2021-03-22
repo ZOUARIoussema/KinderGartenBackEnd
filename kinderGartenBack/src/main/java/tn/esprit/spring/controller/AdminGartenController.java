@@ -104,12 +104,6 @@ public class AdminGartenController {
 		;
 	}
 
-	@PutMapping(value = "/affecterKinderAResponsible/{kinderId}/{ReponsibleId}")
-	public void affecterKinderAResponsible(@PathVariable("kinderId") int kinderId,
-			@PathVariable("ReponsibleId") int ReponsibleId) {
-		iKinderGartenService.affecterKinderAResponsible(kinderId, ReponsibleId);
-	}
-
 	// Extra ...
 
 	@PostMapping("/addExtra")
@@ -301,6 +295,17 @@ public class AdminGartenController {
 	}
 
 	// Event...
+	
+	@PutMapping(value = "/Participate/{id_event}/{userId}/{kindergartenId}")
+	@ResponseBody
+	public void Participate(@PathVariable("id_event") int id_event,
+			@PathVariable("userId") int userId,@PathVariable("kindergartenId") int kindergartenId) {
+		iEventService.Participate(id_event, userId, kindergartenId);
+
+	}
+
+	
+	
 	@GetMapping(value = "/findAllEventByKinderGarten/{kinderId}")
 	@ResponseBody
 	public List<Event> findAllEventByKinderGarten(@PathVariable("kinderId") int kinderId) {

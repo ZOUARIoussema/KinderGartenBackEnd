@@ -53,20 +53,6 @@ public  class KinderGartenServiceImpl implements IKinderGartenService {
 			return iKinderGartenRepository.findById(kinderId).get();
 	}
 
-	@Override
-	public void affecterKinderAResponsible(int kinderId, int ReponsibleId) {
-		KinderGarten kinderManagedEntity = kinderRepo.findById(kinderId).get();
-		User userManagedEntity = iUserRepository.findById(ReponsibleId).get();
-		
-
-	
-
-		kinderManagedEntity.setResponsible(userManagedEntity);
-		kinderRepo.save(kinderManagedEntity);
-
-
-	}
-
 		
 	@Override
 	public List<KinderGarten> getAllkinder() {

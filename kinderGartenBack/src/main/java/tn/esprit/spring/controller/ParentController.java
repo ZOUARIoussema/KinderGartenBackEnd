@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import tn.esprit.spring.entity.Child;
+import tn.esprit.spring.entity.Claim;
 import tn.esprit.spring.entity.Comment;
 import tn.esprit.spring.entity.Dictionary;
 import tn.esprit.spring.entity.Extra;
@@ -29,6 +30,7 @@ import tn.esprit.spring.entity.Reaction;
 import tn.esprit.spring.entity.SubscriptionChild;
 import tn.esprit.spring.entity.User;
 import tn.esprit.spring.service.interfaceS.IChildService;
+import tn.esprit.spring.service.interfaceS.IClaimService;
 import tn.esprit.spring.service.interfaceS.ICommentService;
 import tn.esprit.spring.service.interfaceS.IDictionaryService;
 import tn.esprit.spring.service.interfaceS.IJustificationAbsenceService;
@@ -62,6 +64,8 @@ public class ParentController {
 	IReactionService reactionService;
 	@Autowired
 	IDictionaryService dictionaryService;
+	@Autowired 
+	IClaimService claimService;
 
 	/* Publication */
 
@@ -275,5 +279,14 @@ public class ParentController {
 		subscriptionChildService.updateTotalWithParticipateEvent(c);
 
 	}
+	
+	
+	@PostMapping("/addClaim")
+	@ResponseBody
+	public String addClaim(@RequestBody Claim c)
+	{
+		return "claim added successfully with id : " + claimService.addClaim(c);
+	}
+	
 
 }

@@ -24,8 +24,7 @@ public class EstimateServiceImpl implements IEstimateService{
 
 	@Override
 	public void updateEstimate(String item, int qte, double total, Date dateC, int estimateId) {
-		// TODO Auto-generated method stub
-		
+	
 	}
 
 	@Override

@@ -96,5 +96,7 @@ public class Event implements Serializable {
 	public void setLisChilds(List<Child> lisChilds) {
 		this.lisChilds = lisChilds;
 	}
-
+	public void IncrementParticipate() {
+		this.nParticipate++;
+	}
 }

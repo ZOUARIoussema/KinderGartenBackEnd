@@ -1,6 +1,5 @@
 package tn.esprit.spring.service.implementation;
 
-
 import java.util.Date;
 import java.util.List;
 
@@ -10,17 +9,20 @@ import org.springframework.stereotype.Service;
 import tn.esprit.spring.entity.Category;
 import tn.esprit.spring.entity.Event;
 import tn.esprit.spring.entity.KinderGarten;
+import tn.esprit.spring.entity.User;
 import tn.esprit.spring.repository.ICategoryRepository;
 import tn.esprit.spring.repository.IEventRepository;
 import tn.esprit.spring.repository.IKinderGartenRepository;
+import tn.esprit.spring.repository.IUserRepository;
 import tn.esprit.spring.service.interfaceS.IEventService;
+
 @Service
 public class EventServiceImpl implements IEventService {
 	@Autowired
 	IEventRepository iEventRepository;
 	@Autowired
 	ICategoryRepository iCategoryRepository;
-	
+
 	@Override
 	public int addEvent(Event event) {
 		iEventRepository.save(event);
@@ -28,9 +30,9 @@ public class EventServiceImpl implements IEventService {
 	}
 
 	@Override
-	public void updateEvent(String description, Date date,double price, int eventId) {
-		iEventRepository.updateEventJPQL(description, date,price, eventId);
-		
+	public void updateEvent(String description, Date date, double price, int eventId) {
+		iEventRepository.updateEventJPQL(description, date, price, eventId);
+
 	}
 
 	@Override
@@ -41,7 +43,7 @@ public class EventServiceImpl implements IEventService {
 	@Override
 	public void deleteEventaById(int eventId) {
 		Event event = iEventRepository.findById(eventId).get();
-		iEventRepository.delete(event);		
+		iEventRepository.delete(event);
 	}
 
 	@Override
@@ -54,9 +56,9 @@ public class EventServiceImpl implements IEventService {
 	public void affecterEventACategory(int eventId, int categoryId) {
 		Category categoryManagedEntity = iCategoryRepository.findById(categoryId).get();
 		Event eventManagedEntity = iEventRepository.findById(eventId).get();
-		
+
 		eventManagedEntity.setCategory(categoryManagedEntity);
-		iEventRepository.save(eventManagedEntity);	
+		iEventRepository.save(eventManagedEntity);
 	}
 
 	@Override
@@ -69,4 +71,23 @@ public class EventServiceImpl implements IEventService {
 		return iEventRepository.getAllEventPourToday();
 	}
 
-}
+	@Autowired
+	IUserRepository iUserRepository;
+
+	@Override
+	public void Participate(int id_event, int userId, int kindergartenId) {
+		Date date = new Date();
+		User user = iUserRepository.findById(userId).orElse(null);
+		Event event = iEventRepository.findById(id_event).get();
+			if (user.getKinderGartenInscription().getId() == kindergartenId)
+
+				if (event.getDate().before(date)) {
+					event.IncrementParticipate();
+					iEventRepository.save(event);
+				} else {
+					System.out.println("the event didint start");
+				}
+		}
+	}
+
+
