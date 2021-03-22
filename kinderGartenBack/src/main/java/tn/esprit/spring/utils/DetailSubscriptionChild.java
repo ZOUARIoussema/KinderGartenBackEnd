@@ -99,8 +99,8 @@ public class DetailSubscriptionChild {
 		DateFormat dateFormatter = new SimpleDateFormat("yyyy");
 
 		for (Event event : subscriptionChild.getChild().getLisEvents()) {
-			
-			System.out.println("list"+subscriptionChild.getChild().getLisEvents().size());
+
+			System.out.println("list" + subscriptionChild.getChild().getLisEvents().size());
 
 			if ((dateFormatter.format(subscriptionChild.getDateStart())).equals(dateFormatter.format(event.getDate()))
 					|| (dateFormatter.format(subscriptionChild.getDateEnd()))
@@ -264,6 +264,11 @@ public class DetailSubscriptionChild {
 		pTotalS.setAlignment(Paragraph.ALIGN_RIGHT);
 
 		document.add(pTotalS);
+
+		Paragraph pDuscount = new Paragraph("Discount: " + subscriptionChild.getDiscount(), font);
+		pDuscount.setAlignment(Paragraph.ALIGN_RIGHT);
+
+		document.add(pDuscount);
 
 		Paragraph pRest = new Paragraph("Rest Payement: " + subscriptionChild.getRestPay(), font);
 		pRest.setAlignment(Paragraph.ALIGN_RIGHT);

@@ -46,6 +46,8 @@ public class Child implements Serializable {
 	private int age;
 
 	private String picture;
+	
+	private double fidelityPoint;
 
 	@ManyToOne
 	@JsonIgnore
@@ -152,5 +154,20 @@ public class Child implements Serializable {
 	public void setLisEvents(List<Event> lisEvents) {
 		this.lisEvents = lisEvents;
 	}
+
+	public double getFidelityPoint() {
+		return fidelityPoint;
+	}
+
+	public void setFidelityPoint(double fidelityPoint) {
+		this.fidelityPoint = fidelityPoint;
+	}
+
+	 
+	
+	
+	
+	
+	
 
 }
