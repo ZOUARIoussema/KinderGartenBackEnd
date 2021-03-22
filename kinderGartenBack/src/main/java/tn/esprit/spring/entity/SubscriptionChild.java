@@ -42,6 +42,7 @@ public class SubscriptionChild implements Serializable {
 	private double total;
 	private double totalPay;
 	private double restPay;
+	private double discount;
 
 	@ManyToOne
 	private CategorySubscription categorySubscription;
@@ -138,6 +139,17 @@ public class SubscriptionChild implements Serializable {
 
 	public double getRestPay() {
 		return restPay;
+	}
+
+	
+	
+	
+	public double getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(double discount) {
+		this.discount = discount;
 	}
 
 	public void setRestPay(double restPay) {

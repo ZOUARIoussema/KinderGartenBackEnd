@@ -28,6 +28,7 @@ import tn.esprit.spring.config.mail.EmailRequestDTO;
 import tn.esprit.spring.entity.PayementSubscription;
 import tn.esprit.spring.entity.Spent;
 import tn.esprit.spring.entity.SubscriptionChild;
+import tn.esprit.spring.service.interfaceS.IFidelityPointService;
 import tn.esprit.spring.service.interfaceS.IMailService;
 import tn.esprit.spring.service.interfaceS.IPayementSubscriptionService;
 import tn.esprit.spring.service.interfaceS.ISpentService;
@@ -53,6 +54,9 @@ public class AccountingController {
 
 	@Autowired
 	private IPayementSubscriptionService payementS;
+
+	@Autowired
+	private IFidelityPointService fidelityS;
 
 	/**
 	 * 
@@ -112,7 +116,7 @@ public class AccountingController {
 		Map<String, String> model = new HashMap<>();
 		model.put("name", subscriptionChild.getChild().getName());
 		model.put("total", String.valueOf(p.getPrice()));
-		model.put("method",p.getTypePayement().toString());
+		model.put("method", p.getTypePayement().toString());
 		model.put("rest", String.valueOf(subscriptionChild.getRestPay()));
 
 		EmailRequestDTO email = new EmailRequestDTO();
@@ -151,7 +155,8 @@ public class AccountingController {
 	 */
 	@PreAuthorize("isAnonymous()")
 	@GetMapping("/export/excel/{date}")
-	public void exportToExcel(HttpServletResponse response,@PathVariable("date")  @DateTimeFormat(pattern="yyyy-MM-dd") Date d) throws IOException {
+	public void exportToExcel(HttpServletResponse response,
+			@PathVariable("date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date d) throws IOException {
 		response.setContentType("application/octet-stream");
 		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
 		String currentDateTime = dateFormatter.format(new Date());
@@ -160,30 +165,41 @@ public class AccountingController {
 		String headerValue = "attachment; filename=users_" + currentDateTime + ".xlsx";
 		response.setHeader(headerKey, headerValue);
 
-		ReportAccountingExel excelExporter = new ReportAccountingExel(payementS.findByDate(d),spentS.findByDate(d));
+		ReportAccountingExel excelExporter = new ReportAccountingExel(payementS.findByDate(d), spentS.findByDate(d));
 
 		excelExporter.export(response);
 	}
-	
+
 	@PreAuthorize("isAnonymous()")
 	@GetMapping("/detailSubscription/{id}")
-	public void exportToPDF(HttpServletResponse response,@PathVariable("id")int id) throws DocumentException, IOException {
-        response.setContentType("application/pdf");
-        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
-        String currentDateTime = dateFormatter.format(new Date());
-         
-        String headerKey = "Content-Disposition";
-        String headerValue = "attachment; filename=users_" + currentDateTime + ".pdf";
-        response.setHeader(headerKey, headerValue);
-         
-        
-        SubscriptionChild s = subscriptionChildS.getById(id);
-        
-         
-        DetailSubscriptionChild exporter = new DetailSubscriptionChild(s);
-        exporter.export(response);
-         
-    }
-	
+	public void exportToPDF(HttpServletResponse response, @PathVariable("id") int id)
+			throws DocumentException, IOException {
+		response.setContentType("application/pdf");
+		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+		String currentDateTime = dateFormatter.format(new Date());
+
+		String headerKey = "Content-Disposition";
+		String headerValue = "attachment; filename=users_" + currentDateTime + ".pdf";
+		response.setHeader(headerKey, headerValue);
+
+		SubscriptionChild s = subscriptionChildS.getById(id);
+
+		DetailSubscriptionChild exporter = new DetailSubscriptionChild(s);
+		exporter.export(response);
+
+	}
+
+	/**
+	 * transfert point fidelity in discount
+	 * 
+	 */
+
+	@PutMapping("/transfertPointFidelity/{idS}/{p}")
+	@ResponseBody
+	public void transfertPointFidelity(@PathVariable("idS") int idSub,@PathVariable("p") double point) {
+		
+		fidelityS.transfertPointFidelity(idSub, point);
+
+	}
 
 }

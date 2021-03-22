@@ -270,6 +270,17 @@ public class ParentController {
 	@ResponseBody
 	public void addEvent(@RequestBody Child c) {
 
+		
+		/**
+		 * 
+		 *  add fidelity point
+		 *  
+		 *  ++ 50 point in event
+		 */
+		
+		c.setFidelityPoint(c.getFidelityPoint()+50);
+		
+		
 		childService.updateChild(c);
 
 		/**
@@ -277,6 +288,11 @@ public class ParentController {
 		 */
 
 		subscriptionChildService.updateTotalWithParticipateEvent(c);
+		
+		
+		
+		
+		
 
 	}
 	
