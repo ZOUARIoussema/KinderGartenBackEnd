@@ -191,16 +191,20 @@ public class KinderGarten implements Serializable {
 	public void setLogo(String logo) {
 		this.logo = logo;
 	}
+
 	public double getLatitude() {
 		return latitude;
 	}
+
 	public void setLatitude(double latitude) {
 		this.latitude = latitude;
 	}
+
 	public double getLongitude() {
 		return longitude;
 	}
-	public void setalt(double longitude) {
+
+	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
 
