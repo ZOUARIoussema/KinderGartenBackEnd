@@ -69,17 +69,19 @@ public class SwitchAccountServiceImpl implements ISwitchAccountService {
 	}
 	
 
-	
+	//This function converts decimal degrees to radians
     private double deg2rad(double deg) {
         return (deg * Math.PI / 180.0);
     }
-
+//This function converts radians to decimal degrees 
     private double rad2deg(double rad) {
         return (rad * 180.0 / Math.PI);
           }
 
 
-	// 
+	// /calculating-distance-between-two-points-using-latitude-longitude Uses Haversine(
+    //(determines the great-circle distance between two points on a sphere given their 
+    //longitudes and latitudes) method as its base
 	public double distance2(double lat1, double lon1, double    lat2, double lon2) {
 		// TODO Auto-generated method stub
 	     /*  double    lat2= 36.74451754057056;

@@ -33,10 +33,12 @@ public class VisitorController {
 	public List<KinderGarten> getKinderGartenByAdress(@PathVariable("adress")String adress) {
 		return iswitchaccount.getKinderGartenByAdress(adress);
 	}
+	//controller of method of get all kindergarden
 	@GetMapping(value="/getAllKinderGarten/")
 	public List<KinderGarten> getAllKinderGarten() {
 		return iswitchaccount.getAllKinderGarden();
 	}
+	//controller of the methode of get kindergarden by distance
 	@GetMapping(value="/getKinderGartenBydistance/{lat}/{lon}")
 	public List<KinderGarten> getKinderGartenBydistance(@PathVariable("lat")double lat1, @PathVariable("lon")double lon1){
 		return iswitchaccount.Nearpoint(lat1, lon1);

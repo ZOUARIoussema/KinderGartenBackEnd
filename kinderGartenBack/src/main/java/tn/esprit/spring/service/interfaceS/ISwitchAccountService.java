@@ -14,9 +14,9 @@ public interface ISwitchAccountService {
 	public int addSwitchAccount(SwitchAccount switchaccount);
 	
 	public List<KinderGarten> getKinderGartenByAdress(String adress);
-
+//method call of get all kindergarden
 	public List<KinderGarten> getAllKinderGarden();
-	
+	//method call of nearpoint
 	public List<KinderGarten> Nearpoint(double lat1, double lon1);
 	
 
