@@ -16,5 +16,8 @@ public interface ISwitchAccountService {
 	public List<KinderGarten> getKinderGartenByAdress(String adress);
 
 	public List<KinderGarten> getAllKinderGarden();
+	
+	public List<KinderGarten> Nearpoint(double lat1, double lon1);
+	
 
 }

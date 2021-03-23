@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import tn.esprit.spring.entity.KinderGarten;
 import tn.esprit.spring.entity.SwitchAccount;
 import tn.esprit.spring.service.interfaceS.ISwitchAccountService;
+import tn.esprit.spring.utils.kinderGartenAlgorithm;
 
 @RestController
 @RequestMapping("/visitor")
@@ -21,6 +22,7 @@ import tn.esprit.spring.service.interfaceS.ISwitchAccountService;
 public class VisitorController {
 	@Autowired
 	ISwitchAccountService iswitchaccount;
+	kinderGartenAlgorithm kindergartenalgorithme;
 	@PostMapping("/addSwitchAccount")
 	@ResponseBody
 	public SwitchAccount addSwitchAccount(@RequestBody SwitchAccount switchAccount) {
@@ -35,4 +37,11 @@ public class VisitorController {
 	public List<KinderGarten> getAllKinderGarten() {
 		return iswitchaccount.getAllKinderGarden();
 	}
+	@GetMapping(value="/getKinderGartenBydistance/{lat}/{lon}")
+	public List<KinderGarten> getKinderGartenBydistance(@PathVariable("lat")double lat1, @PathVariable("lon")double lon1){
+		return iswitchaccount.Nearpoint(lat1, lon1);
+		//return 15.8;
+				
+				
+	} 
 }
