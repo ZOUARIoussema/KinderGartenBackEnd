@@ -21,19 +21,31 @@ public class VoteService implements IVoteService {
 	IVoteRepository iVoteRepository;
 	@Autowired
 	IUserRepository iUserRepository;
+	@Autowired
+	ISessionVoteRepository iSessionVoteRepository;
 
-	public int addVote(int kindergartenId, VoteForm voteform) {
+	public int addVote(int kindergartenId, VoteForm voteform, int idsession) {
+		Date date = new Date();
+		SessionVote s = iSessionVoteRepository.findById(idsession).orElse(null);
 		User voter = iUserRepository.findById(voteform.getVoter()).orElse(null);
 		User votedFor = iUserRepository.findById(voteform.getVotedFor()).orElse(null);
 		if (voter.getKinderGartenInscription().getId() == votedFor.getKinderGartenInscription().getId()) {
 			if (voter.getKinderGartenInscription().getId() == kindergartenId) {
 				User u = iUserRepository.findById(voteform.getVotedFor()).orElse(null);
-				Vote vote = new Vote(0, voter, votedFor, new Date());
-				int id = iVoteRepository.save(vote).getId();
-				u.IncrementScoreDelegate();
-				iUserRepository.save(u);
+
+				Vote vote = new Vote(0, voter, votedFor, date);
+				if (vote.getDateVote().before(s.getDateEnd()) && vote.getDateVote().after(s.getDateStart())) {
+
+					int id = iVoteRepository.save(vote).getId();
+					vote.setSessionVote(s);
+					u.IncrementScoreDelegate();
+					iUserRepository.save(u);
 
 				return id;
+				}else{
+					System.out.println("session has been terminated");
+				}
+
 			}
 		}
 		return 0;

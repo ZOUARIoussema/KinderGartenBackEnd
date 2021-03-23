@@ -70,24 +70,7 @@ public class EventServiceImpl implements IEventService {
 	public List<Event> getAllEventForToday() {
 		return iEventRepository.getAllEventPourToday();
 	}
+}
 
-	@Autowired
-	IUserRepository iUserRepository;
-
-	@Override
-	public void Participate(int id_event, int userId, int kindergartenId) {
-		Date date = new Date();
-		User user = iUserRepository.findById(userId).orElse(null);
-		Event event = iEventRepository.findById(id_event).get();
-			if (user.getKinderGartenInscription().getId() == kindergartenId)
-
-				if (event.getDate().before(date)) {
-					event.IncrementParticipate();
-					iEventRepository.save(event);
-				} else {
-					System.out.println("the event didint start");
-				}
-		}
-	}
 
 

@@ -74,5 +74,13 @@ public class Vote implements Serializable {
 		this.dateVote = dateVote;
 		}
 
+	public SessionVote getSessionVote() {
+		return sessionVote;
+	}
+
+	public void setSessionVote(SessionVote sessionVote) {
+		this.sessionVote = sessionVote;
+	}
+
 
 }

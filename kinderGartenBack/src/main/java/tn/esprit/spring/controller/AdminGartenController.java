@@ -295,14 +295,7 @@ public class AdminGartenController {
 	}
 
 	// Event...
-	
-	@PutMapping(value = "/Participate/{id_event}/{userId}/{kindergartenId}")
-	@ResponseBody
-	public void Participate(@PathVariable("id_event") int id_event,
-			@PathVariable("userId") int userId,@PathVariable("kindergartenId") int kindergartenId) {
-		iEventService.Participate(id_event, userId, kindergartenId);
 
-	}
 
 	
 	
@@ -447,10 +440,10 @@ public class AdminGartenController {
 		return iKinderGartenService.listDelegators(id);
 	}
 
-	@PostMapping("/kinder_garden/{id}/delegators/vote")
+	@PostMapping("/kinder_garden/{id}/delegators/vote/{idsession}")
 	@ResponseBody
-	public int addVote(@PathVariable int id,@RequestBody VoteForm vote) {
-		return iVoteService.addVote(id,vote);
+	public int addVote(@PathVariable int id,@PathVariable("idsession") int idsession,@RequestBody VoteForm vote) {
+		return iVoteService.addVote(id,vote,idsession);
 	}
 
 	@GetMapping("/kinder_garden/{id}/delegator/validate")
