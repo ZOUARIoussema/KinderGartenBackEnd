@@ -3,6 +3,7 @@ package tn.esprit.spring.service.interfaceS;
 import java.util.Date;
 import java.util.List;
 
+import tn.esprit.spring.entity.Child;
 import tn.esprit.spring.entity.Event;
 
 
@@ -15,4 +16,5 @@ public interface IEventService {
 	public void affecterEventACategory(int eventId, int categoryId) ;
 	public List<Event> findAllEventByKinderGarten(int kinderId) ;
 	public List<Event> getAllEventForToday();
+	public List<Event> getEventForChild(int idChild);
 }

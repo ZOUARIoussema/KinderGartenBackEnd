@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import tn.esprit.spring.entity.Activity;
 import tn.esprit.spring.entity.Category;
 import tn.esprit.spring.entity.CategorySubscription;
+import tn.esprit.spring.entity.Child;
 import tn.esprit.spring.entity.Club;
 import tn.esprit.spring.entity.Event;
 import tn.esprit.spring.entity.Extra;
@@ -295,7 +296,11 @@ public class AdminGartenController {
 	}
 
 	// Event...
-
+	@GetMapping(value = "/getEventForChild/{idChild}")
+	@ResponseBody
+	public List<Event> getEventForChild(@PathVariable("idChild") int idChild){
+		return iEventService.getEventForChild(idChild);
+	}
 
 	
 	

@@ -12,6 +12,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Category implements Serializable {
 
@@ -27,6 +29,7 @@ public class Category implements Serializable {
 	private String description;
 
 	@ManyToOne
+	@JsonIgnore
 	private KinderGarten kinderGarten;
 
 	@OneToMany(mappedBy = "category")

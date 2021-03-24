@@ -62,9 +62,11 @@ public class Child implements Serializable {
 	private FolderMedical folderMedical;
 
 	@ManyToMany
+	@JsonIgnore
 	private List<Category> listInterest = new ArrayList<Category>();
 
 	@ManyToMany
+	@JsonIgnore
 	private List<Event> lisEvents = new ArrayList<Event>();
 
 	public List<Category> getListInterest() {

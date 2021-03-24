@@ -1,5 +1,6 @@
 package tn.esprit.spring.service.implementation;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -7,10 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import tn.esprit.spring.entity.Category;
+import tn.esprit.spring.entity.Child;
 import tn.esprit.spring.entity.Event;
 import tn.esprit.spring.entity.KinderGarten;
 import tn.esprit.spring.entity.User;
 import tn.esprit.spring.repository.ICategoryRepository;
+import tn.esprit.spring.repository.IChildRepository;
 import tn.esprit.spring.repository.IEventRepository;
 import tn.esprit.spring.repository.IKinderGartenRepository;
 import tn.esprit.spring.repository.IUserRepository;
@@ -70,7 +73,23 @@ public class EventServiceImpl implements IEventService {
 	public List<Event> getAllEventForToday() {
 		return iEventRepository.getAllEventPourToday();
 	}
+@Autowired
+IChildRepository iChildRepository;
+	@Override
+	public List<Event> getEventForChild(int idChild) {
+		Child c= iChildRepository.findById(idChild).orElse(null);
+		List<Event> liste = (List<Event>) iEventRepository.findAll();
+		//List<Category> listCategory = (List<Category>)iCategoryRepository.findAll();
+		List<Category> listInterest = c.getListInterest();
+		List<Event> lis= new ArrayList<>();
+		for (int i = 0; i < liste.size(); i++) {
+			for (int j = 0; j < listInterest.size(); j++) {
+				if (liste.get(i).getCategory().equals(listInterest.get(j))&&listInterest.get(j).getListChild().contains(c)) {
+					lis.add(liste.get(i));
+					
+				}
+			}
+		}
+		return lis;
+	}
 }
-
-
-
