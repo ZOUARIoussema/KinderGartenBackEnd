@@ -8,6 +8,8 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.stripe.Stripe;
@@ -26,6 +28,7 @@ import tn.esprit.spring.repository.IUserRepository;
 import tn.esprit.spring.service.interfaceS.IMailService;
 import tn.esprit.spring.service.interfaceS.IPayementSubscriptionService;
 
+@EnableScheduling
 @Service
 public class PayementSubscriptionServiceImpl implements IPayementSubscriptionService {
 
@@ -150,6 +153,7 @@ public class PayementSubscriptionServiceImpl implements IPayementSubscriptionSer
 		return payementSR.findByDateC(d);
 	}
 
+	@Scheduled(cron="0 0 0 1 * ?", zone="Africa/Tunis")
 	@Override
 	public void alertPayement() {
 		

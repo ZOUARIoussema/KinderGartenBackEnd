@@ -14,10 +14,6 @@ public class KinderGartenBackApplication implements CommandLineRunner {
 
 	@Autowired
 	IUserService users;
-	@Autowired
-	IFolderMedicalService folderMedicalService;
-	@Autowired
-	IPayementSubscriptionService paSubscriptionService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(KinderGartenBackApplication.class, args);
@@ -29,10 +25,6 @@ public class KinderGartenBackApplication implements CommandLineRunner {
 
 		// initialize
 		users.initialize();
-		//alert vaccine child to do
-		// folderMedicalService.alertVaccineChildToDo();
-		//alert payement subscription
-		// paSubscriptionService.alertPayement();
 
 	}
 

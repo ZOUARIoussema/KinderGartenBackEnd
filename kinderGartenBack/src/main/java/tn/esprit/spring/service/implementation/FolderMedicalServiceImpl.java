@@ -12,7 +12,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import tn.esprit.spring.config.mail.EmailRequestDTO;
@@ -25,9 +29,14 @@ import tn.esprit.spring.repository.IFolderMedicalRepository;
 import tn.esprit.spring.service.interfaceS.IFolderMedicalService;
 import tn.esprit.spring.service.interfaceS.IMailService;
 
+@EnableScheduling
 @Service
 public class FolderMedicalServiceImpl implements IFolderMedicalService {
 
+	
+	private static Logger logger = LoggerFactory.getLogger(IFolderMedicalService.class);
+	
+	
 	@Autowired
 	IFolderMedicalRepository folderR;
 	@Autowired
@@ -75,12 +84,14 @@ public class FolderMedicalServiceImpl implements IFolderMedicalService {
 	}
 
 	public List<ChildVaccine> listChildVaccineToDo(FolderMedical f, int nbMonth) {
+		
+		logger.info("**** age child  : {}", nbMonth+" (Month)");
 
 		List<ChildVaccine> list = new ArrayList<ChildVaccine>();
 
-		for (ChildVaccine childVaccine : childVR.findByMonthNumber(nbMonth)) {
+		for (ChildVaccine childVaccine : childVR.findAll()) {
 
-			if (f.getLisChildVaccines().contains(childVaccine) == false) {
+			if ( childVaccine.getMonthNumber()<=nbMonth && f.getLisChildVaccines().contains(childVaccine) == false) {
 
 				list.add(childVaccine);
 			}
@@ -131,34 +142,28 @@ public class FolderMedicalServiceImpl implements IFolderMedicalService {
 
 	}
 
+	@Scheduled(cron = "0 0 0 1 * ?", zone = "Africa/Tunis")
 	@Override
 	public void alertVaccineChildToDo() {
 
-		DateFormat dateFormatter = new SimpleDateFormat("dd");
+		for (Child child : childR.findAll()) {
 
-		if (dateFormatter.format(new Date()).equals("19")) {
+			if (this.getFolderByChild(child.getId()).getListVaccinesToDo().size() != 0) {
 
-			for (Child child : childR.findAll()) {
+				Map<String, String> model = new HashMap<>();
+				model.put("name", child.getName());
+				model.put("lien", "http://localhost:8081/medical/alertVaccineChild/" + child.getId());
 
-				if (this.getFolderByChild(child.getId()).getListVaccinesToDo().size() != 0) {
+				EmailRequestDTO email = new EmailRequestDTO();
 
-					
+				// email.setTo("oussema.zouari@esprit.tn");
+				email.setTo(child.getParent().getEmail());
+				email.setSubject("Vaccine child");
 
-					Map<String, String> model = new HashMap<>();
-					model.put("name", child.getName());
-					model.put("lien", "http://localhost:8081/medical/alertVaccineChild/" + child.getId());
-
-					EmailRequestDTO email = new EmailRequestDTO();
-
-					// email.setTo("oussema.zouari@esprit.tn");
-					email.setTo(child.getParent().getEmail());
-					email.setSubject("Vaccine child");
-
-					mailS.sendMailWithFreeMarker(email, model, "alertVaccineChild.ftl");
-
-				}
+				mailS.sendMailWithFreeMarker(email, model, "alertVaccineChild.ftl");
 
 			}
+
 		}
 	}
 
