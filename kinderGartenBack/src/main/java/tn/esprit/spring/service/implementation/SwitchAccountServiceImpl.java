@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import tn.esprit.spring.entity.KinderGarten;
 import tn.esprit.spring.entity.SwitchAccount;
+import tn.esprit.spring.entity.User;
 import tn.esprit.spring.entity.enumeration.Role;
 import tn.esprit.spring.entity.enumeration.RoleSwitch;
 import tn.esprit.spring.entity.enumeration.StateUser;
@@ -97,7 +98,8 @@ public class SwitchAccountServiceImpl implements ISwitchAccountService {
 	        return (dist);
 	 
 	}
-
+//function that calculating the nearest point between the list of all kindergarden
+	//in the fisrt time we made a list of kindergarden that get all the kindergarden
 	@Override
 	public  List<KinderGarten> Nearpoint(double lat1, double lon1) {
 		List<KinderGarten> kindergartens =getAllKinderGarden();
@@ -108,9 +110,14 @@ public class SwitchAccountServiceImpl implements ISwitchAccountService {
 			if(distance2(lat1, lon1,kindergartens.get(i).getLatitude(),kindergartens.get(i).getLongitude())<15)
 			{
 				Nearpoints.add(kindergartens.get(i));
-			
 			}
 			}
 		return Nearpoints;
+	}
+	// appel de la methode jpql dans le service apres son injection 
+	@Override
+	public List<String> getReactParent(int kindergartenId){
+     	return switchRepo.getReactParent(kindergartenId);
+  
 	}
 }
