@@ -47,15 +47,7 @@ public class VisitorController {
 		//return 15.8;
 		
 	} 
-	// appel de la methode du service swithaccount 
-	//@GetMapping(value="/getReactParent/{kindergartenId}")
-	//public List<String>getReactParent(@PathVariable("kindergartenId") int kindergartenId){
-		//return iswitchaccount.getReactParent(kindergartenId);
-		//return "hi";
-	//method of getNumbereventbycategry for each kinder garden 
-	@GetMapping(value="/getNumbereventbycategry/{kindergartenId}")
-	public List<Integer>getNumbereventbycategory(@PathVariable("kindergartenId") int kindergartenId){
-		return iswitchaccount.getNumbereventbycategry(kindergartenId);
+
+}
 	
-	}
-	}
+	

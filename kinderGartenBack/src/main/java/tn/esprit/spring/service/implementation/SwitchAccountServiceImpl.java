@@ -113,17 +113,16 @@ public class SwitchAccountServiceImpl implements ISwitchAccountService {
 			}
 		return Nearpoints;
 	}
-	// appel de la methode jpql dans le service apres son injection 
-	//@Override
-	//public List<String> getReactParent(int kindergartenId){
-     	//return switchRepo.getReactParent(kindergartenId);
 
-	@Override
+/*	@Override
 	public List<Integer> getNumbereventbycategry(int kindergartenId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		
+		return switchRepo.getNumbereventbycategory(kindergartenId);
+
+
+	}*/
+}
   
-	}
+	
 	
 
