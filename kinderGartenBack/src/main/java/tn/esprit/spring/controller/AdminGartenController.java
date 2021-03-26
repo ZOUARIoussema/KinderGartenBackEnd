@@ -21,6 +21,7 @@ import tn.esprit.spring.entity.Category;
 import tn.esprit.spring.entity.CategorySubscription;
 import tn.esprit.spring.entity.Child;
 import tn.esprit.spring.entity.Club;
+import tn.esprit.spring.entity.Estimate;
 import tn.esprit.spring.entity.Event;
 import tn.esprit.spring.entity.Extra;
 import tn.esprit.spring.entity.KinderGarten;
@@ -34,6 +35,7 @@ import tn.esprit.spring.service.interfaceS.IActivityService;
 import tn.esprit.spring.service.interfaceS.ICategoryService;
 import tn.esprit.spring.service.interfaceS.ICategorySubscriptionService;
 import tn.esprit.spring.service.interfaceS.IClubService;
+import tn.esprit.spring.service.interfaceS.IEstimateService;
 import tn.esprit.spring.service.interfaceS.IEventService;
 import tn.esprit.spring.service.interfaceS.IExtraService;
 import tn.esprit.spring.service.interfaceS.IKinderGartenService;
@@ -69,6 +71,8 @@ public class AdminGartenController {
 	IVoteService iVoteService;
 	@Autowired
 	ISessionVoteService iSessionVoteService;
+	@Autowired
+	IEstimateService iEstimateService;
 
 	@PostMapping("/addKinderGarten")
 	@ResponseBody
@@ -487,5 +491,26 @@ public class AdminGartenController {
 	@ResponseBody
 	public void delegatorsWinner(@PathVariable int id,@PathVariable int sessionVoteId) {
 		iSessionVoteService.delegatorsWinner(id, sessionVoteId);
+	}
+	
+	// Estimate
+	
+	@PostMapping("/addEstimate/{providerId}/{kinderId}/{item}/{qte}/{total}")
+	@ResponseBody
+	public void addEstimate(@PathVariable("providerId") int providerId,
+			@PathVariable("kinderId") int kinderId,@PathVariable("item") String item,
+			@PathVariable("qte") int qte,@PathVariable("total") double total) {
+		iEstimateService.addEstimate(providerId, kinderId, item, qte, total);
+	}
+	@GetMapping(value = "/getAllEstimate")
+	@ResponseBody
+	public List<Estimate> getAllEstimate() {
+
+		return iEstimateService.getAllEstimate();
+	}
+	@GetMapping(value = "/getEstimateByKinderAndProvider/{kinderId}/{ProviderId}")
+	@ResponseBody
+	public List<Estimate> getEstimateByKinderAndProvider(@PathVariable("kinderId") int kinderId,@PathVariable("ProviderId")  int ProviderId) {
+		return iEstimateService.getEstimateByKinderAndProvider(kinderId, ProviderId);
 	}
 }

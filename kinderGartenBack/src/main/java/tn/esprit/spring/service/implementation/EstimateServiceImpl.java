@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import tn.esprit.spring.entity.Club;
 import tn.esprit.spring.entity.Estimate;
+import tn.esprit.spring.entity.PKEstimate;
 import tn.esprit.spring.repository.IEstimateRepository;
 import tn.esprit.spring.service.interfaceS.IEstimateService;
 
@@ -17,16 +18,25 @@ public class EstimateServiceImpl implements IEstimateService{
 	IEstimateRepository iEstimateRepository;
 
 	@Override
-	public Estimate addEstimate(Estimate estimate) {
-		return iEstimateRepository.save(estimate);
+	public void addEstimate(int providerId,int kinderId,String item,int qte,double total ) {
+		PKEstimate pk= new  PKEstimate();
+		Estimate e= new Estimate();
+		pk.setDateC(new Date());
+		pk.setIdKinder(kinderId);
+		pk.setIdUser(providerId);
+		e.setItem(item);
+		e.setQte(qte);
+		e.setTotal(total);
+		e.setPkEstimate(pk);
+		iEstimateRepository.save(e);
 		
 	}
 
-	@Override
-	public void updateEstimate(String item, int qte, double total, Date dateC, int estimateId) {
-	
+	/*@Override
+	public void updateEstimate(Estimate estimate) {
+		iEstimateRepository.save(estimate);
 	}
-
+*/
 	@Override
 	public List<Estimate> getAllEstimate() {
 		return (List<Estimate>) iEstimateRepository.findAll();
@@ -34,14 +44,8 @@ public class EstimateServiceImpl implements IEstimateService{
 	}
 
 	@Override
-	public void deleteEstimateById(int estimateId) {
-		Estimate estimate = iEstimateRepository.findById(estimateId).get();
-		iEstimateRepository.delete(estimate);
-		
+	public List<Estimate> getEstimateByKinderAndProvider(int kinderId, int ProviderId) {
+		return iEstimateRepository.getEstimateByKinderAndProviderJPQL(kinderId, ProviderId);
 	}
 
-	@Override
-	public Estimate getEstimateById(int estimateId) {
-		return iEstimateRepository.findById(estimateId).get();
-	}
 }

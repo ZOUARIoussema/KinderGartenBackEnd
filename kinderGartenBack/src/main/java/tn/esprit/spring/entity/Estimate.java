@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Estimate implements Serializable {
 
@@ -19,10 +21,12 @@ public class Estimate implements Serializable {
 	private PKEstimate pkEstimate;
 
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name = "idUser", referencedColumnName = "id", insertable = false, updatable = false)
 	private User provider;
 
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name = "idKinder", referencedColumnName = "id", insertable = false, updatable = false)
 	private KinderGarten kGarten;
 
