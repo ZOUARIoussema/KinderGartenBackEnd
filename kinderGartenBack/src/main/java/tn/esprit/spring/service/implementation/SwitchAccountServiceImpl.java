@@ -84,10 +84,9 @@ public class SwitchAccountServiceImpl implements ISwitchAccountService {
     //(determines the great-circle distance between two points on a sphere given their 
     //longitudes and latitudes) method as its base
 	public double distance2(double lat1, double lon1, double    lat2, double lon2) {
-		// TODO Auto-generated method stub
 	     /*  double    lat2= 36.74451754057056;
 	       double lon2=10.074587446289062;*/
-	       double theta = lon1 - lon2;
+	 		double theta = lon1 - lon2;
 	        double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2))
 	                + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2))
 	                * Math.cos(deg2rad(theta));
@@ -107,7 +106,7 @@ public class SwitchAccountServiceImpl implements ISwitchAccountService {
 		
 		for(int i=0;i<kindergartens.size();i++)
 		{
-			if(distance2(lat1, lon1,kindergartens.get(i).getLatitude(),kindergartens.get(i).getLongitude())<15)
+			if(distance2(lat1, lon1,kindergartens.get(i).getLatitude(),kindergartens.get(i).getLongitude())<10)
 			{
 				Nearpoints.add(kindergartens.get(i));
 			}
@@ -115,9 +114,16 @@ public class SwitchAccountServiceImpl implements ISwitchAccountService {
 		return Nearpoints;
 	}
 	// appel de la methode jpql dans le service apres son injection 
+	//@Override
+	//public List<String> getReactParent(int kindergartenId){
+     	//return switchRepo.getReactParent(kindergartenId);
+
 	@Override
-	public List<String> getReactParent(int kindergartenId){
-     	return switchRepo.getReactParent(kindergartenId);
+	public List<Integer> getNumbereventbycategry(int kindergartenId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
   
 	}
-}
+	
+

@@ -19,8 +19,9 @@ public interface ISwitchAccountService {
 	public List<KinderGarten> getAllKinderGarden();
 	//method call of nearpoint
 	public List<KinderGarten> Nearpoint(double lat1, double lon1);
-	
-	public List<String> getReactParent(int kindergartenId);
+	//methode caal of getreactparent
+
+	public List<Integer> getNumbereventbycategry(int kindergartenId);
 	
 
 }
