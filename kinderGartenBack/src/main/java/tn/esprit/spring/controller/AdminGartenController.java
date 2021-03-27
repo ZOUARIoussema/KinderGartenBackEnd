@@ -106,7 +106,6 @@ public class AdminGartenController {
 	@ResponseBody
 	public void deleteKindergartenById(@PathVariable("kenderId") int kenderId) {
 		iKinderGartenService.deleteKindergartenById(kenderId);
-		;
 	}
 
 	// Extra ...
@@ -306,6 +305,14 @@ public class AdminGartenController {
 		return iEventService.getEventForChild(idChild);
 	}
 
+
+	@PutMapping(value = "/SendRequestItem/{id_event}/{userId}/{kindergartenId}")
+	@ResponseBody
+	public void SendRequestItem(@PathVariable("id_event") int id_event,
+			@PathVariable("userId") int userId,@PathVariable("kindergartenId") int kindergartenId) {
+		iEventService.SendRequestItem(id_event, userId, kindergartenId);
+
+	}
 	
 	
 	@GetMapping(value = "/findAllEventByKinderGarten/{kinderId}")
@@ -494,6 +501,7 @@ public class AdminGartenController {
 	}
 	
 	// Estimate
+
 	
 	@PostMapping("/addEstimate/{providerId}/{kinderId}/{item}/{qte}/{total}")
 	@ResponseBody
@@ -512,5 +520,23 @@ public class AdminGartenController {
 	@ResponseBody
 	public List<Estimate> getEstimateByKinderAndProvider(@PathVariable("kinderId") int kinderId,@PathVariable("ProviderId")  int ProviderId) {
 		return iEstimateService.getEstimateByKinderAndProvider(kinderId, ProviderId);
+	}
+	
+	@PutMapping(value = "/updateEstimate/{estimateDate}/{iduser}/{idkinder}")
+	@ResponseBody
+	public void updateEstimate(@PathVariable("estimateDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date estimateDate
+			,@PathVariable("iduser") int iduser
+			, @PathVariable("idkinder")int idkinder, @RequestBody Estimate estimate) {
+		iEstimateService.updateEstimate(estimateDate, iduser, idkinder, estimate.getItem(), estimate.getQte(), estimate.getTotal());
+
+	}
+	
+	@DeleteMapping("/deleteEstimate/{estimateDate}/{iduser}/{idkinder}")
+	@ResponseBody
+	public void deleteEstimate(@PathVariable("estimateDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date estimateDate
+			,@PathVariable("iduser") int iduser
+			, @PathVariable("idkinder")int idkinder) {
+		iEstimateService.deleteEstimate(estimateDate, iduser, idkinder);
+		
 	}
 }

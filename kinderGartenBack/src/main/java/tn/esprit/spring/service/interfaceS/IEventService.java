@@ -17,4 +17,5 @@ public interface IEventService {
 	public List<Event> findAllEventByKinderGarten(int kinderId) ;
 	public List<Event> getAllEventForToday();
 	public List<Event> getEventForChild(int idChild);
+	public void SendRequestItem(int id_event, int userId, int kindergartenId);
 }
