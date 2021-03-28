@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Embeddable;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Embeddable
 public class PKEstimate implements Serializable {
@@ -16,6 +18,7 @@ public class PKEstimate implements Serializable {
 	
 	private int idUser;
 	private int idKinder;
+	@Temporal(TemporalType.DATE)
 	private Date dateC;
 	
 	

@@ -79,6 +79,12 @@ public class Message {
 	public void setToUser(User toUser) {
 		this.toUser = toUser;
 	}
+
+	@Override
+	public String toString() {
+		return "Message [id=" + id + ", content=" + content + ", date=" + date + ", fromUser=" + fromUser.getEmail() + ", toUser="
+				+ toUser.getEmail() + "]";
+	}
     
     
     
