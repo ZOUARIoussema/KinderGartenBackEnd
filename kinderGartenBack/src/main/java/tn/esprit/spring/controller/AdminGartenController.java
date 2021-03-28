@@ -305,6 +305,11 @@ public class AdminGartenController {
 		return iEventService.getEventForChild(idChild);
 	}
 
+	@GetMapping(value = "/getEstimateByEvent/{idEvent}")
+	@ResponseBody
+	public List<?> getEstimateByEvent(@PathVariable("idEvent") int idEvent){
+		return iEventService.getEstimateByEvent(idEvent);
+	}
 
 	@PutMapping(value = "/SendRequestItem/{id_event}/{userId}/{kindergartenId}")
 	@ResponseBody

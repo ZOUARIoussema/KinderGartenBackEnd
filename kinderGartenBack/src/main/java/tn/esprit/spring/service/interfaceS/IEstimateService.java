@@ -14,6 +14,4 @@ public interface IEstimateService {
 	public void deleteEstimate(Date estimateDate,int iduser,int idkinder);
 	public List<Estimate> getEstimateByKinderAndProvider(int kinderId,int ProviderId);
 	
-	
-	
 }
