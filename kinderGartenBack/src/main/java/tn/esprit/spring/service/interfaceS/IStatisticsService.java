@@ -6,7 +6,7 @@ public interface IStatisticsService {
 
 	public List<?> listChildByKinderGarten();
 
-	public int NbrCommentsByUser(int userid);
+	//public int NbrCommentsByUser(int userid);
 
 	public int NbrLikeByUser(int userid);
 
@@ -14,7 +14,7 @@ public interface IStatisticsService {
 
 	public int nbrParticpEventByUser(int userid);
 
-	public List<?> BestUser();
+	
 
 	public int nbrChildByKinderGarten(int kgid);
 

@@ -223,18 +223,31 @@ public class UserServiceImpl implements IUserService {
 
 
 	@Override
-	public void DesactivateAccountKinderGarten(int kg_id) {
+	public void sendMailAlertToResponsibleKinderGarten(int kg_id) {
 		
 		KinderGarten kg = kinderRepo.findById(kg_id).get();
 		
-		int ClaimsScoreEval = claimserv.countClaimsinKinderGarten(kg_id) + kg.getScoreEval();
+		User responsable = kg.getResponsible();
 		
-		if (ClaimsScoreEval >= 50)
+		int claimsNumber = claimserv.countClaimsinKinderGarten(kg_id);
+		
+		if (claimsNumber > 10)
 		{
-			kg.getResponsible().setStateUser(StateUser.blocked);
-		}
-		
+			servicemail.sendSimpleMail(responsable.getEmail(), "alert", "you might have to check the state of your kindergarter!!!");
+		}		
 			
+	}
+
+	@Override
+	public String RegisterKinderGarten(int iduser, int  id_kg) 
+	{
+		
+		User u = userR.findById(iduser).get();
+		KinderGarten kg = kinderRepo.findById(id_kg).get();
+		u.setKinderGartenInscription(kg);
+		userR.save(u).getId();
+		return "parent "+iduser +"added succesfully to kindergarten" +id_kg ;
+		
 	}
 
 }

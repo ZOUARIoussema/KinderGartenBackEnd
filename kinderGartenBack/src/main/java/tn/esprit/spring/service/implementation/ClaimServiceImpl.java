@@ -1,17 +1,22 @@
 package tn.esprit.spring.service.implementation;
 
  
+import static org.mockito.Mockito.lenient;
+
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import tn.esprit.spring.entity.Claim;
 import tn.esprit.spring.entity.User;
 import tn.esprit.spring.entity.enumeration.ClaimType;
 import tn.esprit.spring.entity.enumeration.StateClaim;
 import tn.esprit.spring.repository.IClaimRepository;
+import tn.esprit.spring.repository.IUserRepository;
 import tn.esprit.spring.service.interfaceS.IClaimService;
 @Service
 public class ClaimServiceImpl implements IClaimService {
@@ -19,7 +24,8 @@ public class ClaimServiceImpl implements IClaimService {
 	@Autowired
 	IClaimRepository claimsRepo;
 	
-	
+	@Autowired
+	IUserRepository userrepo;
 	
 	@Override
 	public List<Claim> getAllClaims() {
@@ -31,26 +37,36 @@ public class ClaimServiceImpl implements IClaimService {
 	}
 
 	@Override
-	public void ChangeStateClaim(Claim c) 
+	public String ChangeStateClaim(int claim) 
 	{
-		if (c.getType().equals(StateClaim.InProgress))
+		Claim c = claimsRepo.findById(claim).get();
+		
+	
+		
+		if (c.getState().equals(StateClaim.InProgress.toString()))
 			
 		{
-			c.setType(StateClaim.closing.toString());
+			c.setState(StateClaim.closing.toString());
+			claimsRepo.save(c);
+			return "state claim " +claim+" is changed to closed !! " ;
+	
 		}
-		
+			
+		else return "there is an error ";
 	}
 
 	@Override
-	public Claim SearchClaimByType(String Type) {
+	public List<Claim> SearchClaimByType(String Type) {
 		
-		return claimsRepo.searchClaimByType(Type);
+		return (List<Claim>) claimsRepo.searchClaimByType(Type);
 	}
+	
+	
 
 	@Override
-	public Claim SearchClaimByParent(User u) {
-		
-		return claimsRepo.findById(u.getId()).get();
+	public List<Claim> SearchClaimByParent(int id) {
+				
+		return (List<Claim>) claimsRepo.getClaimsByUser(id);
 		
 	}
 
@@ -98,9 +114,13 @@ public class ClaimServiceImpl implements IClaimService {
 	}
 
 	@Override
-	public int addClaim(Claim c) {
+	public int addClaim(Claim c,int iduser) 
+	{
+		
+		c.setCreation_date(new Date());
+		c.setParent(userrepo.findById(iduser).get());
+		c.setState(StateClaim.InProgress.toString());
 		return claimsRepo.save(c).getId();
-		
-		
+
 	}
 }

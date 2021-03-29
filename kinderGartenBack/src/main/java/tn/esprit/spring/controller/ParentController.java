@@ -66,6 +66,8 @@ public class ParentController {
 	IDictionaryService dictionaryService;
 	@Autowired 
 	IClaimService claimService;
+	@Autowired
+	IUserService userS;
 
 	/* Publication */
 
@@ -290,18 +292,25 @@ public class ParentController {
 		subscriptionChildService.updateTotalWithParticipateEvent(c);
 		
 		
-		
-		
-		
-
 	}
 	
 	
-	@PostMapping("/addClaim")
+	@PostMapping("/addClaim/{id}")
 	@ResponseBody
-	public String addClaim(@RequestBody Claim c)
+	public String addClaim(@RequestBody Claim c,@PathVariable("id") int iduser)
 	{
-		return "claim added successfully with id : " + claimService.addClaim(c);
+		return "claim added successfully with id : " + claimService.addClaim(c,iduser);
+	}
+	
+	
+	
+	@PutMapping("/RegisterKinderGarten/{id_kg}/{id_user}")
+	@ResponseBody
+	
+	public String RegisterKinderGarten(@PathVariable("id_user") int iduser, @PathVariable("id_kg") int  id_kg)
+	
+	{
+		return userS.RegisterKinderGarten(iduser, id_kg);
 	}
 	
 

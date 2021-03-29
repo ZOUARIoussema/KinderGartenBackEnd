@@ -18,6 +18,7 @@ import tn.esprit.spring.entity.Claim;
 import tn.esprit.spring.entity.User;
 import tn.esprit.spring.service.interfaceS.IClaimService;
 import tn.esprit.spring.service.interfaceS.IStatisticsService;
+import tn.esprit.spring.service.interfaceS.IUserService;
 
 @RestController
 @RequestMapping("/admin")
@@ -33,6 +34,9 @@ public class AdminController {
 	@Autowired
 	IStatisticsService staticsServ;
 	
+	@Autowired
+	IUserService userservices;
+	
 	@GetMapping(value="/getAllClaims")
 	public List<Claim> getAllClaims() 
 	{
@@ -41,37 +45,38 @@ public class AdminController {
 	}
 	
 	
-	@PostMapping("/ChangeStateClaim")
+	@GetMapping("/ChangeStateClaim/{idclaim}")
 	@ResponseBody
-	public void ChangeStateClaim(@RequestBody Claim c) 
+	public String ChangeStateClaim(@PathVariable("idclaim") int claim) 
 	{
-		claimServ.ChangeStateClaim(c);
+		return claimServ.ChangeStateClaim(claim);
 	}
 	
 	@GetMapping(value="/SearchClaimByType/{type}")
 	
-	public Claim SearchClaimByType(@PathVariable("type") String type)
+	public List<Claim> SearchClaimByType(@PathVariable("type") String type)
 	{
 		return claimServ.SearchClaimByType(type);
 	}
 	
-	@GetMapping(value="/SearchClaimByParent")
+	
+	@GetMapping(value="/SearchClaimByParent/{id}")
 	@ResponseBody
 	
-	public Claim SearchClaimByParent(@RequestBody User u)
+	public List<Claim> SearchClaimByParent(@PathVariable("id")  int id)
 	{
-		return claimServ.SearchClaimByParent(u);
+		return claimServ.SearchClaimByParent(id);
 		
 	}
 
 	
 	@GetMapping(value="/getNbrClaims/{id}")
 	
-	public int GetNbrClaimsKinderGarten(@PathVariable("id") int id)
+	public String GetNbrClaimsKinderGarten(@PathVariable("id") int id)
 	{
-		log.info("Number of claims in kindergarten is :");
-		return claimServ.countClaimsinKinderGarten(id);
+		return "Number of claims in kindergarten is :" +claimServ.countClaimsinKinderGarten(id);
 	}
+	
 	
 	@GetMapping(value="/getClaimsByObject")
 	
@@ -107,18 +112,23 @@ public class AdminController {
 		return staticsServ.listChildByKinderGarten();
 	}
 	
-	//best user meilleur score d'évaluation
-	@GetMapping(value ="/bestUser")
-	public List<?> getBestUser() 
+	
+	
+	@GetMapping(value="/sendAlertToResponsible/{id}")
+	public void sendMailAlertToResponsibleKinderGarten(@PathVariable("id") int kg_id) 
 	{
-
-	return staticsServ.BestUser();
-
+		userservices.sendMailAlertToResponsibleKinderGarten(kg_id);
 	}
 	
-	// number of comments by parent
-	
-	//GetMapping(value="/retrieve-number-comments-user/{id}")
-	
-	
+	//number of comments by parent
+//	
+//	@GetMapping(value="/retrieve-number-comments-user/{id}")
+//	@ResponseBody
+//	
+//	public int NbrCommentsByUser(@PathVariable("id") int userid)
+//	{
+//		return staticsServ.NbrCommentsByUser(userid);
+//	}
+//	
+//	
 }

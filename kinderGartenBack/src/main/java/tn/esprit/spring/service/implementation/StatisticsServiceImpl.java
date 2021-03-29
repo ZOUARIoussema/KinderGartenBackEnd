@@ -22,10 +22,10 @@ public class StatisticsServiceImpl implements IStatisticsService {
 		return StatisticRepository.listChildByKinderGarten();
 	}
 
-	@Override
-	public int NbrCommentsByUser(int userid) {
-		return StatisticRepository.NbrCommentsByUser(userid);
-	}
+//	@Override
+//	public int NbrCommentsByUser(int userid) {
+//		return StatisticRepository.NbrCommentsByUser(userid);
+//	}
 
 	@Override
 	public int NbrLikeByUser(int userid) {
@@ -45,10 +45,6 @@ public class StatisticsServiceImpl implements IStatisticsService {
 		return 0;
 	}
 
-	@Override
-	public List<?> BestUser() {
-		return StatisticRepository.BestUser();
-	}
 
 	@Override
 	public int nbrChildByKinderGarten(int kgid) {

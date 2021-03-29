@@ -16,7 +16,7 @@ public interface IStatisticsRepository extends CrudRepository<User, Integer>{
     public List<?> listChildByKinderGarten();
 	
 	
-	@Query("SELECT count(*) FROM Comment c where c.parent.id =:userid ")  
+	@Query(value="SELECT count(*) FROM comment c where c.parent_id =:userid ",nativeQuery=true)  
     public int NbrCommentsByUser (@Param ("userid") int userid);
 	
 	@Query("SELECT numberLike FROM Publication p where p.parent.id =:userid ")  
@@ -31,8 +31,7 @@ public interface IStatisticsRepository extends CrudRepository<User, Integer>{
    // public int nbrParticpEventByUser (@Param ("userid") int userid);
 	
 	
-	@Query(value="select Max(kg.scoreEval), u.firstName,u.lastName from KinderGarten kg,User u where kg.id=u.kinderGartenInscription.id")  
-    public List<?> BestUser();
+
 	
 	@Query("SELECT count(*) FROM Child c where c.parent.kinderGartenInscription.id =:kgid ")  
 	public int nbrChildByKinderGarten(@Param ("kgid") int kgid);

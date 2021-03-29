@@ -21,7 +21,8 @@ public interface IKinderGartenRepository extends CrudRepository<KinderGarten, In
 	public void updateKindergartenJPQL(@Param("name") String name, @Param("adress") String adress,
 			@Param("email") String email, @Param("tel") int tel, @Param("logo") String logo,
 			@Param("kinderId") int kinderId);
-
+	
+	
 /*	@Query("Select k from KinderGarten k " + "where k.adress=:adress  ")
 	public List<KinderGarten> getKinderGartenByAdress(@Param("adress") String adress);
 */
