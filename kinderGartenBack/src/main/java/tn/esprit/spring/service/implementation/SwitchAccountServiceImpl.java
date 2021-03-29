@@ -7,15 +7,20 @@ import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
+import tn.esprit.spring.entity.Event;
 import tn.esprit.spring.entity.KinderGarten;
+import tn.esprit.spring.entity.Message;
 import tn.esprit.spring.entity.SwitchAccount;
 import tn.esprit.spring.entity.User;
 import tn.esprit.spring.entity.enumeration.Role;
 import tn.esprit.spring.entity.enumeration.RoleSwitch;
 import tn.esprit.spring.entity.enumeration.StateUser;
 import tn.esprit.spring.repository.IKinderGartenRepository;
+import tn.esprit.spring.repository.IMyMessageRep;
 import tn.esprit.spring.repository.ISwitchAccountRepository;
 import tn.esprit.spring.service.interfaceS.ISwitchAccountService;
 @Service
@@ -23,6 +28,9 @@ public class SwitchAccountServiceImpl implements ISwitchAccountService {
 
 	@Autowired
 	ISwitchAccountRepository switchRepo;
+
+	@Autowired
+	IMyMessageRep iMyMessageRep;
 	@Autowired
 	IKinderGartenRepository iKinderGartenRepository;
 	
@@ -65,16 +73,17 @@ public class SwitchAccountServiceImpl implements ISwitchAccountService {
 
 	@Override
 	public List<KinderGarten> getAllKinderGarden() {
-		// TODO Auto-generated method stub
 		return iKinderGartenRepository.findAll();
 	}
 	
 
 	//This function converts decimal degrees to radians
+	//Latitude and Longitude in the formula must be radians
     private double deg2rad(double deg) {
         return (deg * Math.PI / 180.0);
     }
-//This function converts radians to decimal degrees 
+//This function converts radians to decimal degrees
+    //
     private double rad2deg(double rad) {
         return (rad * 180.0 / Math.PI);
           }
@@ -106,21 +115,27 @@ public class SwitchAccountServiceImpl implements ISwitchAccountService {
 		
 		for(int i=0;i<kindergartens.size();i++)
 		{
-			if(distance2(lat1, lon1,kindergartens.get(i).getLatitude(),kindergartens.get(i).getLongitude())<10)
+			if(distance2(lat1, lon1,kindergartens.get(i).getLatitude(),kindergartens.get(i).getLongitude())<3000)
 			{
 				Nearpoints.add(kindergartens.get(i));
 			}
 			}
 		return Nearpoints;
+		
 	}
 
-/*	@Override
-	public List<Integer> getNumbereventbycategry(int kindergartenId) {
+	@Override
+	public List<Message> getmail(int id) {
 		
-		return switchRepo.getNumbereventbycategory(kindergartenId);
+		return iMyMessageRep.getmail(id);
+	}
 
+	@Override
+	public void SendMail(Message message) {
+		  iMyMessageRep.save(message);
+		
+	}
 
-	}*/
 }
   
 	

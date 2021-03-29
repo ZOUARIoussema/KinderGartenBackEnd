@@ -7,10 +7,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mysql.cj.ParseInfo;
+
 import tn.esprit.spring.entity.Category;
 import tn.esprit.spring.entity.Child;
 import tn.esprit.spring.entity.Event;
 import tn.esprit.spring.entity.KinderGarten;
+import tn.esprit.spring.entity.Statistique;
 import tn.esprit.spring.entity.User;
 import tn.esprit.spring.repository.ICategoryRepository;
 import tn.esprit.spring.repository.IChildRepository;
@@ -92,4 +95,28 @@ IChildRepository iChildRepository;
 		}
 		return lis;
 	}
+
+	
+	@Override
+	public List<Statistique> getStatistiqueEventBykindergarten(int id) {
+	
+		List<String>  listString  = iEventRepository.getStatistiqueEventBykindergarten(id);
+		List<Statistique>  listStat = new ArrayList<>();
+	
+		
+		   for (int i=0;i<listString.size();i++)
+		   { 
+				Statistique stat=new Statistique();
+                int   index =listString.get(i).indexOf("," ) ;  
+			   stat.setDescription( listString.get(i).substring(0, index));
+			   stat.setCount( Integer.parseInt((listString.get(i).substring(index+1, listString.get(i).length()))));
+			   stat.setPourcentage(stat.getCount()*100/iEventRepository.getCountOfEventByKinderGarten(id));
+			   listStat.add(stat);
+		   }
+		  
+
+		   return listStat;
+	
+	}
+	
 }

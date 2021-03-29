@@ -5,6 +5,7 @@ import java.util.List;
 
 import tn.esprit.spring.entity.Child;
 import tn.esprit.spring.entity.Event;
+import tn.esprit.spring.entity.Statistique;
 
 
 public interface IEventService {
@@ -17,4 +18,8 @@ public interface IEventService {
 	public List<Event> findAllEventByKinderGarten(int kinderId) ;
 	public List<Event> getAllEventForToday();
 	public List<Event> getEventForChild(int idChild);
+	
+	public List<Statistique> getStatistiqueEventBykindergarten(int id);
+	
+	
 }

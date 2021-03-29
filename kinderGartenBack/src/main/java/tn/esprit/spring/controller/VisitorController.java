@@ -11,11 +11,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import tn.esprit.spring.entity.Event;
 import tn.esprit.spring.entity.KinderGarten;
+import tn.esprit.spring.entity.Message;
+import tn.esprit.spring.entity.Statistique;
 import tn.esprit.spring.entity.SwitchAccount;
 import tn.esprit.spring.entity.User;
+import tn.esprit.spring.service.interfaceS.IEventService;
 import tn.esprit.spring.service.interfaceS.ISwitchAccountService;
-import tn.esprit.spring.utils.kinderGartenAlgorithm;
 
 @RestController
 @RequestMapping("/visitor")
@@ -23,7 +27,8 @@ import tn.esprit.spring.utils.kinderGartenAlgorithm;
 public class VisitorController {
 	@Autowired
 	ISwitchAccountService iswitchaccount;
-	kinderGartenAlgorithm kindergartenalgorithme;
+	@Autowired
+	IEventService iEventService;
 	@PostMapping("/addSwitchAccount")
 	@ResponseBody
 	public SwitchAccount addSwitchAccount(@RequestBody SwitchAccount switchAccount) {
@@ -48,6 +53,23 @@ public class VisitorController {
 		
 	} 
 
+	@GetMapping(value="/getStatistiqueEventBykindergarten/{id}")
+	public List<Statistique> getStatistiqueEventBykindergarten(@PathVariable("id")int id){
+		return iEventService.getStatistiqueEventBykindergarten(id);
+		
+	} 
+	
+	@GetMapping(value="/getmail/{id_user}")
+	public List<Message> getmail (@PathVariable("id_user")int id){
+		return  iswitchaccount.getmail(id);
+		
+	}
+	@PostMapping(path = "/Sendmail")
+	public void Sendmail(@RequestBody Message message) {
+		 iswitchaccount.SendMail(message);
+
+
+}
 }
 	
 	
