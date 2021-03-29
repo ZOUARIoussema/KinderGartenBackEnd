@@ -14,11 +14,11 @@ import tn.esprit.spring.entity.Estimate;
 @Repository
 public interface IEstimateRepository extends CrudRepository<Estimate, Integer> {
 	
-	@Query(value="select u.first_name,e.item,e.qte,e.total "
+	@Query(value="select u.first_name,u.email,u.tel,e.item,e.qte,e.total "
 			+ "from estimate e ,user u, event v, category c, kinder_garten k"
 			+ " where e.id_kinder=k.id and k.id=c.kinder_garten_id and c.id = v.category_id "
 			+ "and u.id = e.id_user and v.id=:idEvent and e.total<=v.price and e.qte= v.n_participate AND e.item"
-			+ " LIKE v.description GROUP BY e.datec",nativeQuery=true)
+			+ " LIKE v.object order by e.total",nativeQuery=true)
 	public List<?> getEstimateByEventJPQL(@Param("idEvent") int idEvent);
 	
 	@Query(value = "SELECT * from Estimate where id_kinder=:kinderId and id_user=:ProviderId", nativeQuery = true)

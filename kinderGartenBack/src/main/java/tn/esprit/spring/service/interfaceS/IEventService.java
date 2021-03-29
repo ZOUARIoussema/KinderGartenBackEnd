@@ -12,7 +12,7 @@ import tn.esprit.spring.entity.Event;
 
 public interface IEventService {
 	public int addEvent(Event event);
-	public void updateEvent(String description, Date date,double price, int eventId);
+	public void updateEvent(String object,String description, Date date,double price, int eventId);
 	public List<Event> getAllevent();
 	public void deleteEventaById(int eventId);
 	public Event getEventById(int eventId);

@@ -37,6 +37,7 @@ public class Event implements Serializable {
 
 	private double price;
 
+	private String object;
 	@ManyToOne
 	@JsonIgnore
 	private Category category;
@@ -98,6 +99,14 @@ public class Event implements Serializable {
 
 	public void setLisChilds(List<Child> lisChilds) {
 		this.lisChilds = lisChilds;
+	}
+
+	public String getObject() {
+		return object;
+	}
+
+	public void setObject(String object) {
+		this.object = object;
 	}
 
 }

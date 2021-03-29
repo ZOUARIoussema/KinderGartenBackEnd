@@ -355,7 +355,7 @@ public class AdminGartenController {
 	@PutMapping(value = "/updateEvent/{id}")
 	@ResponseBody
 	public void updateEvent(@PathVariable("id") int eventId, @RequestBody Event event) {
-		iEventService.updateEvent(event.getDescription(), event.getDate(),event.getPrice(), eventId);
+		iEventService.updateEvent(event.getObject(),event.getDescription(), event.getDate(),event.getPrice(), eventId);
 
 	}
 

@@ -16,8 +16,8 @@ public interface IEventRepository extends CrudRepository<Event, Integer>  {
 
 	@Modifying
 	@Transactional
-	@Query("update Event e set e.description = :description ,e.date = :date , e.price= :price  where e.id = :eventId")
-	public void updateEventJPQL(@Param("description") String description,@Param("date") Date date,@Param("price") double price,@Param("eventId") int eventId);
+	@Query("update Event e set e.description = :description ,e.object = :object,e.date = :date , e.price= :price  where e.id = :eventId")
+	public void updateEventJPQL(@Param("object") String object,@Param("description") String description,@Param("date") Date date,@Param("price") double price,@Param("eventId") int eventId);
 
 	@Query(value="select * from event where kinder_garten_id=:kinderId",nativeQuery=true)
 	public List<Event> findAllEventByGartenJPQL(@Param("kinderId")int kinderId);

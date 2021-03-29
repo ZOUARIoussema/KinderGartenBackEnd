@@ -41,8 +41,8 @@ public class EventServiceImpl implements IEventService {
 	}
 
 	@Override
-	public void updateEvent(String description, Date date, double price, int eventId) {
-		iEventRepository.updateEventJPQL(description, date, price, eventId);
+	public void updateEvent(String object,String description, Date date, double price, int eventId) {
+		iEventRepository.updateEventJPQL(object, description, date, price, eventId);;
 
 	}
 
@@ -113,7 +113,7 @@ public class EventServiceImpl implements IEventService {
 		if (user.getKinderGartenInscription().getId() == kindergartenId) {
 			if (date.after(event.getDate())) {
 				servicemail.sendSimpleMail(user.getEmail(), event.getCategory().getKinderGarten().getResponsible().getFirstName()+" Hey Provider " + user.getFirstName(),
-						" I need to this " + event.getDescription()+ " with number of places "+event.getnParticipate() + " ! with price " + event.getPrice());
+						" I need, " + event.getObject()+ " with number of places "+event.getnParticipate() + " ! with price " + event.getPrice());
 			} else {
 				System.out.println("the event didint terminated");
 			}
