@@ -2,6 +2,7 @@ package tn.esprit.spring.service.interfaceS;
 
 import java.util.List;
 
+import tn.esprit.spring.entity.KinderGarten;
 import tn.esprit.spring.entity.User;
 
 public interface IUserService {
@@ -26,9 +27,11 @@ public interface IUserService {
 	
 	public void confirmerInscriptionParMail (User u);
 	
+	public String RegisterKinderGarten(int iduser, int  id_kg);
 	
-	public void DesactivateAccountKinderGarten(int id);
-
+	public void sendMailAlertToResponsibleKinderGarten(int id);
+	
+	
 	
 
 }

@@ -1,12 +1,16 @@
 package tn.esprit.spring.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+
+import org.hibernate.annotations.Cascade;
 
 @Entity
 public class Claim implements Serializable{
@@ -25,9 +29,20 @@ public class Claim implements Serializable{
 	private String object;
 	private String description;
 	private String type;
+	private String state;
+	private Date creation_date;
 	@ManyToOne
 	private User parent;
 	
+	
+
+	
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
+	}
 	
 	public String getObject() {
 		return object;
@@ -65,11 +80,13 @@ public class Claim implements Serializable{
 	}
 	
 	
+	public Date getCreation_date() {
+		return creation_date;
+	}
+	public void setCreation_date(Date creation_date) {
+		this.creation_date = creation_date;
 	
-	
-	
-	
-	
+	}
 	
 	
 

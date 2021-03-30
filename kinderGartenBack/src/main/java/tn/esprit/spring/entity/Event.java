@@ -41,6 +41,9 @@ public class Event implements Serializable {
 	@ManyToOne
 	@JsonIgnore
 	private Category category;
+	
+	@ManyToMany(mappedBy = "lisEvents")
+	public List<Child> lisChilds = new ArrayList<Child>();
 
 	public Category getCategory() {
 		return category;
@@ -90,8 +93,7 @@ public class Event implements Serializable {
 		this.price = price;
 	}
 
-	@ManyToMany(mappedBy = "lisEvents")
-	public List<Child> lisChilds = new ArrayList<Child>();
+	
 
 	public List<Child> getLisChilds() {
 		return lisChilds;
