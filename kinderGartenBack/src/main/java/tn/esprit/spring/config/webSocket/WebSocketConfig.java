@@ -42,7 +42,6 @@ public class WebSocketConfig extends  AbstractWebSocketMessageBrokerConfigurer {
 				.withSockJS();
 	}
 
-	
 	@Override
 	public void configureClientInboundChannel(ChannelRegistration registration) {
 		registration.setInterceptors(new ChannelInterceptorAdapter() {

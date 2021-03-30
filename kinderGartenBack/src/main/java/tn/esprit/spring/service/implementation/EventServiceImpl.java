@@ -34,12 +34,12 @@ public class EventServiceImpl implements IEventService {
 		iEventRepository.save(event);
 		return event.getId();
 	}
-
 	@Override
-	public void updateEvent(String description, Date date, double price, int eventId) {
-		iEventRepository.updateEventJPQL(description, date, price, eventId);
-
+	public void updateEvent(String object, String description, Date date, double price, int eventId) {
+		iEventRepository.updateEventJPQL(description, date, price, eventId);		
 	}
+
+
 
 	@Override
 	public List<Event> getAllevent() {
@@ -96,27 +96,19 @@ IChildRepository iChildRepository;
 		return lis;
 	}
 
+
 	
 	@Override
-	public List<Statistique> getStatistiqueEventBykindergarten(int id) {
-	
-		List<String>  listString  = iEventRepository.getStatistiqueEventBykindergarten(id);
-		List<Statistique>  listStat = new ArrayList<>();
-	
+	public void SendRequestItem(int id_event, int userId, int kindergartenId) {
+		// TODO Auto-generated method stub
 		
-		   for (int i=0;i<listString.size();i++)
-		   { 
-				Statistique stat=new Statistique();
-                int   index =listString.get(i).indexOf("," ) ;  
-			   stat.setDescription( listString.get(i).substring(0, index));
-			   stat.setCount( Integer.parseInt((listString.get(i).substring(index+1, listString.get(i).length()))));
-			   stat.setPourcentage(stat.getCount()*100/iEventRepository.getCountOfEventByKinderGarten(id));
-			   listStat.add(stat);
-		   }
-		  
-
-		   return listStat;
-	
 	}
-	
+
+
+	@Override
+	public List<?> getEstimateByEvent(int idEvent) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

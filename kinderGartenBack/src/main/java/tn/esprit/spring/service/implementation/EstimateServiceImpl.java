@@ -32,11 +32,7 @@ public class EstimateServiceImpl implements IEstimateService{
 		
 	}
 
-	/*@Override
-	public void updateEstimate(Estimate estimate) {
-		iEstimateRepository.save(estimate);
-	}
-*/
+
 	@Override
 	public List<Estimate> getAllEstimate() {
 		return (List<Estimate>) iEstimateRepository.findAll();
@@ -47,5 +43,20 @@ public class EstimateServiceImpl implements IEstimateService{
 	public List<Estimate> getEstimateByKinderAndProvider(int kinderId, int ProviderId) {
 		return iEstimateRepository.getEstimateByKinderAndProviderJPQL(kinderId, ProviderId);
 	}
+
+	@Override
+	public void deleteEstimate(Date estimateDate,int iduser,int idkinder) {
+		iEstimateRepository.deleteRepasJPQL(estimateDate, iduser, idkinder);
+		
+	}
+
+
+	@Override
+	public void updateEstimate(Date estimateDate, int iduser, int idkinder, String item, int qte, double total) {
+		iEstimateRepository.updateEstimateJPQL(qte, total, item, estimateDate, iduser, idkinder);
+		
+	}
+
+
 
 }
