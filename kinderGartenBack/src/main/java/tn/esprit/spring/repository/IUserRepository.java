@@ -3,10 +3,13 @@ package tn.esprit.spring.repository;
 import java.util.List;
 
 import org.hibernate.annotations.Where;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import tn.esprit.spring.entity.User;
 
 @Repository
@@ -32,4 +35,9 @@ public interface IUserRepository extends CrudRepository<User, Integer> {
 	@Query(value = " select * from user  u where  u.score_delegate = ( select Max( score_delegate) from user ) and u.kinder_garten_inscription_id = ?1", nativeQuery = true)
 	public User delegatorsElection(int kindergartenId);
 	
+	@Modifying
+    @Transactional
+    @Query("UPDATE User u SET u.stateUser = 'blocked' where u.id=:id")
+    public void BannedUser(@Param("id")int id);
+
 }

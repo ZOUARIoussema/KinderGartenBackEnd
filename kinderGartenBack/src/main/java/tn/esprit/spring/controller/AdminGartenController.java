@@ -81,6 +81,18 @@ public class AdminGartenController {
 		return kendergarten;
 	}
 
+	@PutMapping(value = "/BannedUser/{id}/{kinderId}")
+	@ResponseBody
+	public void BannedUser(@PathVariable("id") int id,@PathVariable("kinderId") int kinderId){
+		iKinderGartenService.BannedUser(id, kinderId);
+	}
+	
+	@PutMapping(value = "/recupComptes/{idUser}/{kinderId}")
+	@ResponseBody
+	public void recupComptes(@PathVariable("idUser") int idUser,@PathVariable("kinderId") int kinderId) {
+		iKinderGartenService.recupComptes(idUser, kinderId);
+	}
+	
 	@GetMapping(value = "/getKindergartenById/{kinderId}")
 	@ResponseBody
 	public KinderGarten getKindergartenById(@PathVariable("kinderId") int kinderId) {

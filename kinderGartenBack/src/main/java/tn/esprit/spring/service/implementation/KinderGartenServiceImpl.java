@@ -1,64 +1,55 @@
 package tn.esprit.spring.service.implementation;
 
-
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import org.springframework.transaction.annotation.Transactional;
-
-import tn.esprit.spring.entity.Extra;
 import tn.esprit.spring.entity.KinderGarten;
 import tn.esprit.spring.entity.User;
+import tn.esprit.spring.entity.enumeration.StateUser;
 import tn.esprit.spring.repository.IKinderGartenRepository;
 import tn.esprit.spring.repository.IUserRepository;
 
 import tn.esprit.spring.service.interfaceS.IKinderGartenService;
 
-
 @Service
-public  class KinderGartenServiceImpl implements IKinderGartenService {
-	
+public class KinderGartenServiceImpl implements IKinderGartenService {
+
 	@Autowired
 	IKinderGartenRepository kinderRepo;
 	@Autowired
 	IKinderGartenRepository iKinderGartenRepository;
 	@Autowired
 	IUserRepository iUserRepository;
-	
+
 	@Override
 	public int addKindergarten(KinderGarten kendergarten) {
 		iKinderGartenRepository.save(kendergarten);
 		return kendergarten.getId();
 	}
-	 
+
 	@Override
-	public void updateKindergarten(String name,String adress,String email,int tel,String logo,int kinderId) {
+	public void updateKindergarten(String name, String adress, String email, int tel, String logo, int kinderId) {
 		iKinderGartenRepository.updateKindergartenJPQL(name, adress, email, tel, logo, kinderId);
 	}
-
-
 
 	@Override
 	public void deleteKindergartenById(int kenderId) {
 		KinderGarten kinderGarten = iKinderGartenRepository.findById(kenderId).get();
 		iKinderGartenRepository.delete(kinderGarten);
-		
+
 	}
 
 	@Override
 	public KinderGarten getKindergartenById(int kinderId) {
-			return iKinderGartenRepository.findById(kinderId).get();
+		return iKinderGartenRepository.findById(kinderId).get();
 	}
 
-		
 	@Override
 	public List<KinderGarten> getAllkinder() {
 		return (List<KinderGarten>) iKinderGartenRepository.findAll();
 	}
-
 
 	@Override
 	public User delegatorsElection(int kindergartenId) {
@@ -67,7 +58,7 @@ public  class KinderGartenServiceImpl implements IKinderGartenService {
 		k.setDelegate(u);
 		iKinderGartenRepository.save(k);
 		return u;
-		
+
 	}
 
 	@Override
@@ -75,7 +66,27 @@ public  class KinderGartenServiceImpl implements IKinderGartenService {
 		return iUserRepository.listDelegators(kindergartenId);
 	}
 
-	
-	
+	@Override
+	public void BannedUser(int id, int kinderId) {
+		User u = iUserRepository.findById(id).orElse(null);
+		if (u.getKinderGartenInscription().getId() == kinderId) {
+			if (u.getStateUser() == StateUser.active) {
+				iUserRepository.BannedUser(id);
+				iUserRepository.save(u);
+			}
+		}
+	}
+
+
+	@Override
+	public void recupComptes(int idUser, int kinderId) {
+		User u = iUserRepository.findById(idUser).orElse(null);
+		if (u.getKinderGartenInscription().getId() == kinderId) {
+		if ((u.getStateUser() == StateUser.blocked) || (u.getStateUser() == StateUser.waiting)) {
+			u.setStateUser(StateUser.active);
+			iUserRepository.save(u);
+		}
+		}
+	}
 
 }

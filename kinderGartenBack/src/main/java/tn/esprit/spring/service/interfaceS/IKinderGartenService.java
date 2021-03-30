@@ -15,7 +15,7 @@ public interface IKinderGartenService {
 	public KinderGarten getKindergartenById(int kinderId);
 	public User delegatorsElection(int kindergartenId);
 	public List<User> listDelegators(int kindergartenId);
-
-
+	public void recupComptes(int idUser, int kinderId);
+	public void BannedUser(int id,int kinderId);
 }
 

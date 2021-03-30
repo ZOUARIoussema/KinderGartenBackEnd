@@ -52,13 +52,13 @@ public class VisitorController {
 		//return 15.8;
 		
 	} 
-
+/*
 	@GetMapping(value="/getStatistiqueEventBykindergarten/{id}")
 	public List<Statistique> getStatistiqueEventBykindergarten(@PathVariable("id")int id){
 		return iEventService.getStatistiqueEventBykindergarten(id);
 		
 	} 
-	
+	*/
 	@GetMapping(value="/getmail/{id_user}")
 	public List<Message> getmail (@PathVariable("id_user")int id){
 		return  iswitchaccount.getmail(id);

@@ -7,19 +7,19 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mysql.cj.ParseInfo;
-
 import tn.esprit.spring.entity.Category;
 import tn.esprit.spring.entity.Child;
+import tn.esprit.spring.entity.Estimate;
 import tn.esprit.spring.entity.Event;
 import tn.esprit.spring.entity.KinderGarten;
-import tn.esprit.spring.entity.Statistique;
 import tn.esprit.spring.entity.User;
 import tn.esprit.spring.repository.ICategoryRepository;
 import tn.esprit.spring.repository.IChildRepository;
+import tn.esprit.spring.repository.IEstimateRepository;
 import tn.esprit.spring.repository.IEventRepository;
 import tn.esprit.spring.repository.IKinderGartenRepository;
 import tn.esprit.spring.repository.IUserRepository;
+import tn.esprit.spring.service.interfaceS.IEstimateService;
 import tn.esprit.spring.service.interfaceS.IEventService;
 
 @Service
@@ -28,18 +28,23 @@ public class EventServiceImpl implements IEventService {
 	IEventRepository iEventRepository;
 	@Autowired
 	ICategoryRepository iCategoryRepository;
-
+	@Autowired
+	IUserRepository iUserRepository;
+	@Autowired
+	MailServiceImpl servicemail;
+	@Autowired
+ IEstimateRepository iEstimateRepository;
 	@Override
 	public int addEvent(Event event) {
 		iEventRepository.save(event);
 		return event.getId();
 	}
+
 	@Override
-	public void updateEvent(String object, String description, Date date, double price, int eventId) {
-		iEventRepository.updateEventJPQL(description, date, price, eventId);		
+	public void updateEvent(String object,String description, Date date, double price, int eventId) {
+		iEventRepository.updateEventJPQL(object, description, date, price, eventId);;
+
 	}
-
-
 
 	@Override
 	public List<Event> getAllevent() {
@@ -76,39 +81,47 @@ public class EventServiceImpl implements IEventService {
 	public List<Event> getAllEventForToday() {
 		return iEventRepository.getAllEventPourToday();
 	}
-@Autowired
-IChildRepository iChildRepository;
+
+	@Autowired
+	IChildRepository iChildRepository;
+
 	@Override
 	public List<Event> getEventForChild(int idChild) {
-		Child c= iChildRepository.findById(idChild).orElse(null);
+		Child c = iChildRepository.findById(idChild).orElse(null);
 		List<Event> liste = (List<Event>) iEventRepository.findAll();
-		//List<Category> listCategory = (List<Category>)iCategoryRepository.findAll();
+		// List<Category> listCategory =
+		// (List<Category>)iCategoryRepository.findAll();
 		List<Category> listInterest = c.getListInterest();
-		List<Event> lis= new ArrayList<>();
+		List<Event> lis = new ArrayList<>();
 		for (int i = 0; i < liste.size(); i++) {
 			for (int j = 0; j < listInterest.size(); j++) {
-				if (liste.get(i).getCategory().equals(listInterest.get(j))&&listInterest.get(j).getListChild().contains(c)) {
+				if (liste.get(i).getCategory().equals(listInterest.get(j))
+						&& listInterest.get(j).getListChild().contains(c)) {
 					lis.add(liste.get(i));
-					
+
 				}
 			}
 		}
 		return lis;
 	}
 
-
-	
 	@Override
 	public void SendRequestItem(int id_event, int userId, int kindergartenId) {
-		// TODO Auto-generated method stub
-		
+		Date date = new Date();
+		User user = iUserRepository.findById(userId).orElse(null);
+		Event event = iEventRepository.findById(id_event).get();
+		if (user.getKinderGartenInscription().getId() == kindergartenId) {
+			if (date.after(event.getDate())) {
+				servicemail.sendSimpleMail(user.getEmail(), event.getCategory().getKinderGarten().getResponsible().getFirstName()+" Hey Provider " + user.getFirstName(),
+						" I need, " + event.getObject()+ " with number of places "+event.getnParticipate() + " ! with price " + event.getPrice());
+			} else {
+				System.out.println("the event didint terminated");
+			}
+		}
 	}
-
 
 	@Override
 	public List<?> getEstimateByEvent(int idEvent) {
-		// TODO Auto-generated method stub
-		return null;
+		return iEstimateRepository.getEstimateByEventJPQL(idEvent);
 	}
-
 }

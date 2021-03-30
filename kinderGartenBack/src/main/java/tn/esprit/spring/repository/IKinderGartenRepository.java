@@ -31,6 +31,7 @@ public interface IKinderGartenRepository extends CrudRepository<KinderGarten, In
 
 	/*@Query("Select k from KinderGarten k " + "where k.name=:name  ")
 	public List<KinderGarten> getKinderGartenByName(@Param("name") String name);*/
+	
 
 	
 }
