@@ -104,6 +104,7 @@ public class AdminController {
 		return claimServ.getClaimsByCleanliness();
 	}
 	
+	//***********Statistics*********************//
 	
 	// nb des enfants par jardin d'enfant
 	
@@ -112,12 +113,31 @@ public class AdminController {
 		return staticsServ.listChildByKinderGarten();
 	}
 	
+	@GetMapping(value="/numberPublicationByParent")
+	public List<?> nbrPublicationByUser() 
+	{
+		return staticsServ.nbrPublicationByUser();
+	}
+	
+	
+	@GetMapping(value="/numberLikeByParent")
+	public List<?> NbrLikeByUser() 
+	{
+		return staticsServ.NbrLikeByUser();
+	}
+	
 	
 	
 	@GetMapping(value="/sendAlertToResponsible/{id}")
 	public void sendMailAlertToResponsibleKinderGarten(@PathVariable("id") int kg_id) 
 	{
 		userservices.sendMailAlertToResponsibleKinderGarten(kg_id);
+	}
+	
+	@GetMapping(value="/numberParticipantsKinderGarten")
+	public List<?> numberParticipEventKinderGaten()
+	{
+		return staticsServ.numberParticipEventKinderGaten();
 	}
 	
 	//number of comments by parent

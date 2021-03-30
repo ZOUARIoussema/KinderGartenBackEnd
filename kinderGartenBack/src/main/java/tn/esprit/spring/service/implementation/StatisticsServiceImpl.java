@@ -22,40 +22,36 @@ public class StatisticsServiceImpl implements IStatisticsService {
 		return StatisticRepository.listChildByKinderGarten();
 	}
 
-//	@Override
-//	public int NbrCommentsByUser(int userid) {
-//		return StatisticRepository.NbrCommentsByUser(userid);
-//	}
 
 	@Override
-	public int NbrLikeByUser(int userid) {
+	public List<?> NbrLikeByUser() {
 		
-		return StatisticRepository.NbrLikeByUser(userid);
+		return StatisticRepository.NbrLikeByUser();
 	}
 
+	
 	@Override
-	public int nbrPublicationByUser(int userid) {
-		return StatisticRepository.nbrPublicationByUser(userid);
-	}
-
-	@Override
-	public int nbrParticpEventByUser(int userid)
+	public List<?> numberParticipEventKinderGaten()
 	{
-	//	return StatisticRepository.nbrParticpEventByUser(userid);
-		return 0;
+	return StatisticRepository.numberParticipEventKinderGaten();
+		
 	}
 
-
 	@Override
-	public int nbrChildByKinderGarten(int kgid) {
-		return StatisticRepository.nbrChildByKinderGarten(kgid);
+	public List<?> nbrPublicationByUser() {
+		return StatisticRepository.nbrPublicationByUser();
 	}
 
 	@Override
 	public int NbrChildSubscribed2021(int jardinid) {
+		// TODO Auto-generated method stub
 		return 0;
-	//	return StatisticRepository.NbrChildSubscribed2021(jardinid);
 	}
+
+
+	
+
+	
 	
 	
 }

@@ -19,23 +19,19 @@ public interface IStatisticsRepository extends CrudRepository<User, Integer>{
 	@Query(value="SELECT count(*) FROM comment c where c.parent_id =:userid ",nativeQuery=true)  
     public int NbrCommentsByUser (@Param ("userid") int userid);
 	
-	@Query("SELECT numberLike FROM Publication p where p.parent.id =:userid ")  
+	@Query("SELECT p.numberLike,p.parent.firstName,p.parent.lastName from  Publication p group by p.parent.kinderGartenInscription")  
 	
-	public int NbrLikeByUser (@Param ("userid") int userid);
+	public List<?> NbrLikeByUser ();
 	
-	@Query("SELECT count(*) FROM Publication p where p.parent.id =:userid ")  
-    public int nbrPublicationByUser(@Param ("userid") int userid);
+	@Query("SELECT count(*),p.parent.firstName,p.parent.lastName FROM Publication p group by p.parent.kinderGartenInscription ")  
+    public List<?> nbrPublicationByUser();
 	
 	
-	//@Query(value="SELECT count(*) FROM event e,kinder_garten kg,user u where (e.kinder_garten_id=kg.id) and (kg.id=u.kinder_garten_inscription_id) and(u.id=:userid) ")  
-   // public int nbrParticpEventByUser (@Param ("userid") int userid);
+	@Query("SELECT e.nParticipate,e.description,e.category.kinderGarten.name from Event e group by e.category.kinderGarten")  
+    public List<?> numberParticipEventKinderGaten ();
 	
 	
 
-	
-	@Query("SELECT count(*) FROM Child c where c.parent.kinderGartenInscription.id =:kgid ")  
-	public int nbrChildByKinderGarten(@Param ("kgid") int kgid);
-	
 	//@Query("select count (*) from SubscriptionChild sc where YEAR(e.dateC)=2021 and sc.child.parent.kinderGartenInscription.id =:jardinid")
    // public int NbrChildSubscribed2021(@Param ("jardinid") int jardinid);
 	

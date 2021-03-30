@@ -8,15 +8,12 @@ public interface IStatisticsService {
 
 	//public int NbrCommentsByUser(int userid);
 
-	public int NbrLikeByUser(int userid);
+	public List<?> NbrLikeByUser();
 
-	public int nbrPublicationByUser(int userid);
+	public List<?> nbrPublicationByUser();
 
-	public int nbrParticpEventByUser(int userid);
+	public List<?> numberParticipEventKinderGaten();
 
-	
-
-	public int nbrChildByKinderGarten(int kgid);
 
 	public int NbrChildSubscribed2021(int jardinid);
 }

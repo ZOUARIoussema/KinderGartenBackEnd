@@ -1,16 +1,12 @@
 package tn.esprit.spring.service.implementation;
 
  
-import static org.mockito.Mockito.lenient;
-
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import org.apache.logging.log4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import tn.esprit.spring.entity.Claim;
 import tn.esprit.spring.entity.User;
 import tn.esprit.spring.entity.enumeration.ClaimType;
@@ -18,6 +14,9 @@ import tn.esprit.spring.entity.enumeration.StateClaim;
 import tn.esprit.spring.repository.IClaimRepository;
 import tn.esprit.spring.repository.IUserRepository;
 import tn.esprit.spring.service.interfaceS.IClaimService;
+
+
+
 @Service
 public class ClaimServiceImpl implements IClaimService {
 	
@@ -76,6 +75,7 @@ public class ClaimServiceImpl implements IClaimService {
 		return claimsRepo.countNbrClaimsKindergarten(idkinder);
 	}
 	
+	
 	public Claim getClaimsById(int id)
 	{
 		return claimsRepo.findById(id).get();
@@ -123,4 +123,7 @@ public class ClaimServiceImpl implements IClaimService {
 		return claimsRepo.save(c).getId();
 
 	}
+
+	
+	
 }
