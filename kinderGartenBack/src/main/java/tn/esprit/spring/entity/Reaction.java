@@ -2,6 +2,7 @@ package tn.esprit.spring.entity;
 
 import java.io.Serializable;
 import java.time.ZonedDateTime;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -11,6 +12,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -36,11 +39,11 @@ public class Reaction implements Serializable {
 	private Publication publication;
 
 	@Enumerated(EnumType.STRING)
-	React React;
+	React react;
 
 	@Column(name = "DATE")
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	private ZonedDateTime date;
+	@Temporal(TemporalType.DATE)
+	private Date date;
 
 	public ReactionPK getLikePk() {
 		return likePk;
@@ -66,20 +69,24 @@ public class Reaction implements Serializable {
 		this.user = user;
 	}
 
+	
+
 	public React getReact() {
-		return React;
+		return react;
 	}
 
 	public void setReact(React react) {
-		React = react;
+		this.react = react;
 	}
 
-	public ZonedDateTime getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(ZonedDateTime date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
+
+	
 
 }

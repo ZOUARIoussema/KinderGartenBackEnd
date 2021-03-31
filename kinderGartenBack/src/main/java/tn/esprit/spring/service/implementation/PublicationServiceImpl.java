@@ -57,6 +57,11 @@ public class PublicationServiceImpl implements IPublicationService {
 		
 	}
 
+	@Override
+	public List<Publication> getPublicationDesc() {
+		return (List<Publication>)publicationRepository.getAllPublicationByNbrLike();
+	}
+
 	
 
 }

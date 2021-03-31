@@ -44,7 +44,7 @@ public class Publication implements Serializable {
 	}
 
 	@ManyToOne
-	@JsonIgnore
+	//@JsonIgnore
 	private User parent;
 
 	@OneToMany(mappedBy = "publication")

@@ -52,20 +52,9 @@ public class ReactionServiceImpl implements IReactionService {
 
 	@Override
 	public String addReaction(Reaction r) {
-		List<Reaction> rct = new ArrayList<Reaction>();
-		rct= (List<Reaction>) iReactionRepository.findAll();
-		for (Reaction rp : rct){
-			if(r.getPublication().getId() == rp.getPublication().getId() && (r.getUser().equals(rp.getUser()))){
-				return "user a déja aimé cette pub";
-			}
-			else {
-				User userManagedEntity = userRepository.findById((int) 1).get();
-				Publication publication = new Publication();
-				publication.setParent(userManagedEntity);
-				iReactionRepository.save(r);
-				
-			}
-		}
+		
+		
+		iReactionRepository.save(r);
 		return "reaction saved";
 	}
 

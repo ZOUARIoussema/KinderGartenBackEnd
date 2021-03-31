@@ -27,6 +27,7 @@ import tn.esprit.spring.entity.JustificationAbsence;
 import tn.esprit.spring.entity.Notice;
 import tn.esprit.spring.entity.Publication;
 import tn.esprit.spring.entity.Reaction;
+import tn.esprit.spring.entity.ReactionPK;
 import tn.esprit.spring.entity.SubscriptionChild;
 import tn.esprit.spring.entity.User;
 import tn.esprit.spring.service.interfaceS.IChildService;
@@ -64,7 +65,7 @@ public class ParentController {
 	IReactionService reactionService;
 	@Autowired
 	IDictionaryService dictionaryService;
-	@Autowired 
+	@Autowired
 	IClaimService claimService;
 	@Autowired
 	IUserService userS;
@@ -95,6 +96,13 @@ public class ParentController {
 	public List<Publication> getAllPublication() {
 
 		return publicationService.getAllPublication();
+	}
+
+	@GetMapping(value = "/getAllPublicationDesc")
+	@ResponseBody
+	public List<Publication> getAllPublicationDESC() {
+
+		return publicationService.getPublicationDesc();
 	}
 
 	@PostMapping("/assignAttachementToPost/{id}")
@@ -229,9 +237,18 @@ public class ParentController {
 
 	}
 
-	@PostMapping("/addReact")
+	@PostMapping("/addReact/{idu}/{idp}")
 	@ResponseBody
-	public void addReact(@RequestBody Reaction react) {
+	public void addReact(@RequestBody Reaction react, @PathVariable("idu") int idu, @PathVariable("idp") int idp) {
+
+		ReactionPK r = new ReactionPK();
+
+		r.setIdUser(idu);
+		r.setIdPublication(idp);
+
+		react.setLikePk(r);
+		react.setDate(new Date());
+
 		reactionService.addReaction(react);
 	}
 
@@ -272,17 +289,15 @@ public class ParentController {
 	@ResponseBody
 	public void addEvent(@RequestBody Child c) {
 
-		
 		/**
 		 * 
-		 *  add fidelity point
-		 *  
-		 *  ++ 50 point in event
+		 * add fidelity point
+		 * 
+		 * ++ 50 point in event
 		 */
-		
-		c.setFidelityPoint(c.getFidelityPoint()+50);
-		
-		
+
+		c.setFidelityPoint(c.getFidelityPoint() + 50);
+
 		childService.updateChild(c);
 
 		/**
@@ -290,28 +305,22 @@ public class ParentController {
 		 */
 
 		subscriptionChildService.updateTotalWithParticipateEvent(c);
-		
-		
+
 	}
-	
-	
+
 	@PostMapping("/addClaim/{id}")
 	@ResponseBody
-	public String addClaim(@RequestBody Claim c,@PathVariable("id") int iduser)
-	{
-		return "claim added successfully with id : " + claimService.addClaim(c,iduser);
+	public String addClaim(@RequestBody Claim c, @PathVariable("id") int iduser) {
+		return "claim added successfully with id : " + claimService.addClaim(c, iduser);
 	}
-	
-	
-	
+
 	@PutMapping("/RegisterKinderGarten/{id_kg}/{id_user}")
 	@ResponseBody
-	
-	public String RegisterKinderGarten(@PathVariable("id_user") int iduser, @PathVariable("id_kg") int  id_kg)
-	
+
+	public String RegisterKinderGarten(@PathVariable("id_user") int iduser, @PathVariable("id_kg") int id_kg)
+
 	{
 		return userS.RegisterKinderGarten(iduser, id_kg);
 	}
-	
 
 }
