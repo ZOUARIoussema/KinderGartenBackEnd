@@ -2,6 +2,8 @@ package tn.esprit.spring.service.interfaceS;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import tn.esprit.spring.entity.Activity;
 
 public interface IActivityService {
@@ -13,4 +15,5 @@ public interface IActivityService {
 	public void affecterActivityAkinderGarten(int activityId, int kinderId);
 	public List<Activity> findAllActivityByKinderGarten(int kinderId) ;
 	public void deleteAllActivity(int kinderId);
+	public void assignPhoto(int id , MultipartFile file);
 }

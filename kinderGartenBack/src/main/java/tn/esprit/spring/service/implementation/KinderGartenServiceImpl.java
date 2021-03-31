@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import tn.esprit.spring.entity.KinderGarten;
 import tn.esprit.spring.entity.User;
@@ -87,6 +88,21 @@ public class KinderGartenServiceImpl implements IKinderGartenService {
 			iUserRepository.save(u);
 		}
 		}
+	}
+
+	public int updateKindergarten(KinderGarten kendergarten) {
+		iKinderGartenRepository.save(kendergarten);
+		return kendergarten.getId();
+	}
+	
+	@Override
+	public void assignLogo(int id, MultipartFile file) {
+		KinderGarten k = iKinderGartenRepository.findById(id).orElse(null);
+		if (k!=null){
+			k.setLogo(file.getOriginalFilename());
+			this.updateKindergarten(k);
+		}
+		
 	}
 
 }

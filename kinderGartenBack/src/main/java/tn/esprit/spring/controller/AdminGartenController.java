@@ -1,10 +1,14 @@
 package tn.esprit.spring.controller;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.MediaType;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,8 +17,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import tn.esprit.spring.entity.Activity;
 import tn.esprit.spring.entity.Category;
@@ -41,6 +48,7 @@ import tn.esprit.spring.service.interfaceS.IExtraService;
 import tn.esprit.spring.service.interfaceS.IKinderGartenService;
 import tn.esprit.spring.service.interfaceS.IMeetingService;
 import tn.esprit.spring.service.interfaceS.ISessionVoteService;
+import tn.esprit.spring.service.interfaceS.IUploadFileService;
 import tn.esprit.spring.service.interfaceS.IUserService;
 import tn.esprit.spring.service.interfaceS.IVoteService;
 
@@ -73,12 +81,21 @@ public class AdminGartenController {
 	ISessionVoteService iSessionVoteService;
 	@Autowired
 	IEstimateService iEstimateService;
+	@Autowired
+	IUploadFileService uploadFileService ;
 
 	@PostMapping("/addKinderGarten")
 	@ResponseBody
 	public KinderGarten addKinderGarten(@RequestBody KinderGarten kendergarten) {
 		iKinderGartenService.addKindergarten(kendergarten);
 		return kendergarten;
+	}
+	@PostMapping("/assignLogo/{id}")
+	public void assignLogo(@PathVariable("id") int id, @RequestParam("file") MultipartFile file) {
+		if (uploadFileService.addFile(file)) {
+			iKinderGartenService.assignLogo(id, file);
+		}
+
 	}
 
 	@PutMapping(value = "/BannedUser/{id}/{kinderId}")
@@ -266,6 +283,13 @@ public class AdminGartenController {
 		return activity;
 	}
 
+	@PostMapping("/assignPhoto/{id}")
+	public void assignPhoto(@PathVariable("id") int id, @RequestParam("file") MultipartFile file) {
+		if (uploadFileService.addFile(file)) {
+			iActivityService.assignPhoto(id, file);
+		}
+	}
+	
 	@GetMapping(value = "/getActivityById/{activityaId}")
 	@ResponseBody
 	public Activity getActivityById(@PathVariable("activityaId") int activityaId) {
@@ -311,6 +335,34 @@ public class AdminGartenController {
 	}
 
 	// Event...
+	
+	 	@Autowired
+	    private SimpMessagingTemplate webSocket;
+
+	    private final String  TOPIC_DESTINATION = "/lesson/sms";
+
+	    @RequestMapping(value = "/sms/{id_event}/{userId}/{kindergartenId}", method = RequestMethod.POST,
+	            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	    public void smsSubmit(@PathVariable("id_event") int id_event,
+				@PathVariable("userId") int userId,@PathVariable("kindergartenId") int kindergartenId) {
+	        try{
+	            iEventService.SendSmstoProvider(id_event, userId, kindergartenId);
+	        }
+	        catch(Exception e){
+
+	            webSocket.convertAndSend(TOPIC_DESTINATION, getTimeStamp() + ": Error sending the SMS: "+e.getMessage());
+	            throw e;
+	        }
+	        webSocket.convertAndSend(TOPIC_DESTINATION, getTimeStamp() + ": SMS has been sent!: "+userId);
+
+	    }
+	    private String getTimeStamp() {
+	        return DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(LocalDateTime.now());
+	     }
+
+	
+	
+	
 	@GetMapping(value = "/getEventForChild/{idChild}")
 	@ResponseBody
 	public List<Event> getEventForChild(@PathVariable("idChild") int idChild){

@@ -7,19 +7,19 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
+
 import tn.esprit.spring.entity.Category;
 import tn.esprit.spring.entity.Child;
-import tn.esprit.spring.entity.Estimate;
 import tn.esprit.spring.entity.Event;
-import tn.esprit.spring.entity.KinderGarten;
 import tn.esprit.spring.entity.User;
 import tn.esprit.spring.repository.ICategoryRepository;
 import tn.esprit.spring.repository.IChildRepository;
 import tn.esprit.spring.repository.IEstimateRepository;
 import tn.esprit.spring.repository.IEventRepository;
-import tn.esprit.spring.repository.IKinderGartenRepository;
 import tn.esprit.spring.repository.IUserRepository;
-import tn.esprit.spring.service.interfaceS.IEstimateService;
 import tn.esprit.spring.service.interfaceS.IEventService;
 
 @Service
@@ -120,6 +120,31 @@ public class EventServiceImpl implements IEventService {
 		}
 	}
 
+	private final String ACCOUNT_SID ="AC131848a87fecf99be837175861639fc2";
+
+    private final String AUTH_TOKEN = "f8eb2d60e9ae40071d6c750bed8dd417";
+
+    private final String FROM_NUMBER = "+12563686010";
+	
+    @Override
+	public void SendSmstoProvider(int id_event, int userId, int kindergartenId) {
+		Date date = new Date();
+		User user = iUserRepository.findById(userId).orElse(null);
+		Event event = iEventRepository.findById(id_event).get();
+		if (user.getKinderGartenInscription().getId() == kindergartenId) {
+			if (date.after(event.getDate())) {
+				Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+		        Message message = Message.creator(new PhoneNumber("+216"+user.getTel()), new PhoneNumber(FROM_NUMBER), " I need this product please ! "+event.getObject())
+		        		.create();
+		        System.out.println("here is my id:"+message.getSid());// Unique resource ID created to manage this transaction
+
+			} else {
+				System.out.println("the event didint terminated");
+			}
+		}
+	}
+	
+	
 	@Override
 	public List<?> getEstimateByEvent(int idEvent) {
 		return iEstimateRepository.getEstimateByEventJPQL(idEvent);

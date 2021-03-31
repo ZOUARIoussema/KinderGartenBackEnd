@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import tn.esprit.spring.entity.Activity;
 import tn.esprit.spring.entity.KinderGarten;
@@ -24,6 +25,10 @@ public class ActivityServiceImpl implements IActivityService {
 		return activity.getId();
 	}
 
+	public int updateActivity(Activity activity) {
+		iActivityRepository.save(activity);
+		return activity.getId();
+	}
 	@Override
 	public void updateActivity(String description, String photo, int activityId) {
 		iActivityRepository.updateActivityJPQL(description, photo, activityId);
@@ -66,6 +71,15 @@ public class ActivityServiceImpl implements IActivityService {
 	@Override
 	public void deleteAllActivity(int kinderId) {
 		iActivityRepository.deleteAllActivityJPQL(kinderId);	
+	}
+
+	@Override
+	public void assignPhoto(int id, MultipartFile file) {
+		Activity a = iActivityRepository.findById(id).orElse(null);
+		if (a!=null){
+			a.setPhoto(file.getOriginalFilename());
+			this.updateActivity(a);
+		}
 	}
 	
 }
