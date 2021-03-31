@@ -37,6 +37,8 @@ public class AdminController {
 	@Autowired
 	IUserService userservices;
 	
+	//************ CLaims *************************//
+	
 	@GetMapping(value="/getAllClaims")
 	public List<Claim> getAllClaims() 
 	{
@@ -68,7 +70,7 @@ public class AdminController {
 		return claimServ.SearchClaimByParent(id);
 		
 	}
-
+	
 	
 	@GetMapping(value="/getNbrClaims/{id}")
 	
@@ -103,6 +105,9 @@ public class AdminController {
 	{
 		return claimServ.getClaimsByCleanliness();
 	}
+	//****************************************************//
+	
+	
 	
 	//***********Statistics*********************//
 	
@@ -126,13 +131,7 @@ public class AdminController {
 		return staticsServ.NbrLikeByUser();
 	}
 	
-	
-	
-	@GetMapping(value="/sendAlertToResponsible/{id}")
-	public void sendMailAlertToResponsibleKinderGarten(@PathVariable("id") int kg_id) 
-	{
-		userservices.sendMailAlertToResponsibleKinderGarten(kg_id);
-	}
+	//nombre de participants dans les events dans chaque jardin d'entfants
 	
 	@GetMapping(value="/numberParticipantsKinderGarten")
 	public List<?> numberParticipEventKinderGaten()
@@ -141,14 +140,38 @@ public class AdminController {
 	}
 	
 	//number of comments by parent
-//	
-//	@GetMapping(value="/retrieve-number-comments-user/{id}")
-//	@ResponseBody
-//	
-//	public int NbrCommentsByUser(@PathVariable("id") int userid)
-//	{
-//		return staticsServ.NbrCommentsByUser(userid);
-//	}
-//	
-//	
+	
+	@GetMapping(value="/retrieve-number-comments-user")
+	
+	 public List<?> NbrCommentsByUser ()
+	{
+		return staticsServ.NbrCommentsByUser();
+	}
+	
+	
+	@GetMapping(value="/getChildsSubscribed/{year}")
+	
+	public List<?> getChildsSubscribed(@PathVariable("year") int year)
+	{
+		return staticsServ.NbrChildSubscribed(year);
+	}
+	
+	//*****************************************************//
+	
+	//*********** Kinder garten managment ********************//
+	
+	@GetMapping(value="/sendAlertToResponsible/{id}")
+	public void sendMailAlertToResponsibleKinderGarten(@PathVariable("id") int kg_id) 
+	{
+		userservices.sendMailAlertToResponsibleKinderGarten(kg_id);
+	}
+	
+	
+	@GetMapping(value="/UpdateScoreEvaluation/{idkindergarten}")
+	public void UpdateScoreEvaluationKinderGarten(@PathVariable("idkindergarten") int kindergarten)
+	{
+		
+	}
+	
+	//********************************************//
 }

@@ -1,5 +1,6 @@
 package tn.esprit.spring.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -14,8 +15,13 @@ import javax.persistence.TemporalType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class formSatisfac {
+public class formSatisfac implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -23,9 +29,18 @@ public class formSatisfac {
 	@Temporal(TemporalType.DATE)
 	private Date date_debut;
 	
-	@Temporal(TemporalType.DATE)
-	private Date date_fin;
 	
+	private int nbr_questions;
+	
+	
+	public int getNbr_questions() {
+		return nbr_questions;
+	}
+
+	public void setNbr_questions(int nbr_questions) {
+		this.nbr_questions = nbr_questions;
+	}
+
 	private Integer nbr_reponses;
 	
 	@OneToOne(cascade = { CascadeType.ALL })
@@ -58,14 +73,7 @@ public class formSatisfac {
 		this.date_debut = date_debut;
 	}
 
-	public Date getDate_fin() {
-		return date_fin;
-	}
-
-	public void setDate_fin(Date date_fin) {
-		this.date_fin = date_fin;
-	}
-
+	
 	public Integer getNbr_reponses() {
 		return nbr_reponses;
 	}

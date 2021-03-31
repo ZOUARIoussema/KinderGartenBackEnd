@@ -6,7 +6,7 @@ public interface IStatisticsService {
 
 	public List<?> listChildByKinderGarten();
 
-	//public int NbrCommentsByUser(int userid);
+	public List<?> NbrCommentsByUser ();
 
 	public List<?> NbrLikeByUser();
 
@@ -14,6 +14,7 @@ public interface IStatisticsService {
 
 	public List<?> numberParticipEventKinderGaten();
 
-
-	public int NbrChildSubscribed2021(int jardinid);
+	public List<?> NbrChildSubscribed(int year);
+	
+	public void UpdateScoreEvaluation(int idkg);
 }

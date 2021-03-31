@@ -2,6 +2,8 @@ package tn.esprit.spring.repository;
 
 import java.util.List;
 
+import javax.websocket.server.PathParam;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -16,8 +18,8 @@ public interface IStatisticsRepository extends CrudRepository<User, Integer>{
     public List<?> listChildByKinderGarten();
 	
 	
-	@Query(value="SELECT count(*) FROM comment c where c.parent_id =:userid ",nativeQuery=true)  
-    public int NbrCommentsByUser (@Param ("userid") int userid);
+	@Query("SELECT count(*),c.parent.firstName,c.parent.lastName FROM Comment c,User u where (c.parent.id=u.id) group by c.parent.id ")  
+    public List<?> NbrCommentsByUser ();
 	
 	@Query("SELECT p.numberLike,p.parent.firstName,p.parent.lastName from  Publication p group by p.parent.kinderGartenInscription")  
 	
@@ -31,8 +33,21 @@ public interface IStatisticsRepository extends CrudRepository<User, Integer>{
     public List<?> numberParticipEventKinderGaten ();
 	
 	
-
-	//@Query("select count (*) from SubscriptionChild sc where YEAR(e.dateC)=2021 and sc.child.parent.kinderGartenInscription.id =:jardinid")
-   // public int NbrChildSubscribed2021(@Param ("jardinid") int jardinid);
+	@Query(value="SELECT kg.name,count(*) as numberChildSubscribed from child c,subscription_child s,user u,kinder_garten kg where c.parent_id=u.id and u.kinder_garten_inscription_id=kg.id and YEAR(s.datec)=:year group by kg.id",nativeQuery=true)
+	public List<?> NbrChildSubscribed (@Param("year") int year);
+	
+	
+	@Query("SELECT count(*) from Comment c where c.parent.id=:iduser")
+	public int countNbrCommentaires(@Param("iduser") int iduser);
+	
+	@Query("SELECT count(*) from Publication p where p.parent.id=:iduser")
+	public int countNbrPublications(@Param("iduser") int iduser);
+	
+	@Query("SELECT count(p.numberLike) from Publication p where p.parent.id=:iduser")
+	public int countNbrLikes(@Param("iduser") int iduser);
+	
+	
+	
+	
 	
 }
