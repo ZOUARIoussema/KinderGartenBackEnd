@@ -11,7 +11,7 @@ import tn.esprit.spring.entity.User;
 public interface IKinderGartenService {
 
 	public int addKindergarten(KinderGarten kendergarten);
-	public void updateKindergarten(String name,String adress,String email,int tel,String logo,int kinderId);
+	public void updateKindergarten(String name,String adress,String email,int tel,String logo,double latitude,double longitude,int kinderId);
 	public List<KinderGarten> getAllkinder();
 	public void deleteKindergartenById(int kenderId);
 	public KinderGarten getKindergartenById(int kinderId);

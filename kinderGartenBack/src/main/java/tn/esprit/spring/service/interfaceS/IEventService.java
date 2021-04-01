@@ -13,7 +13,6 @@ public interface IEventService {
 	public void deleteEventaById(int eventId);
 	public Event getEventById(int eventId);
 	public void affecterEventACategory(int eventId, int categoryId) ;
-	public List<Event> findAllEventByKinderGarten(int kinderId) ;
 	public List<Event> getAllEventForToday();
 	public List<Event> getEventForChild(int idChild);
 	public void SendSmstoProvider(int id_event, int userId, int kindergartenId);

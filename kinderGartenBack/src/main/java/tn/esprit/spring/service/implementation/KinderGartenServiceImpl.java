@@ -31,8 +31,8 @@ public class KinderGartenServiceImpl implements IKinderGartenService {
 	}
 
 	@Override
-	public void updateKindergarten(String name, String adress, String email, int tel, String logo, int kinderId) {
-		iKinderGartenRepository.updateKindergartenJPQL(name, adress, email, tel, logo, kinderId);
+	public void updateKindergarten(String name, String adress, String email, int tel, String logo,double latitude,double longitude, int kinderId) {
+		iKinderGartenRepository.updateKindergartenJPQL(name, adress, email, tel, logo, latitude, longitude, kinderId);;
 	}
 
 	@Override

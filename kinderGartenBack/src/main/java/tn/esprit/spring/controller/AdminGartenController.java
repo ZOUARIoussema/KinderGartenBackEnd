@@ -127,7 +127,7 @@ public class AdminGartenController {
 	@ResponseBody
 	public void updateKinderGarten(@PathVariable("id") int kenderId, @RequestBody KinderGarten kendergarten) {
 		iKinderGartenService.updateKindergarten(kendergarten.getName(), kendergarten.getAdress(),
-				kendergarten.getEmail(), kendergarten.getTel(), kendergarten.getLogo(), kenderId);
+				kendergarten.getEmail(), kendergarten.getTel(), kendergarten.getLogo(),kendergarten.getLongitude(),kendergarten.getLatitude(), kenderId);
 
 	}
 
@@ -384,12 +384,6 @@ public class AdminGartenController {
 	}
 	
 	
-	@GetMapping(value = "/findAllEventByKinderGarten/{kinderId}")
-	@ResponseBody
-	public List<Event> findAllEventByKinderGarten(@PathVariable("kinderId") int kinderId) {
-		return iEventService.findAllEventByKinderGarten(kinderId);
-	}
-	
 	@GetMapping(value = "/getAllEventForToday")
 	@ResponseBody
 	public List<Event> getAllEventForToday(){
@@ -513,7 +507,7 @@ public class AdminGartenController {
 		iClubService.deleteClubById(clubId);
 	}
 
-	@PutMapping(value = "/affecterClubACategory/{clubId}/{kinderId}")
+	@PutMapping(value = "/affecterClubACategory/{clubId}/{categoryId}")
 	public void affecterClubACategory(@PathVariable("clubId") int clubId, @PathVariable("categoryId") int categoryId) {
 		iClubService.affecterClubACategory(clubId, categoryId);
 

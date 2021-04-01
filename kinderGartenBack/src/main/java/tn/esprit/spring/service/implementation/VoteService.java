@@ -3,6 +3,8 @@ package tn.esprit.spring.service.implementation;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,8 @@ import tn.esprit.spring.service.interfaceS.IVoteService;
 
 @Service
 public class VoteService implements IVoteService {
+	private static Logger log = LoggerFactory.getLogger(EventServiceImpl.class);
+
 	@Autowired
 	IVoteRepository iVoteRepository;
 	@Autowired
@@ -43,7 +47,7 @@ public class VoteService implements IVoteService {
 
 				return id;
 				}else{
-					System.out.println("session has been terminated");
+					log.info("session has been terminated");
 				}
 
 			}

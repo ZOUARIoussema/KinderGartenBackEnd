@@ -17,9 +17,10 @@ public interface IKinderGartenRepository extends CrudRepository<KinderGarten, In
 
 	@Modifying
 	@Transactional
-	@Query("update KinderGarten e set e.name = :name ,e.adress = :adress,e.email = :email,e.tel = :tel,e.logo = :logo  where e.id = :kinderId")
+	@Query("update KinderGarten e set e.name = :name,e.latitude=:latitude,e.longitude=:longitude ,e.adress = :adress,e.email = :email,e.tel = :tel,e.logo = :logo  where e.id = :kinderId")
 	public void updateKindergartenJPQL(@Param("name") String name, @Param("adress") String adress,
 			@Param("email") String email, @Param("tel") int tel, @Param("logo") String logo,
+			@Param("latitude") double latitude,@Param("longitude") double longitude,
 			@Param("kinderId") int kinderId);
 	
 	
