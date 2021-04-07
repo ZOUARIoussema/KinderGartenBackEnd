@@ -9,14 +9,18 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import tn.esprit.spring.entity.Claim;
+import tn.esprit.spring.entity.KinderGarten;
 import tn.esprit.spring.entity.User;
 import tn.esprit.spring.service.interfaceS.IClaimService;
+import tn.esprit.spring.service.interfaceS.IFormSatisfacService;
+import tn.esprit.spring.service.interfaceS.IKinderGartenService;
 import tn.esprit.spring.service.interfaceS.IStatisticsService;
 import tn.esprit.spring.service.interfaceS.IUserService;
 
@@ -36,6 +40,13 @@ public class AdminController {
 	
 	@Autowired
 	IUserService userservices;
+	
+	@Autowired 
+	IKinderGartenService kinderservice;
+	
+	
+	@Autowired
+	IFormSatisfacService formservice;
 	
 	//************ CLaims *************************//
 	
@@ -89,7 +100,7 @@ public class AdminController {
 	
 	@GetMapping(value="/getAllParents")
 	
-	public List<User> getAllParents()
+	public List<String> getAllParents()
 	{
 		return claimServ.getAllParents();
 	}
@@ -166,11 +177,25 @@ public class AdminController {
 		userservices.sendMailAlertToResponsibleKinderGarten(kg_id);
 	}
 	
+	@GetMapping(value="/GetKinderGartensByScoreEval")
+	public List<KinderGarten> TriKinderGartenByScoreEval()
+	{
+		return kinderservice.TriKinderGartenByScoreEval();
+	}
 	
-	@GetMapping(value="/UpdateScoreEvaluation/{idkindergarten}")
-	public void UpdateScoreEvaluationKinderGarten(@PathVariable("idkindergarten") int kindergarten)
+	
+	@GetMapping(value="/planifyFormSatisfac/{id}")
+	public void planifierFormulaireStatisfaction(@PathVariable("id") int id)
+	{
+		 formservice.planifierFormulaireStatisfaction(id);
+	}
+	
+	@PutMapping(value="/UpdateScoreEvaluation/{idkindergarten}")
+	@ResponseBody
+	public void  UpdateScoreEvaluationKinderGarten(@PathVariable("idkindergarten") int kindergarten)
 	{
 		
+		staticsServ.UpdateScoreEvaluation(kindergarten);
 	}
 	
 	//********************************************//

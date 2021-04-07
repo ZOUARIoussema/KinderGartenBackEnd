@@ -16,8 +16,7 @@ import org.hibernate.annotations.Cascade;
 public class Claim implements Serializable{
 	
 	
-	
-	
+		
 	/**
 	 * 
 	 */
@@ -29,7 +28,7 @@ public class Claim implements Serializable{
 	private String object;
 	private String description;
 	private String type;
-	private String state;
+	private String state;	
 	private Date creation_date;
 	@ManyToOne
 	private User parent;

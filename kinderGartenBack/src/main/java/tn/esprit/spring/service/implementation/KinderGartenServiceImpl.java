@@ -26,6 +26,9 @@ public class KinderGartenServiceImpl implements IKinderGartenService {
 
 	@Override
 	public int addKindergarten(KinderGarten kendergarten) {
+		kendergarten.setLongitude(60);
+		kendergarten.setLatitude(30);
+		kendergarten.setScoreEval(0);
 		iKinderGartenRepository.save(kendergarten);
 		return kendergarten.getId();
 	}
@@ -103,6 +106,12 @@ public class KinderGartenServiceImpl implements IKinderGartenService {
 			this.updateKindergarten(k);
 		}
 		
+	}
+
+	@Override
+	public List<KinderGarten> TriKinderGartenByScoreEval() 
+	{
+		return kinderRepo.TriKinderGartenByScoreEval();
 	}
 
 }

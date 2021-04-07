@@ -19,7 +19,7 @@ public interface IKinderGartenService {
 	public List<User> listDelegators(int kindergartenId);
 	public void recupComptes(int idUser, int kinderId);
 	public void BannedUser(int id,int kinderId);
-	
 	public void assignLogo(int id , MultipartFile file);
+	public List<KinderGarten> TriKinderGartenByScoreEval();
 }
 
