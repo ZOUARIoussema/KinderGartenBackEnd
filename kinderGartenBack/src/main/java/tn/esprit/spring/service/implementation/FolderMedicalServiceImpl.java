@@ -43,13 +43,16 @@ public class FolderMedicalServiceImpl implements IFolderMedicalService {
 	IChildRepository childR;
 	@Autowired
 	IChildVaccineRep childVR;
+	 
 
 	@Autowired
 	IMailService mailS;
 
 	@Override
-	public void add(FolderMedical f) {
+	public void add(FolderMedical f,int id) {
 
+		f.setDateC(new Date());
+		f.setChild(childR.findById(id).orElse(null));
 		folderR.save(f);
 
 	}
@@ -67,8 +70,9 @@ public class FolderMedicalServiceImpl implements IFolderMedicalService {
 	}
 
 	@Override
-	public void update(FolderMedical f) {
+	public void update(FolderMedical f,int id) {
 
+		f.setChild(childR.findById(id).orElse(null));
 		folderR.save(f);
 
 	}
@@ -142,7 +146,7 @@ public class FolderMedicalServiceImpl implements IFolderMedicalService {
 
 	}
 
-	@Scheduled(cron = "0 0 0 1 * ?", zone = "Africa/Tunis")
+	@Scheduled(cron="0 56 13 01 4 *", zone = "Africa/Tunis")
 	@Override
 	public void alertVaccineChildToDo() {
 
@@ -170,6 +174,11 @@ public class FolderMedicalServiceImpl implements IFolderMedicalService {
 	@Override
 	public FolderMedical getFolderById(int id) {
 		return folderR.findById(id).orElse(null);
+	}
+
+	@Override
+	public List<FolderMedical> getAllFolder() {
+		return (List<FolderMedical>)folderR.findAll();
 	}
 
 }

@@ -40,7 +40,7 @@ import com.lowagie.text.DocumentException;
 
 @RestController
 @RequestMapping("/accounting")
-@PreAuthorize("hasRole('ROLE_agentCashier')")
+//@PreAuthorize("hasRole('ROLE_agentCashier')")
 public class AccountingController {
 
 	@Autowired
@@ -94,6 +94,13 @@ public class AccountingController {
 	public List<Spent> getAllByAgent(@PathVariable int id) {
 
 		return spentS.getAllByAgentCashier(id);
+	}
+
+	@GetMapping("/getSpentById/{id}")
+	@ResponseBody
+	public Spent getSpentById(@PathVariable int id) {
+
+		return spentS.findById(id);
 	}
 
 	/**
@@ -196,8 +203,8 @@ public class AccountingController {
 
 	@PutMapping("/transfertPointFidelity/{idS}/{p}")
 	@ResponseBody
-	public void transfertPointFidelity(@PathVariable("idS") int idSub,@PathVariable("p") double point) {
-		
+	public void transfertPointFidelity(@PathVariable("idS") int idSub, @PathVariable("p") double point) {
+
 		fidelityS.transfertPointFidelity(idSub, point);
 
 	}

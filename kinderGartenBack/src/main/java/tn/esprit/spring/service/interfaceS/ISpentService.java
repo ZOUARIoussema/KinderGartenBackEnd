@@ -13,5 +13,6 @@ public interface ISpentService {
 	public List<Spent> getAllByAgentCashier(int id);
 	public List<Spent> getAll();
 	public List<Spent>findByDate(Date d);
+	public Spent findById(int id);
 
 }
