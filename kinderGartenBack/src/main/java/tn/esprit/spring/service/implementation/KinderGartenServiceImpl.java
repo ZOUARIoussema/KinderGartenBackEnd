@@ -3,6 +3,7 @@ package tn.esprit.spring.service.implementation;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,8 +18,7 @@ import tn.esprit.spring.service.interfaceS.IKinderGartenService;
 @Service
 public class KinderGartenServiceImpl implements IKinderGartenService {
 
-	@Autowired
-	IKinderGartenRepository kinderRepo;
+
 	@Autowired
 	IKinderGartenRepository iKinderGartenRepository;
 	@Autowired
@@ -111,7 +111,7 @@ public class KinderGartenServiceImpl implements IKinderGartenService {
 	@Override
 	public List<KinderGarten> TriKinderGartenByScoreEval() 
 	{
-		return kinderRepo.TriKinderGartenByScoreEval();
+		return iKinderGartenRepository.TriKinderGartenByScoreEval();
 	}
 
 }

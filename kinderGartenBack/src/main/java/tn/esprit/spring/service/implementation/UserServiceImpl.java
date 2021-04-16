@@ -250,4 +250,10 @@ public class UserServiceImpl implements IUserService {
 		
 	}
 
+	@Override
+	public User finduserbyid(int id) 
+	{
+	return userR.findById(id).get();
+	}
+
 }

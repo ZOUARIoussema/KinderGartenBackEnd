@@ -19,7 +19,9 @@ public interface IUserRepository extends CrudRepository<User, Integer> {
 	// user u where u.role ='ROLE_parent'",nativeQuery=true)
 	// public List<User> getParentsByKinderGarten();
 
-	public User findByEmail(String email);
+	
+	@Query("select u from User u where u.email=:email")
+	public User findByEmail(@Param("email") String email);
 
 	/*
 	 * @Query("select u.id from User u where u.role = ROLE_adminGarten ") public
@@ -39,5 +41,7 @@ public interface IUserRepository extends CrudRepository<User, Integer> {
     @Transactional
     @Query("UPDATE User u SET u.stateUser = 'blocked' where u.id=:id")
     public void BannedUser(@Param("id")int id);
+
+
 
 }

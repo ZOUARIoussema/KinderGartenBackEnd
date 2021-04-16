@@ -73,7 +73,7 @@ public class SwitchAccountServiceImpl implements ISwitchAccountService {
 
 	@Override
 	public List<KinderGarten> getAllKinderGarden() {
-		return iKinderGartenRepository.findAll();
+		return  (List<KinderGarten>) iKinderGartenRepository.findAll();
 	}
 	
 

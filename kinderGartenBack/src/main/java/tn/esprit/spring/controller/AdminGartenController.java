@@ -54,7 +54,7 @@ import tn.esprit.spring.service.interfaceS.IVoteService;
 
 @RestController
 @RequestMapping("/admingarten")
-@PreAuthorize("hasRole('ROLE_adminGarten')")
+//@PreAuthorize("hasRole('ROLE_adminGarten')")
 public class AdminGartenController {
 
 	@Autowired
