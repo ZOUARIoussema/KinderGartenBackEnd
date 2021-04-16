@@ -131,7 +131,14 @@ public class UserController {
 	}
 	
 
+	@GetMapping("/getParentsByKinderGarten")
+
 	
+	 public List<User> parentsByKinderGarten()
+	{
+		return userS.getParentsByKinderGarten();
+		
+	}
 
 	
 }

@@ -33,6 +33,7 @@ public interface IUserService {
 	
 	public User finduserbyid(int id);
 	
+	 public List<User> getParentsByKinderGarten();
 	
 
 }

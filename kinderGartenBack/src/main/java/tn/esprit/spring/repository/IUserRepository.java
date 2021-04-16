@@ -15,9 +15,8 @@ import tn.esprit.spring.entity.User;
 @Repository
 public interface IUserRepository extends CrudRepository<User, Integer> {
 
-	// @Query(value="select u.first_name,u.las_name,u.email,u.address,u.tel from
-	// user u where u.role ='ROLE_parent'",nativeQuery=true)
-	// public List<User> getParentsByKinderGarten();
+	 @Query(value="select * from user u,kinder_garten kg where u.role ='ROLE_parent' and u.kinder_garten_inscription_id=kg.id group by kg.id",nativeQuery=true)
+	 public List<User> getParentsByKinderGarten();
 
 	
 	@Query("select u from User u where u.email=:email")
