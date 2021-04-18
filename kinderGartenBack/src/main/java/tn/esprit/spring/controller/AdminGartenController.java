@@ -54,7 +54,7 @@ import tn.esprit.spring.service.interfaceS.IVoteService;
 
 @RestController
 @RequestMapping("/admingarten")
-//@PreAuthorize("hasRole('ROLE_adminGarten')")
+@PreAuthorize("hasRole('ROLE_adminGarten')")
 public class AdminGartenController {
 
 	@Autowired
@@ -79,8 +79,7 @@ public class AdminGartenController {
 	IVoteService iVoteService;
 	@Autowired
 	ISessionVoteService iSessionVoteService;
-	@Autowired
-	IEstimateService iEstimateService;
+
 	@Autowired
 	IUploadFileService uploadFileService ;
 
@@ -563,43 +562,5 @@ public class AdminGartenController {
 		iSessionVoteService.delegatorsWinner(id, sessionVoteId);
 	}
 	
-	// Estimate
-
 	
-	@PostMapping("/addEstimate/{providerId}/{kinderId}/{item}/{qte}/{total}")
-	@ResponseBody
-	public void addEstimate(@PathVariable("providerId") int providerId,
-			@PathVariable("kinderId") int kinderId,@PathVariable("item") String item,
-			@PathVariable("qte") int qte,@PathVariable("total") double total) {
-		iEstimateService.addEstimate(providerId, kinderId, item, qte, total);
-	}
-	@GetMapping(value = "/getAllEstimate")
-	@ResponseBody
-	public List<Estimate> getAllEstimate() {
-
-		return iEstimateService.getAllEstimate();
-	}
-	@GetMapping(value = "/getEstimateByKinderAndProvider/{kinderId}/{ProviderId}")
-	@ResponseBody
-	public List<Estimate> getEstimateByKinderAndProvider(@PathVariable("kinderId") int kinderId,@PathVariable("ProviderId")  int ProviderId) {
-		return iEstimateService.getEstimateByKinderAndProvider(kinderId, ProviderId);
-	}
-	
-	@PutMapping(value = "/updateEstimate/{estimateDate}/{iduser}/{idkinder}")
-	@ResponseBody
-	public void updateEstimate(@PathVariable("estimateDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date estimateDate
-			,@PathVariable("iduser") int iduser
-			, @PathVariable("idkinder")int idkinder, @RequestBody Estimate estimate) {
-		iEstimateService.updateEstimate(estimateDate, iduser, idkinder, estimate.getItem(), estimate.getQte(), estimate.getTotal());
-
-	}
-	
-	@DeleteMapping("/deleteEstimate/{estimateDate}/{iduser}/{idkinder}")
-	@ResponseBody
-	public void deleteEstimate(@PathVariable("estimateDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date estimateDate
-			,@PathVariable("iduser") int iduser
-			, @PathVariable("idkinder")int idkinder) {
-		iEstimateService.deleteEstimate(estimateDate, iduser, idkinder);
-		
-	}
 }
