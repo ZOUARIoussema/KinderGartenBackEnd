@@ -40,7 +40,7 @@ import tn.esprit.spring.utils.DetailSubscriptionChild;
 
 @RestController
 @RequestMapping("/medical")
-//@PreAuthorize("hasRole('ROLE_doctor')")
+@PreAuthorize("hasRole('ROLE_doctor')")
 public class MedicalController {
 
 	@Autowired
