@@ -40,7 +40,7 @@ import com.lowagie.text.DocumentException;
 
 @RestController
 @RequestMapping("/accounting")
-//@PreAuthorize("hasRole('ROLE_agentCashier')")
+@PreAuthorize("hasRole('ROLE_agentCashier')")
 public class AccountingController {
 
 	@Autowired

@@ -28,15 +28,23 @@ public class MedicalVisitKinderGarten implements Serializable {
 	private Integer id;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+   // @JsonFormat(pattern="yyyy/MM/dd HH:mm:ss")
 	private Date dateStart;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+   // @JsonFormat(pattern="yyyy/MM/dd HH:mm:ss")
 	private Date dateEnd;
+    
+    private String description ;
+    
+    private boolean isFullDay ;
+    
+    private String themeColor ;
+    
+    private String subject;
+     
 
 	@ManyToOne
-	
 	private User doctor;
 
 	public Integer getId() {
@@ -70,5 +78,41 @@ public class MedicalVisitKinderGarten implements Serializable {
 	public void setDoctor(User doctor) {
 		this.doctor = doctor;
 	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public boolean isFullDay() {
+		return isFullDay;
+	}
+
+	public void setFullDay(boolean isFullDay) {
+		this.isFullDay = isFullDay;
+	}
+
+	public String getThemeColor() {
+		return themeColor;
+	}
+
+	public void setThemeColor(String themeColor) {
+		this.themeColor = themeColor;
+	}
+
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+	
+	
+	
+	
 
 }
