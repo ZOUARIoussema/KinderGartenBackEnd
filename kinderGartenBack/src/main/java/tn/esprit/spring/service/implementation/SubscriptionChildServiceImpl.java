@@ -30,10 +30,31 @@ public class SubscriptionChildServiceImpl implements ISubscriptionChildService {
 	private IChildRepository repChild;
 
 	@Override
-	public void addSubscriptionChild(SubscriptionChild s) {
+	public SubscriptionChild addSubscriptionChild(SubscriptionChild s) {
+		
+		/**
+		 * 
+		 * total extra
+		 */
+
+		double totalExtrat = 0;
+
+		if (s.getLisExtras().size() != 0) {
+
+			for (Extra e : s.getLisExtras()) {
+				totalExtrat = totalExtrat + e.getPrice();
+			}
+		}
+
+		s.setTotal(s.getCategorySubscription().getPrice() + totalExtrat);
+		s.setRestPay(s.getCategorySubscription().getPrice() + totalExtrat);
+		s.setTotalPay(0);
+		s.setDateC(new Date());
 
 		s.setDateC(new Date());
 		rep.save(s);
+		
+		return s;
 
 	}
 
