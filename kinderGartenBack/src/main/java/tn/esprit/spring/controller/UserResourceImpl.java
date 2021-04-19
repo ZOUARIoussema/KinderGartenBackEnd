@@ -57,8 +57,14 @@ public class UserResourceImpl {
 		try {
 			Authentication authentication = authenticationManager
 					.authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
+			
 			if (authentication.isAuthenticated()) {
 				String email = user.getEmail();
+					
+				User userauthenticated = userS.findByEmail(user.getEmail());
+				
+				String username = userauthenticated.getFirstName()+" " +userauthenticated.getLastName();
+				jsonObject.put("username", username);
 				jsonObject.put("name", authentication.getName());
 				jsonObject.put("authorities", authentication.getAuthorities());
 				jsonObject.put("token",
