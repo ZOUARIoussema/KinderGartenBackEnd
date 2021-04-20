@@ -42,9 +42,9 @@ public class EventServiceImpl implements IEventService {
 	IEstimateRepository iEstimateRepository;
 	
 	@Override
-	public int addEvent(Event event) {
+	public void addEvent(Event event,int id) {
+		event.setCategory(iCategoryRepository.findById(id).orElse(null));
 		iEventRepository.save(event);
-		return event.getId();
 	}
 
 	@Override
