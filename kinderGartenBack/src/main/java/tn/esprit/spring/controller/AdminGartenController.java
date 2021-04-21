@@ -277,9 +277,9 @@ public class AdminGartenController {
 
 	@PostMapping("/addActivity")
 	@ResponseBody
-	public Activity addActivity(@RequestBody Activity activity) {
-		iActivityService.addActivity(activity);
-		return activity;
+	public int addActivity(@RequestBody Activity activity) {
+		return iActivityService.addActivity(activity);
+	
 	}
 
 	@PostMapping("/assignPhoto/{id}")

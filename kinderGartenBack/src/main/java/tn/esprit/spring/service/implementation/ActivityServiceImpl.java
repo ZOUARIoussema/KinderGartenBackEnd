@@ -21,8 +21,8 @@ public class ActivityServiceImpl implements IActivityService {
 	
 	@Override
 	public int addActivity(Activity activity) {
-		iActivityRepository.save(activity);
-		return activity.getId();
+		int id = iActivityRepository.save(activity).getId();
+		return id;
 	}
 
 	public int updateActivity(Activity activity) {
