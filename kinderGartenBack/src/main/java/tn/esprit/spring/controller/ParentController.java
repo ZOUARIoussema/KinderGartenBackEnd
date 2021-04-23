@@ -104,6 +104,14 @@ public class ParentController {
 
 		return publicationService.getPublicationDesc();
 	}
+	
+	@GetMapping(value ="/getPublicationById/{id}")
+	@ResponseBody
+	public Publication getPublicationByid(@PathVariable int id) {
+
+		return publicationService.getPublicationById(id);
+	}
+
 
 	@PostMapping("/assignAttachementToPost/{id}")
 	public void assignAttachementToPost(@PathVariable("id") int id, @RequestParam("file") MultipartFile file) {
@@ -215,6 +223,13 @@ public class ParentController {
 
 		subscriptionChildService.addSubscriptionChild(s);
 
+	}
+	
+	@GetMapping(value ="/getSubscriptionById/{id}")
+	@ResponseBody
+	public SubscriptionChild getSubscriptionByid(@PathVariable int id) {
+
+		return subscriptionChildService.getById(id);
 	}
 
 	@DeleteMapping("/deleteSubscriptionChild/{id}")

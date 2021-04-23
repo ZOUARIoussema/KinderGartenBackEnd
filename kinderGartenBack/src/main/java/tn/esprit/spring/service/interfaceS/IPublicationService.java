@@ -14,6 +14,7 @@ public interface IPublicationService {
 		public void assignAttachementToPost(int id , MultipartFile file);
 		public List<Publication> getAllPublication();
 		public List<Publication> getPublicationDesc();
+		public Publication getPublicationById(int id);
 
 		
 }

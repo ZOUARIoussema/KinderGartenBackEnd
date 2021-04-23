@@ -62,6 +62,11 @@ public class PublicationServiceImpl implements IPublicationService {
 		return (List<Publication>)publicationRepository.getAllPublicationByNbrLike();
 	}
 
+	@Override
+	public Publication getPublicationById(int id) {
+		return publicationRepository.findById(id).orElse(null);
+	}
+
 	
 
 }
