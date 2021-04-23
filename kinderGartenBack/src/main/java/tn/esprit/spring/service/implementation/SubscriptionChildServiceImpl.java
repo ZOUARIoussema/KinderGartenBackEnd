@@ -50,7 +50,6 @@ public class SubscriptionChildServiceImpl implements ISubscriptionChildService {
 		s.setRestPay(s.getCategorySubscription().getPrice() + totalExtrat);
 		s.setTotalPay(0);
 		s.setDateC(new Date());
-
 		s.setDateC(new Date());
 		rep.save(s);
 		

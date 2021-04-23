@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+//import static org.junit.Assert.assertEquals;
+//import static org.junit.Assert.assertTrue;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+//import org.junit.Test;
+//import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -16,7 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import tn.esprit.spring.entity.*;
 import tn.esprit.spring.service.interfaceS.ISubscriptionChildService;
 
-@RunWith(SpringRunner.class)
+//@RunWith(SpringRunner.class)
 @SpringBootTest
 public class KinderGartenBackApplicationTests {
 
@@ -25,7 +25,7 @@ public class KinderGartenBackApplicationTests {
 
 	/*** Senario 1 subscription child sans extra ***/
 
-	@Test
+	/*@Test
 	public void addSubscriptionChild() {
 
 		// create child
@@ -56,10 +56,10 @@ public class KinderGartenBackApplicationTests {
 
 		assertTrue(150 == total);
 
-	}
+	}*/
 
 	/*** Senario 2 susbscription child avec extrat ****/
-
+/*
 	@Test
 	public void addSubscriptionChildWithExtra() {
 
@@ -110,5 +110,5 @@ public class KinderGartenBackApplicationTests {
 		assertTrue(250 == totalWithExtra);
 
 	}
-
+*/
 }

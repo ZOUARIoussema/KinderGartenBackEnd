@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import tn.esprit.spring.entity.CategorySubscription;
 import tn.esprit.spring.entity.Child;
 import tn.esprit.spring.entity.Claim;
 import tn.esprit.spring.entity.Comment;
@@ -30,10 +31,12 @@ import tn.esprit.spring.entity.Reaction;
 import tn.esprit.spring.entity.ReactionPK;
 import tn.esprit.spring.entity.SubscriptionChild;
 import tn.esprit.spring.entity.User;
+import tn.esprit.spring.service.interfaceS.ICategorySubscriptionService;
 import tn.esprit.spring.service.interfaceS.IChildService;
 import tn.esprit.spring.service.interfaceS.IClaimService;
 import tn.esprit.spring.service.interfaceS.ICommentService;
 import tn.esprit.spring.service.interfaceS.IDictionaryService;
+import tn.esprit.spring.service.interfaceS.IExtraService;
 import tn.esprit.spring.service.interfaceS.IJustificationAbsenceService;
 import tn.esprit.spring.service.interfaceS.INoticeService;
 import tn.esprit.spring.service.interfaceS.IPublicationService;
@@ -69,6 +72,10 @@ public class ParentController {
 	IClaimService claimService;
 	@Autowired
 	IUserService userS;
+	@Autowired
+	IExtraService iExtraService;
+	@Autowired
+	ICategorySubscriptionService iCategorySubscriptionService;
 
 	/* Publication */
 
@@ -336,6 +343,34 @@ public class ParentController {
 
 	{
 		return userS.RegisterKinderGarten(iduser, id_kg);
+	}
+	
+	@GetMapping(value = "/getAllextra")
+	@ResponseBody
+	public List<Extra> getAllextra() {
+
+		return iExtraService.getAllextra();
+	}
+	
+	@GetMapping(value = "/getExtraById/{extraId}")
+	@ResponseBody
+	public Extra getExtraById(@PathVariable("extraId") int extraId) {
+		return iExtraService.getExtraById(extraId);
+	}
+
+	
+	@GetMapping(value = "/getCategorySubscriptionById/{categorySubscriptionId}")
+	@ResponseBody
+	public CategorySubscription getCategorySubscriptionById(
+			@PathVariable("categorySubscriptionId") int categorySubscriptionId) {
+		return iCategorySubscriptionService.getCategorySubscriptionById(categorySubscriptionId);
+	}
+
+	@GetMapping(value = "/getAllCategorySubscription")
+	@ResponseBody
+	public List<CategorySubscription> getAllCategorySubscription() {
+
+		return iCategorySubscriptionService.getAllCategorySubscription();
 	}
 
 }
