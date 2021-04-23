@@ -17,6 +17,7 @@ public interface ISubscriptionChildService {
 	public void delete(int id);
 	public SubscriptionChild getById(int id);
 	public void updateTotalWithParticipateEvent(Child c);
+	public List<SubscriptionChild> getAll();
 	
 	
 

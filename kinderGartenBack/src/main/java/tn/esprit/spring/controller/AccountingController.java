@@ -110,15 +110,20 @@ public class AccountingController {
 	 * 
 	 */
 
-	@PostMapping("/addPayementHandToHand/{mail}")
+	@PostMapping("/addPayementHandToHand/{mail}/{id}")
 	@ResponseBody
-	public void addPayementSubscription(@RequestBody PayementSubscription p, @PathVariable("mail") String mail) {
+	public void addPayementSubscription(@RequestBody PayementSubscription p, @PathVariable("mail") String mail,
+			@PathVariable("id") int id) {
+		
+		SubscriptionChild subscriptionChild = subscriptionChildS.getById(id);
+		
+		p.setSubscriptionChild(subscriptionChild);
 
 		payementS.add(p);
 
 		// send mail
 
-		SubscriptionChild subscriptionChild = subscriptionChildS.getById(p.getSubscriptionChild().getId());
+		
 
 		Map<String, String> model = new HashMap<>();
 		model.put("name", subscriptionChild.getChild().getName());
@@ -155,6 +160,28 @@ public class AccountingController {
 
 		return payementS.getAllBySubscriptionChild(id);
 	}
+	
+	@GetMapping("/getPayementById/{id}")
+	@ResponseBody
+	public PayementSubscription getPayementById(@PathVariable("id") int id) {
+
+		return payementS.getById(id);
+	}
+	
+	@GetMapping("/getAllPayement")
+	@ResponseBody
+	public List<PayementSubscription> getAllPayement() {
+
+		return payementS.getAll();
+	}
+	
+	
+	@GetMapping("/getAllSubscription")
+	@ResponseBody
+	public List<SubscriptionChild> getAllSubscription() {
+
+		return subscriptionChildS.getAll();
+	}
 
 	/**
 	 * report accounting exel
@@ -163,7 +190,7 @@ public class AccountingController {
 	@PreAuthorize("isAnonymous()")
 	@GetMapping("/export/excel/{date}")
 	public void exportToExcel(HttpServletResponse response,
-			@PathVariable("date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date d) throws IOException {
+			@PathVariable("date") @DateTimeFormat(pattern = "dd/MM/yyyy") Date d) throws IOException {
 		response.setContentType("application/octet-stream");
 		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
 		String currentDateTime = dateFormatter.format(new Date());

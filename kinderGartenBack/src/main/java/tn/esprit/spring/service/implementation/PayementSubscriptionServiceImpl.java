@@ -79,13 +79,8 @@ public class PayementSubscriptionServiceImpl implements IPayementSubscriptionSer
 	@Override
 	public List<PayementSubscription> getAllBySubscriptionChild(int id) {
 
-		SubscriptionChild s = subR.findById(id).orElse(null);
-		if (s != null) {
-
-			return s.getListPayementSubscriptions();
-
-		}
-		return null;
+		 
+		return payementSR.findBySubscription(id);
 
 	}
 
@@ -181,6 +176,11 @@ public class PayementSubscriptionServiceImpl implements IPayementSubscriptionSer
 		
 		
 		
+	}
+
+	@Override
+	public PayementSubscription getById(int id) {
+		return payementSR.findById(id).orElse(null);
 	}
 
 }

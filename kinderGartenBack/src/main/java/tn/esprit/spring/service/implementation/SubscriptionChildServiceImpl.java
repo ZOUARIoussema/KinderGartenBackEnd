@@ -94,7 +94,7 @@ public class SubscriptionChildServiceImpl implements ISubscriptionChildService {
 
 	@Override
 	public SubscriptionChild getById(int id) {
-		return rep.findById(id).get();
+		return rep.findById(id).orElse(null);
 	}
 
 	public SubscriptionChild getByDate(Child c) {
@@ -152,6 +152,12 @@ public class SubscriptionChildServiceImpl implements ISubscriptionChildService {
 			rep.save(s);
 
 		}
+	}
+
+	@Override
+	public List<SubscriptionChild> getAll() {
+		 
+		return (List<SubscriptionChild>) rep.findAll();
 	}
 
 }
