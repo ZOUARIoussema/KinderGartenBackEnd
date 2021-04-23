@@ -14,6 +14,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -89,6 +90,13 @@ public class UserResourceImpl {
 		
 		
 		userS.add(user);
+	}
+	
+	
+	@GetMapping("/findUserByEmail/{email}")
+	public User findUserByMail (@PathVariable("email") String email )
+	{
+		return userS.findByEmail(email);
 	}
 
 	@PostMapping("/sendSecretKey/{mail}")

@@ -277,9 +277,9 @@ public class AdminGartenController {
 
 	@PostMapping("/addActivity")
 	@ResponseBody
-	public Activity addActivity(@RequestBody Activity activity) {
-		iActivityService.addActivity(activity);
-		return activity;
+	public int addActivity(@RequestBody Activity activity) {
+		return iActivityService.addActivity(activity);
+	
 	}
 
 	@PostMapping("/assignPhoto/{id}")
@@ -389,11 +389,11 @@ public class AdminGartenController {
 		return iEventService.getAllEventForToday();
 	}
 	
-	@PostMapping("/addEvent")
+	@PostMapping("/addEvent/{id}")
 	@ResponseBody
-	public Event addEvent(@RequestBody Event event) {
-		iEventService.addEvent(event);
-		return event;
+	public void addEvent(@RequestBody Event event,@PathVariable("id") int id) {
+		iEventService.addEvent(event,id);
+		
 	}
 
 	@GetMapping(value = "/getEventById/{eventId}")
@@ -473,17 +473,16 @@ public class AdminGartenController {
 	
 	// Club ...
 
-	@PostMapping("/addClub")
+	@PostMapping("/addClub/{id}")
 	@ResponseBody
-	public Club addClub(@RequestBody Club club) {
-		iClubService.addClub(club);
-		return club;
+	public void addClub(@RequestBody Club club, @PathVariable("id") int id) {
+		iClubService.addClub(club,id);
 	}
 
 	@GetMapping(value = "/getClubById/{clubId}")
 	@ResponseBody
-	public Club getClubById(@PathVariable("clubId") int clubId) {
-		return iClubService.getClubById(clubId);
+	public String getClubById(@PathVariable("clubId") int clubId) {
+		return iClubService.getClubById(clubId).getId()+"";
 	}
 
 	@GetMapping(value = "/getAllclub")

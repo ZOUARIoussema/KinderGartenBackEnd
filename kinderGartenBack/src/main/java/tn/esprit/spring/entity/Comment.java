@@ -33,12 +33,12 @@ public class Comment implements Serializable {
 	private String description;
 	
 	@ManyToOne
-	@JsonIgnore
+	//@JsonIgnore
 	private User parent;
 	
 	
 	@ManyToOne
-	@JsonIgnore
+	//@JsonIgnore
 	private Publication publication;
 	
 
