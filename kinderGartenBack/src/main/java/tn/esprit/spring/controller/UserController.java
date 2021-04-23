@@ -57,12 +57,15 @@ public class UserController {
 	}
 	
 	
-	@GetMapping("/findUserByEmail/{email}")
-	public User findUserByMail (@PathVariable("email") String email )
-	{
-		return userS.findByEmail(email);
-	}
 	
+	
+	
+	@GetMapping("/findUser/{iduser}")
+	@ResponseBody
+	public User findUser (@PathVariable("iduser") int id )
+	{
+		return userS.finduserbyid(id);
+	}
 	
 	
 	@DeleteMapping("/delete/{id}")
@@ -124,7 +127,14 @@ public class UserController {
 	}
 	
 
+	@GetMapping("/getParentsByKinderGarten")
+
 	
+	 public List<User> parentsByKinderGarten()
+	{
+		return userS.getParentsByKinderGarten();
+		
+	}
 
 	
 }

@@ -24,9 +24,9 @@ public class ClubServiceImpl implements IClubService {
 	ICategoryRepository iCategoryRepository;
 	
 	@Override
-	public int addClub(Club club) {
+	public void addClub(Club club,int id) {
+		club.setCategory(iCategoryRepository.findById(id).orElse(null));
 		iClubRepository.save(club);
-		return club.getId();
 	}
 
 	@Override

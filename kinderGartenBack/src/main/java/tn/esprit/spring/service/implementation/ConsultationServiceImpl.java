@@ -57,4 +57,14 @@ public class ConsultationServiceImpl implements IConsultationService {
 
 	}
 
+	@Override
+	public List<Consultation> getAllConsultation() {
+		return (List<Consultation>) consultationR.findAll();
+	}
+
+	@Override
+	public Consultation getById(int id) {
+		return consultationR.findById(id).orElse(null);
+	}
+
 }

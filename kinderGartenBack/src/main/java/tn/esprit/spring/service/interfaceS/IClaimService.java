@@ -26,7 +26,7 @@ public interface IClaimService {
 	
 	public List<Claim>getClaimsByObject();
 	
-	public List<User> getAllParents();
+	public List<String> getAllParents();
 	
 	public List<Claim> getClaimsByEducation();
 	

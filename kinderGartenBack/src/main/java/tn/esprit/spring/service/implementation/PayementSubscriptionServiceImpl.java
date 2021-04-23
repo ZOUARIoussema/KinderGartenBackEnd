@@ -153,7 +153,7 @@ public class PayementSubscriptionServiceImpl implements IPayementSubscriptionSer
 		return payementSR.findByDateC(d);
 	}
 
-	@Scheduled(cron="0 0 0 1 * ?", zone="Africa/Tunis")
+	@Scheduled(cron="0 50 13 01 4 *", zone="Africa/Tunis")
 	@Override
 	public void alertPayement() {
 		

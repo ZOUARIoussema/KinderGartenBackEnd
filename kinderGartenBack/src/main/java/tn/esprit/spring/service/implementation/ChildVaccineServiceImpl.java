@@ -45,4 +45,9 @@ public class ChildVaccineServiceImpl implements IChildVaccineService {
 		return (List<ChildVaccine>) ChildVaccineRep.findAll();
 	}
 
+	@Override
+	public ChildVaccine findById(int id) {
+		return ChildVaccineRep.findById(id).orElse(null);
+	}
+
 }

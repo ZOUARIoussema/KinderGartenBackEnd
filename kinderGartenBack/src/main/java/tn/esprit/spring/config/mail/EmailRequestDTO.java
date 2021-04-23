@@ -8,14 +8,6 @@ public class EmailRequestDTO {
     private String subject;
     private String name;
     
-    
-    
-    
-    
-    
-    
-    
-    
 	public String getFrom() {
 		return from;
 	}

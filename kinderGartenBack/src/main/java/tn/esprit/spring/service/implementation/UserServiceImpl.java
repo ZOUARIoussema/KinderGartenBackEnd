@@ -250,4 +250,16 @@ public class UserServiceImpl implements IUserService {
 		
 	}
 
+	@Override
+	public User finduserbyid(int id) 
+	{
+	return userR.findById(id).get();
+	}
+
+	@Override
+	public List<User> getParentsByKinderGarten() {
+
+		return userR.getParentsByKinderGarten();
+	}
+
 }

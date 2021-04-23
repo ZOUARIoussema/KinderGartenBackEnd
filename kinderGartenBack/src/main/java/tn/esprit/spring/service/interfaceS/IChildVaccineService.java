@@ -11,6 +11,7 @@ public interface IChildVaccineService {
 	public void delete(int id);
 	public void update(ChildVaccine c);
 	public List<ChildVaccine> getAll();
+	public ChildVaccine findById(int id);
 	
 	
 }

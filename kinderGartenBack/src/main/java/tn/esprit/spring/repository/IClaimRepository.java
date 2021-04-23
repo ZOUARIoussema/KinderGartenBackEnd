@@ -25,8 +25,8 @@ public interface IClaimRepository extends CrudRepository<Claim, Integer>  {
 
 	public int countNbrClaimsKindergarten(@Param("idkinder") int kg);
 	
-	@Query("SELECT  DISTINCT parent FROM Claim ")
-	public List<User> getAllParents ();
+	@Query("SELECT  DISTINCT c.parent.firstName,c.parent.lastName FROM Claim c")
+	public List<String> getAllParents ();
 	
 	@Query(value="select * from claim where object LIKE '%URGENT%' ",nativeQuery=true)
 	public List<Claim> getClaimsByObject();

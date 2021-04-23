@@ -3,6 +3,8 @@ package tn.esprit.spring.service.implementation;
 import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,8 @@ import tn.esprit.spring.service.interfaceS.ISpentService;
 
 @Service
 public class SpentServiceImpl implements ISpentService {
+	
+	private static Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
 
 	@Autowired
 	private ISpentRepository spentR;
@@ -23,6 +27,7 @@ public class SpentServiceImpl implements ISpentService {
 	@Override
 	public void add(Spent s) {
 		s.setDateC(new Date());
+		log.info("add spent "+" description "+s.getDescription()+" total "+s.getTotal()+" type "+s.getType());
 		spentR.save(s);
 
 	}
@@ -68,6 +73,11 @@ public class SpentServiceImpl implements ISpentService {
 	@Override
 	public List<Spent> findByDate(Date d) {
 		 return spentR.findByDateC(d);
+	}
+
+	@Override
+	public Spent findById(int id) {
+		return spentR.findById(id).orElse(null);
 	}
 
 }

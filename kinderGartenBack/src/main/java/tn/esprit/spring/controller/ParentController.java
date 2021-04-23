@@ -207,7 +207,7 @@ public class ParentController {
 		 * total extra
 		 */
 
-		double totalExtrat = 0;
+		/*double totalExtrat = 0;
 
 		if (s.getLisExtras().size() != 0) {
 
@@ -219,7 +219,7 @@ public class ParentController {
 		s.setTotal(s.getCategorySubscription().getPrice() + totalExtrat);
 		s.setRestPay(s.getCategorySubscription().getPrice() + totalExtrat);
 		s.setTotalPay(0);
-		s.setDateC(new Date());
+		s.setDateC(new Date());*/
 
 		subscriptionChildService.addSubscriptionChild(s);
 
