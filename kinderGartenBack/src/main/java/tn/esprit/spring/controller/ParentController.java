@@ -133,6 +133,7 @@ public class ParentController {
 	@ResponseBody
 	public void addComment(@RequestBody Comment comment) {
 		commentService.addComment(comment);
+
 	}
 
 	@DeleteMapping("/deleteComment/{idComment}")
