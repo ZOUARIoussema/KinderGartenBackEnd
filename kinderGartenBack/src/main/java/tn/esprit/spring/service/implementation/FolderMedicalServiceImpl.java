@@ -19,6 +19,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import antlr.collections.impl.LList;
 import tn.esprit.spring.config.mail.EmailRequestDTO;
 import tn.esprit.spring.entity.Child;
 import tn.esprit.spring.entity.ChildVaccine;
@@ -173,12 +174,15 @@ public class FolderMedicalServiceImpl implements IFolderMedicalService {
 
 	@Override
 	public FolderMedical getFolderById(int id) {
-		return folderR.findById(id).orElse(null);
+		int idChild = folderR.findById(id).orElse(null).getChild().getId();
+		return this.getFolderByChild(idChild);
 	}
 
 	@Override
 	public List<FolderMedical> getAllFolder() {
-		return (List<FolderMedical>)folderR.findAll();
+		 
+		 return (List<FolderMedical>)folderR.findAll();
+		
 	}
 
 }
