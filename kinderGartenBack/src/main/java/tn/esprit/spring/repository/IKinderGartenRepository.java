@@ -44,8 +44,8 @@ public interface IKinderGartenRepository extends CrudRepository<KinderGarten, In
 	public List<KinderGarten> findByAdress(@Param("adress") String adress);
 	public List<KinderGarten> findAll();
 
-	/*@Query("Select k from KinderGarten k " + "where k.name=:name  ")
-	public List<KinderGarten> getKinderGartenByName(@Param("name") String name);*/
+	@Query("Select k from KinderGarten k where k.responsible=:responsible  ")
+	public KinderGarten getKinderGartenByResponsible(@Param("responsible") int responsible);
 	
 
 	
