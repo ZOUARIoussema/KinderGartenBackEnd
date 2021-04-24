@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import tn.esprit.spring.config.springSecurity.JwtTokenProvider;
 import tn.esprit.spring.entity.User;
@@ -92,6 +93,12 @@ public class UserResourceImpl {
 		userS.add(user);
 	}
 	
+	@GetMapping("/findUser/{iduser}")
+	@ResponseBody
+	public User findUser (@PathVariable("iduser") int id )
+	{
+		return userS.finduserbyid(id);
+	}
 	
 	@GetMapping("/findUserByEmail/{email}")
 	public User findUserByMail (@PathVariable("email") String email )

@@ -122,6 +122,13 @@ public class AdminGartenController {
 		return iKinderGartenService.getAllkinder();
 	}
 
+	@GetMapping(value = "/getKindergartenByResponsible/{responsibleId}")
+	@ResponseBody
+	public KinderGarten getKindergartenByResponsible(@PathVariable("responsibleId") int responsibleId) {
+
+		return iKinderGartenService.getKindergartenByResponsible(responsibleId);
+	}
+	
 	@PutMapping(value = "/updateKinderGarten/{id}")
 	@ResponseBody
 	public void updateKinderGarten(@PathVariable("id") int kenderId, @RequestBody KinderGarten kendergarten) {

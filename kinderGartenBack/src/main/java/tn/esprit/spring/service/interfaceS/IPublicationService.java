@@ -15,6 +15,8 @@ public interface IPublicationService {
 		public List<Publication> getAllPublication();
 		public List<Publication> getPublicationDesc();
 		public Publication getPublicationById(int id);
+		public int addLike(int id);
+		public int addDisLike(int id);
 
 		
 }

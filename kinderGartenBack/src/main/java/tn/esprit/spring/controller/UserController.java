@@ -60,12 +60,7 @@ public class UserController {
 	
 	
 	
-	@GetMapping("/findUser/{iduser}")
-	@ResponseBody
-	public User findUser (@PathVariable("iduser") int id )
-	{
-		return userS.finduserbyid(id);
-	}
+	
 	
 	
 	@DeleteMapping("/delete/{id}")
