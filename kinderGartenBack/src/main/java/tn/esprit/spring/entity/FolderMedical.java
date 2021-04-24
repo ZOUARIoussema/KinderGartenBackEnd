@@ -42,7 +42,7 @@ public class FolderMedical implements Serializable {
 	private Child child;
 
 	@OneToMany(mappedBy = "folderMedical")
-	@JsonIgnore
+	 
 	private List<Consultation> lisConsultations = new ArrayList<Consultation>();
 
 	@ManyToMany(fetch = FetchType.EAGER)
