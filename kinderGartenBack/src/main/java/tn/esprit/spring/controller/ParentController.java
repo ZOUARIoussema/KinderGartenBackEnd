@@ -372,5 +372,22 @@ public class ParentController {
 
 		return iCategorySubscriptionService.getAllCategorySubscription();
 	}
+	@PutMapping("/addLike/{id}")
+	@ResponseBody
+	public int addLike(@PathVariable("id") int id)
+	{
+		return publicationService.addLike(id);
+		
+	}
+	
+	@PutMapping("/addDisLike/{id}")
+	@ResponseBody
+	public int addDisLike(@PathVariable("id") int id)
+	{
+		return publicationService.addDisLike(id);
+		
+	}
+	
+	
 
 }
