@@ -178,9 +178,13 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public void update(User u) {
-
+		
+		
+		User userbyid = userR.findById(u.getId()).get();
+			
 		String pwd = new BCryptPasswordEncoder().encode(u.getPassword());
-
+			
+		u.setRole(userbyid.getRole());
 		u.setPassword(pwd);
 		u.setDateC(new Date());
 		u.setStateUser(StateUser.waiting);
