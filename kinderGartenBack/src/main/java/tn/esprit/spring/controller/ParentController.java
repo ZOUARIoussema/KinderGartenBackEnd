@@ -133,6 +133,7 @@ public class ParentController {
 	@ResponseBody
 	public void addComment(@RequestBody Comment comment) {
 		commentService.addComment(comment);
+
 	}
 
 	@DeleteMapping("/deleteComment/{idComment}")
@@ -205,9 +206,12 @@ public class ParentController {
 	 * Crud subscription child
 	 */
 
-	@PostMapping("/addSubscriptionChild")
+	@PostMapping("/addSubscriptionChild/{id}")
 	@ResponseBody
-	public void add(@RequestBody SubscriptionChild s) {
+	public void add(@RequestBody SubscriptionChild s,@PathVariable("id")int id) {
+		
+		
+		s.setCategorySubscription(iCategorySubscriptionService.getCategorySubscriptionById(id));
 
 		/**
 		 * 

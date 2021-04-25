@@ -58,9 +58,5 @@ public class MeetingServiceImpl implements IMeetingService {
 		iMeetingRepository.save(meetingManagedEntity);
 		
 	}
-	@Override
-	public List<Meeting> getMeetingByKinderGartenAndDate(int kinderId,Date dateStart, Date dateEnd){
-		return iMeetingRepository.getMeetingByKinderGartenAndDateJPQL(kinderId, dateStart, dateEnd);
-		
-	}
+
 }

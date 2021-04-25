@@ -38,7 +38,7 @@ public class WebSocketConfig extends  AbstractWebSocketMessageBrokerConfigurer {
 	}
 
 	public void registerStompEndpoints(StompEndpointRegistry stompEndpointRegistry) {
-		stompEndpointRegistry.addEndpoint("/gs-guide-websocket")
+		stompEndpointRegistry.addEndpoint("/gs-guide-websocket").setAllowedOrigins("http://localhost:53387")
 				.withSockJS();
 	}
 

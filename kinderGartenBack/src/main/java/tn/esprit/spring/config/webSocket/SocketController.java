@@ -5,6 +5,7 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -13,6 +14,7 @@ import tn.esprit.spring.entity.User;
 import tn.esprit.spring.repository.IMyMessageRep;
 import tn.esprit.spring.repository.IUserRepository;
 
+@CrossOrigin
 @Controller
 public class SocketController {
 
@@ -25,8 +27,12 @@ public class SocketController {
 	@Autowired
 	private IUserRepository userR;
 
+
 	@MessageMapping("/personalMsg")
 	public void greeting(MyMessage msg) {
+		
+		 
+		
 		String sender = msg.getFrom();
 		String content = msg.getContent();
 		String receiver = msg.getTo();
@@ -39,7 +45,7 @@ public class SocketController {
 
 		mR.save(newMessage);
 
-		simpMessagingTemplate.convertAndSendToUser(receiver, "/queue/reply", msg);
+		simpMessagingTemplate.convertAndSend( "/queue/reply/"+receiver, msg);
 
 	}
 

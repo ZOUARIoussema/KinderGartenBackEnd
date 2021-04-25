@@ -18,7 +18,7 @@ public interface IClaimService {
 	
 	public List<Claim> SearchClaimByType(String Type);
 	
-	List<Claim> SearchClaimByParent(int id);
+	List<Claim> SearchClaimByParent(String parentname);
 
 	public int countClaimsinKinderGarten(int idkinder);
 	

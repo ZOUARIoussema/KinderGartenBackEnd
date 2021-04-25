@@ -73,15 +73,21 @@ public class AdminController {
 	}
 	
 	
-	@GetMapping(value="/SearchClaimByParent/{id}")
+	@GetMapping(value="/SearchClaimByParent/{parentname}")
 	@ResponseBody
 	
-	public List<Claim> SearchClaimByParent(@PathVariable("id")  int id)
+	public List<Claim> SearchClaimByParent(@PathVariable("parentname")  String parentname)
 	{
-		return claimServ.SearchClaimByParent(id);
+		return claimServ.SearchClaimByParent(parentname);
 		
 	}
 	
+
+	@GetMapping(value="/getClaimById/{id}")
+	public Claim getClaimsById(@PathVariable("id") int id)
+	{
+		return claimServ.getClaimsById(id);
+	}
 	
 	@GetMapping(value="/getNbrClaims/{id}")
 	
