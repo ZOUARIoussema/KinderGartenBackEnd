@@ -115,7 +115,7 @@ public class KinderGartenServiceImpl implements IKinderGartenService {
 	}
 
 	@Override
-	public KinderGarten getKindergartenByResponsible(int responsibleId) {
+	public List<KinderGarten> getKindergartenByResponsible(int responsibleId) {
 		return iKinderGartenRepository.getKinderGartenByResponsible(responsibleId);
 	}
 

@@ -25,7 +25,8 @@ public interface IEventRepository extends CrudRepository<Event, Integer>  {
 	 public List<Event> getAllEventPourToday();
 	
 	
-	
+	@Query(value="SELECT * from Event where price <= :price",nativeQuery=true)
+	 public List<Event> getAllEventbyprice(@Param("price") int price);
 	
 	// methode of statistique get all category by event for each kindergarden
 	@Query(value="select c.description,count(e.id) count from event e , category c  where e.category_id=c.id  and c.kinder_garten_id=:kinderId  group by (c.description)",nativeQuery=true)

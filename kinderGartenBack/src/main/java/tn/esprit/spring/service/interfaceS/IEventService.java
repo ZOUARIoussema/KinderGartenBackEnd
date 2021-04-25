@@ -18,4 +18,5 @@ public interface IEventService {
 	public void SendSmstoProvider(int id_event, int userId, int kindergartenId);
 	public void SendRequestItem(int id_event, int userId, int kindergartenId);
 	public List<?> getEstimateByEvent(int idEvent);
+	public List<Event> getAllEventbyprice(int price);
 }

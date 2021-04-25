@@ -147,6 +147,11 @@ public class EventServiceImpl implements IEventService {
 		}
 	}
 	
+    @Override
+	public List<Event> getAllEventbyprice(int price) {
+				
+		return iEventRepository.getAllEventbyprice(price);
+    }
 	
 	@Override
 	public List<?> getEstimateByEvent(int idEvent) {

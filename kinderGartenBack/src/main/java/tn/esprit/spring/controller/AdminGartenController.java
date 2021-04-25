@@ -124,7 +124,7 @@ public class AdminGartenController {
 
 	@GetMapping(value = "/getKindergartenByResponsible/{responsibleId}")
 	@ResponseBody
-	public KinderGarten getKindergartenByResponsible(@PathVariable("responsibleId") int responsibleId) {
+	public List<KinderGarten> getKindergartenByResponsible(@PathVariable("responsibleId") int responsibleId) {
 
 		return iKinderGartenService.getKindergartenByResponsible(responsibleId);
 	}
@@ -232,13 +232,7 @@ public class AdminGartenController {
 	}
 
 	// Meeting ...
-	@GetMapping(value = "/getMeetingByKinderGartenAndDate/{kinderId}/{dateStart}/{dateEnd}")
-	@ResponseBody
-	public List<Meeting> getMeetingByKinderGartenAndDate(@PathVariable("kinderId") int kinderId,
-			@PathVariable("dateStart") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateStart,
-			@PathVariable("dateEnd") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateEnd) {
-		return iMeetingService.getMeetingByKinderGartenAndDate(kinderId, dateStart, dateEnd);
-	}
+
 
 	@PostMapping("/addMeeting")
 	@ResponseBody
@@ -342,6 +336,12 @@ public class AdminGartenController {
 
 	// Event...
 	
+	@GetMapping(value = "/getAllEventbyprice/{price}")
+	@ResponseBody
+	public List<Event> getAllEventbyprice(@PathVariable("price") int price){
+		return iEventService.getAllEventbyprice(price);
+	}
+
 	 	@Autowired
 	    private SimpMessagingTemplate webSocket;
 
