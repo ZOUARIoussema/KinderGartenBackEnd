@@ -40,11 +40,11 @@ public class CommentServiceImpl implements ICommentService {
 	
 	@Override
 	public void addComment(Comment comment) {
-	//	if (this.verif(comment)) {
+		if (this.verif(comment)) {
 		comment.setDate(new Date());
 		commentRepository.save(comment);
 		}
-//}
+}
 
 	@Override
 	public void deleteComment(int commentId) {
