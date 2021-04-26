@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 import tn.esprit.spring.entity.Extra;
 import tn.esprit.spring.entity.KinderGarten;
 import tn.esprit.spring.entity.Meeting;
+import tn.esprit.spring.entity.Notification;
 import tn.esprit.spring.repository.IKinderGartenRepository;
 import tn.esprit.spring.repository.IMeetingRepository;
+import tn.esprit.spring.repository.INotification;
 import tn.esprit.spring.service.interfaceS.IMeetingService;
 @Service
 public class MeetingServiceImpl implements IMeetingService {
@@ -19,11 +21,14 @@ public class MeetingServiceImpl implements IMeetingService {
 	IMeetingRepository iMeetingRepository;
 	@Autowired
 	IKinderGartenRepository kinderRepo;
-	
+	@Autowired
+	INotification inotification;
 	@Override
 	public int addMeeting(Meeting meeting) {
+		
 		iMeetingRepository.save(meeting);
-		return meeting.getId();
+		
+	  return meeting.getId();
 	}
 
 	@Override
@@ -63,4 +68,4 @@ public class MeetingServiceImpl implements IMeetingService {
 		return iMeetingRepository.getMeetingByKinderGartenAndDateJPQL(kinderId, dateStart, dateEnd);
 		
 	}
-}
+	}

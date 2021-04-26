@@ -14,11 +14,13 @@ import com.twilio.type.PhoneNumber;
 import tn.esprit.spring.entity.Category;
 import tn.esprit.spring.entity.Child;
 import tn.esprit.spring.entity.Event;
+import tn.esprit.spring.entity.Notification;
 import tn.esprit.spring.entity.User;
 import tn.esprit.spring.repository.ICategoryRepository;
 import tn.esprit.spring.repository.IChildRepository;
 import tn.esprit.spring.repository.IEstimateRepository;
 import tn.esprit.spring.repository.IEventRepository;
+import tn.esprit.spring.repository.INotification;
 import tn.esprit.spring.repository.IUserRepository;
 import tn.esprit.spring.service.interfaceS.IEventService;
 
@@ -34,9 +36,15 @@ public class EventServiceImpl implements IEventService {
 	MailServiceImpl servicemail;
 	@Autowired
  IEstimateRepository iEstimateRepository;
+	@Autowired
+	INotification inotification;;
+		
 	@Override
 	public int addEvent(Event event) {
+		Notification notification=new Notification();
+		notification.setDateN(new Date());
 		iEventRepository.save(event);
+		inotification.save(notification);
 		return event.getId();
 	}
 

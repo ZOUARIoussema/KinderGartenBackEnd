@@ -12,15 +12,20 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import tn.esprit.spring.entity.Event;
+import tn.esprit.spring.entity.Extra;
 import tn.esprit.spring.entity.KinderGarten;
 import tn.esprit.spring.entity.Message;
+import tn.esprit.spring.entity.Notification;
+import tn.esprit.spring.entity.Statistique;
 import tn.esprit.spring.entity.SwitchAccount;
 import tn.esprit.spring.entity.User;
 import tn.esprit.spring.entity.enumeration.Role;
 import tn.esprit.spring.entity.enumeration.RoleSwitch;
 import tn.esprit.spring.entity.enumeration.StateUser;
+import tn.esprit.spring.repository.IEventRepository;
 import tn.esprit.spring.repository.IKinderGartenRepository;
 import tn.esprit.spring.repository.IMyMessageRep;
+import tn.esprit.spring.repository.INotification;
 import tn.esprit.spring.repository.ISwitchAccountRepository;
 import tn.esprit.spring.service.interfaceS.ISwitchAccountService;
 @Service
@@ -33,6 +38,11 @@ public class SwitchAccountServiceImpl implements ISwitchAccountService {
 	IMyMessageRep iMyMessageRep;
 	@Autowired
 	IKinderGartenRepository iKinderGartenRepository;
+	@Autowired
+	IEventRepository IEventRepository;
+	
+	@Autowired
+	INotification inotification;
 	
 	@Override
 	public void RequestForSwitchingAccount(SwitchAccount sw) 
@@ -134,10 +144,39 @@ public class SwitchAccountServiceImpl implements ISwitchAccountService {
 	public void SendMail(Message message) {
 		  iMyMessageRep.save(message);
 		
-	}
 
-}
-  
-	
-	
+	}
+	  @Autowired
+	  IEventRepository iEventRepository;
+	//methode that calculate statistic of the number of event by kindergarten 
+		@Override
+		public List<Statistique> getStatistiqueEventBykindergarten(int id) {
+		
+			List<String>  listString  = iEventRepository.getStatistiqueEventBykindergarten(id);
+			List<Statistique>  listStat = new ArrayList<>();
+		
+			
+			   for (int i=0;i<listString.size();i++)
+			   { 
+					Statistique stat=new Statistique();
+	                int   index =listString.get(i).indexOf("," ) ;  
+				   stat.setDescription( listString.get(i).substring(0, index));
+				   stat.setCount( Integer.parseInt((listString.get(i).substring(index+1, listString.get(i).length()))));
+				   stat.setPourcentage(stat.getCount()*100/iEventRepository.getCountOfEventByKinderGarten(id));
+				   listStat.add(stat);
+			   }
+			  
+
+			   return listStat;
+		
+		}
+
+		@Override
+		public List<Notification> getAllNotification() {
+			
+			return inotification.getAllNotification();
+		}
+		
+
+}	
 

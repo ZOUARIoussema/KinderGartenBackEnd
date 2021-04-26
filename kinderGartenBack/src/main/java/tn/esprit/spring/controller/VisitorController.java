@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import tn.esprit.spring.entity.Event;
+import tn.esprit.spring.entity.Extra;
 import tn.esprit.spring.entity.KinderGarten;
 import tn.esprit.spring.entity.Message;
+import tn.esprit.spring.entity.Notification;
 import tn.esprit.spring.entity.Statistique;
 import tn.esprit.spring.entity.SwitchAccount;
 import tn.esprit.spring.entity.User;
@@ -52,13 +54,13 @@ public class VisitorController {
 		//return 15.8;
 		
 	} 
-/*
+
 	@GetMapping(value="/getStatistiqueEventBykindergarten/{id}")
 	public List<Statistique> getStatistiqueEventBykindergarten(@PathVariable("id")int id){
-		return iEventService.getStatistiqueEventBykindergarten(id);
+		return iswitchaccount.getStatistiqueEventBykindergarten(id);
 		
 	} 
-	*/
+	
 	@GetMapping(value="/getmail/{id_user}")
 	public List<Message> getmail (@PathVariable("id_user")int id){
 		return  iswitchaccount.getmail(id);
@@ -67,9 +69,9 @@ public class VisitorController {
 	@PostMapping(path = "/Sendmail")
 	public void Sendmail(@RequestBody Message message) {
 		 iswitchaccount.SendMail(message);
-
-
 }
+
+
 }
 	
 	

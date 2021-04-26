@@ -1,5 +1,6 @@
 package tn.esprit.spring.service.implementation;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,8 +8,10 @@ import org.springframework.stereotype.Service;
 
 import tn.esprit.spring.entity.Extra;
 import tn.esprit.spring.entity.KinderGarten;
+import tn.esprit.spring.entity.Notification;
 import tn.esprit.spring.repository.IExtraRepository;
 import tn.esprit.spring.repository.IKinderGartenRepository;
+import tn.esprit.spring.repository.INotification;
 import tn.esprit.spring.service.interfaceS.IExtraService;
 @Service
 public class ExtraServiceImpl implements IExtraService {
@@ -17,9 +20,14 @@ public class ExtraServiceImpl implements IExtraService {
 	IKinderGartenRepository kinderRepo;
 	@Autowired
 	IExtraRepository iExtraRepository;
+	@Autowired
+	INotification inotification;
+	
 	@Override
 	public int addExtra(Extra extra) {
+	
 		iExtraRepository.save(extra);
+		
 		return extra.getId();
 	}
 

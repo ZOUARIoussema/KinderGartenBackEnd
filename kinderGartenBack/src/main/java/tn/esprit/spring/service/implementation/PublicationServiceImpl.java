@@ -24,7 +24,8 @@ public class PublicationServiceImpl implements IPublicationService {
 	@Override
 	public void addPublication(Publication publication) {
 		publication.setDate(new Date());
-		publicationRepository.save(publication);	
+		publicationRepository.save(publication);
+		
 		
 	}
 
