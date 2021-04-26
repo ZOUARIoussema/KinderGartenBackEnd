@@ -153,9 +153,13 @@ public class MedicalController {
 	 * 
 	 */
 
-	@PostMapping("/addMedicalConsultation")
+	@PostMapping("/addMedicalConsultation/{id}")
 	@ResponseBody
-	public void addMedicalConsultation(@RequestBody Consultation c) {
+	public void addMedicalConsultation(@RequestBody Consultation c, @PathVariable("id") int id) {
+
+		FolderMedical f = folderMS.getFolderById(id);
+
+		c.setFolderMedical(f);
 
 		consultationS.add(c);
 
@@ -168,9 +172,12 @@ public class MedicalController {
 		consultationS.delete(id);
 	}
 
-	@PutMapping("/updateConsultationMedical")
+	@PutMapping("/updateConsultationMedical/{id}")
 	@ResponseBody
-	public void updateConsultation(@RequestBody Consultation c) {
+	public void updateConsultation(@RequestBody Consultation c, @PathVariable("id") int id) {
+		FolderMedical f = folderMS.getFolderById(id);
+
+		c.setFolderMedical(f);
 		consultationS.update(c);
 
 	}
@@ -188,7 +195,7 @@ public class MedicalController {
 
 		return consultationS.getAllConsultation();
 	}
-	
+
 	@GetMapping("getConsultationById/{id}")
 	@ResponseBody
 	public Consultation getConsultationById(@PathVariable("id") int id) {
@@ -262,6 +269,22 @@ public class MedicalController {
 	public List<Child> getAllChild() {
 
 		return childService.getAllChild();
+
+	}
+
+	@PutMapping("/addVaccineFolder/{idF}/{idV}")
+	@ResponseBody
+	public void addVaccineFolder(@PathVariable("idF") int idF, @PathVariable("idV") int idV) {
+
+		folderMS.addFolderVaccine(idF, idV);
+
+	}
+
+	@PutMapping("/deleteVaccineFolder/{idF}/{idV}")
+	@ResponseBody
+	public void deleteVaccineFolder(@PathVariable("idF") int idF, @PathVariable("idV") int idV) {
+
+		folderMS.deleteFolderVaccine(idF, idV);
 
 	}
 

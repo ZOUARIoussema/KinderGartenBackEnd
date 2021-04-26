@@ -15,6 +15,9 @@ public interface IFolderMedicalService {
 	public void alertVaccineChildToDo();
 	public FolderMedical getFolderById(int id);
 	public List<FolderMedical> getAllFolder();
+	public void addFolderVaccine(int idF,int idV);
+	public void deleteFolderVaccine(int idF,int idV);
+	
 	
 	
 

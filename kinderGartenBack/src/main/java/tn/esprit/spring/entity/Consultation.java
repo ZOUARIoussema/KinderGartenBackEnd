@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Consultation  implements Serializable{
 
@@ -35,6 +37,7 @@ public class Consultation  implements Serializable{
 	private User doctor;
 	
 	@ManyToOne
+	@JsonIgnore
 	private FolderMedical folderMedical;
 	
 	

@@ -64,10 +64,11 @@ public class ClaimServiceImpl implements IClaimService {
 	
 
 	@Override
-	public List<Claim> SearchClaimByParent(int id) {
+	public List<Claim> SearchClaimByParent(String parentname) {
 				
-		return (List<Claim>) claimsRepo.getClaimsByUser(id);
+		List<Claim> listclaims = (List<Claim>) claimsRepo.findAll();
 		
+		return listclaims.stream().filter(c-> c.getParent().getFirstName().toLowerCase().contains(parentname)).collect(Collectors.toList());
 	}
 
 	@Override
