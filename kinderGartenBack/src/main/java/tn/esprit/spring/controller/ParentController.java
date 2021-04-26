@@ -206,9 +206,9 @@ public class ParentController {
 	 * Crud subscription child
 	 */
 
-	@PostMapping("/addSubscriptionChild/{id}")
+	@PostMapping("/addSubscriptionChild/{id}/{idExtra}")
 	@ResponseBody
-	public void add(@RequestBody SubscriptionChild s,@PathVariable("id")int id) {
+	public void add(@RequestBody SubscriptionChild s,@PathVariable("id")int id,@PathVariable("idExtra") int idExtra) {
 		
 		
 		s.setCategorySubscription(iCategorySubscriptionService.getCategorySubscriptionById(id));
