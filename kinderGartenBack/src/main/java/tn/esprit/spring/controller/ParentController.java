@@ -147,6 +147,13 @@ public class ParentController {
 	public void updateComment(@RequestBody Comment c) {
 		commentService.updateComment(c);
 	}
+	
+	@GetMapping(value="/getAllComment")
+	@ResponseBody
+	public List<Comment> getAllComment() {
+		return commentService.getAllComment();
+	}
+	
 
 	/* Add JustificationAbsence */
 
@@ -206,9 +213,9 @@ public class ParentController {
 	 * Crud subscription child
 	 */
 
-	@PostMapping("/addSubscriptionChild/{id}/{idExtra}")
+	@PostMapping("/addSubscriptionChild/{id}")
 	@ResponseBody
-	public void add(@RequestBody SubscriptionChild s,@PathVariable("id")int id,@PathVariable("idExtra") int idExtra) {
+	public void add(@RequestBody SubscriptionChild s,@PathVariable("id")int id) {
 		
 		
 		s.setCategorySubscription(iCategorySubscriptionService.getCategorySubscriptionById(id));

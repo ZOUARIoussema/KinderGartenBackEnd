@@ -1,6 +1,7 @@
 package tn.esprit.spring.service.implementation;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,6 +58,11 @@ public class CommentServiceImpl implements ICommentService {
 		c.setDate(new Date());
 		commentRepository.save(c);
 		
+	}
+
+	@Override
+	public List<Comment> getAllComment() {
+		return (List<Comment>) commentRepository.findAll();
 	}
 
 }
