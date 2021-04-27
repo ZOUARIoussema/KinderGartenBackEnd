@@ -377,7 +377,7 @@ public class AdminGartenController {
 
 	@GetMapping(value = "/getEstimateByEvent/{idEvent}")
 	@ResponseBody
-	public List<?> getEstimateByEvent(@PathVariable("idEvent") int idEvent){
+	public List<String> getEstimateByEvent(@PathVariable("idEvent") int idEvent){
 		return iEventService.getEstimateByEvent(idEvent);
 	}
 
