@@ -65,4 +65,11 @@ public class CommentServiceImpl implements ICommentService {
 		return (List<Comment>) commentRepository.findAll();
 	}
 
+	@Override
+	public Comment getCommentById(int id) {
+			return commentRepository.findById(id).orElse(null);
+		
+
+	}
+
 }

@@ -135,6 +135,13 @@ public class ParentController {
 		commentService.addComment(comment);
 
 	}
+	
+	@GetMapping(value ="/getCommentById/{id}")
+	@ResponseBody
+	public Comment getCommentByid(@PathVariable int id) {
+
+		return commentService.getCommentById(id);
+	}
 
 	@DeleteMapping("/deleteComment/{idComment}")
 	@ResponseBody
@@ -155,7 +162,7 @@ public class ParentController {
 	}
 	
 
-	/* Add JustificationAbsence */
+	/* Justification */
 
 	@PostMapping("/addJustification")
 	@ResponseBody
@@ -206,6 +213,14 @@ public class ParentController {
 
 		return noticeService.getAllNoticesByScore();
 	}
+	
+	@GetMapping(value="/getNoticeById/{id}")
+	@ResponseBody
+	public Notice getNoticeByid(@PathVariable int id) {
+
+		return noticeService.getNoticeById(id);
+	}
+	
 
 	/***
 	 * 
