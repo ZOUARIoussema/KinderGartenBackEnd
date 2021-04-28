@@ -1,10 +1,13 @@
 package tn.esprit.spring.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,11 +16,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import tn.esprit.spring.config.mail.EmailRequestDTO;
+import tn.esprit.spring.entity.Child;
 import tn.esprit.spring.entity.PayementSubscription;
 import tn.esprit.spring.entity.SubscriptionChild;
+import tn.esprit.spring.entity.User;
 import tn.esprit.spring.service.interfaceS.IMailService;
 import tn.esprit.spring.service.interfaceS.IPayementSubscriptionService;
 import tn.esprit.spring.service.interfaceS.ISubscriptionChildService;
+import tn.esprit.spring.service.interfaceS.IUserService;
 
 @RestController
 @RequestMapping("/pay")
@@ -32,6 +38,9 @@ public class PayementEnLigneController {
 
 	@Autowired
 	IMailService mailS;
+	
+	@Autowired
+	IUserService userS;
 
 	@PostMapping("/paySubscriptionOnLine/{mail}")
 	@ResponseBody
@@ -57,5 +66,26 @@ public class PayementEnLigneController {
 		mailS.sendMailWithFreeMarker(email, model, "recivedPayement.ftl");
 
 	}
+	
+
+	@GetMapping("/getAllSubscriptionByParent/{id}")
+	@ResponseBody
+	public List<SubscriptionChild> getAllSubscription(@PathVariable("id") int idP) {
+		
+		List<SubscriptionChild> list = new ArrayList<SubscriptionChild>();
+		
+		User u = userS.finduserbyid(idP);
+		
+		for(Child c : u.getListChilds()) {
+			
+			list.addAll(c.getLisSubscriptionChilds());
+			
+		}
+
+		return list;
+	}
+	
+	
+	
 
 }
