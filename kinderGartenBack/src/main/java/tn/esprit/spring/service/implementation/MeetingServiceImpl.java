@@ -21,7 +21,8 @@ public class MeetingServiceImpl implements IMeetingService {
 	IKinderGartenRepository kinderRepo;
 	
 	@Override
-	public int addMeeting(Meeting meeting) {
+	public int addMeeting(Meeting meeting,int idk) {
+		meeting.setKinderGarten(kinderRepo.findById(idk).orElse(null));
 		iMeetingRepository.save(meeting);
 		return meeting.getId();
 	}
@@ -57,6 +58,11 @@ public class MeetingServiceImpl implements IMeetingService {
 		meetingManagedEntity.setKinderGarten(kinderManagedEntity);
 		iMeetingRepository.save(meetingManagedEntity);
 		
+	}
+
+	@Override
+	public List<Meeting> findAllMeetingByKinderGarten(int kinderId) {
+		return iMeetingRepository.findAllMeetingByKinderGartenJPQL(kinderId);
 	}
 
 }

@@ -140,7 +140,7 @@ public class KinderGarten implements Serializable {
 		this.delegate = delegate;
 	}
 
-	@OneToOne(cascade = { CascadeType.ALL })
+	@OneToOne
 	private User responsible;
 
 	@OneToOne

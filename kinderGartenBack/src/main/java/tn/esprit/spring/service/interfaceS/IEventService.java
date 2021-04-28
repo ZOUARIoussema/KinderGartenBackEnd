@@ -3,6 +3,7 @@ package tn.esprit.spring.service.interfaceS;
 import java.util.Date;
 import java.util.List;
 
+import tn.esprit.spring.entity.Activity;
 import tn.esprit.spring.entity.Event;
 
 

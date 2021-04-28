@@ -156,6 +156,7 @@ public class EventServiceImpl implements IEventService {
 		return iEstimateRepository.getEstimateByEventJPQL(idEvent);
 	}
 
+
 	@Override
 	public int addParticipate(int id) {
 		Event e = iEventRepository.findById(id).orElse(null);
@@ -163,4 +164,5 @@ public class EventServiceImpl implements IEventService {
 		int ide = iEventRepository.save(e).getId();
 		return ide;
 	}
+
 }

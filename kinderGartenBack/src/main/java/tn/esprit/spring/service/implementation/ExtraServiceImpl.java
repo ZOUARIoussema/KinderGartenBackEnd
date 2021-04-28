@@ -18,7 +18,8 @@ public class ExtraServiceImpl implements IExtraService {
 	@Autowired
 	IExtraRepository iExtraRepository;
 	@Override
-	public int addExtra(Extra extra) {
+	public int addExtra(Extra extra,int idk) {
+		extra.setKinderGarten(kinderRepo.findById(idk).orElse(null));
 		iExtraRepository.save(extra);
 		return extra.getId();
 	}
@@ -54,6 +55,11 @@ public class ExtraServiceImpl implements IExtraService {
 				extraManagedEntity.setKinderGarten(kinderManagedEntity);
 				iExtraRepository.save(extraManagedEntity);
 		
+	}
+
+	@Override
+	public List<Extra> findAllExtraByKinderGarten(int kinderId) {
+		return iExtraRepository.findAllExtraByKinderGartenJPQL(kinderId);
 	}
   
 }

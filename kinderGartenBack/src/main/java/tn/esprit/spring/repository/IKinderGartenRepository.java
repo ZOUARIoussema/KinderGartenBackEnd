@@ -47,6 +47,7 @@ public interface IKinderGartenRepository extends CrudRepository<KinderGarten, In
 	@Query(value="Select * from Kinder_Garten where responsible_id=:responsible",nativeQuery=true)
 	public List<KinderGarten> getKinderGartenByResponsible(@Param("responsible") int responsible);
 	
-
+	@Query(value="select * from Kinder_Garten where responsible_id=:responsible",nativeQuery=true)
+	public KinderGarten findUserByIdK(@Param("responsible") int responsible);
 	
 }

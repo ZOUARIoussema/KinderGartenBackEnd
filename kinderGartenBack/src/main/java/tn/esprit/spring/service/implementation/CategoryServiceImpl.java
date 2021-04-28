@@ -19,7 +19,8 @@ public class CategoryServiceImpl implements ICategoryService {
 	IKinderGartenRepository kinderRepo;
 	
 	@Override
-	public int addCategory(Category category) {
+	public int addCategory(Category category,int idk) {
+		category.setKinderGarten(kinderRepo.findById(idk).orElse(null));
 		iCategoryRepository.save(category);
 		return category.getId();
 	}
@@ -54,6 +55,11 @@ public class CategoryServiceImpl implements ICategoryService {
 		
 		categoryManagedEntity.setKinderGarten(kinderManagedEntity);
 		iCategoryRepository.save(categoryManagedEntity);		
+	}
+
+	@Override
+	public List<Category> findAllCategoryByKinderGarten(int kinderId) {
+		return iCategoryRepository.findAllCategoryByKinderGartenJPQL(kinderId);
 	}
 
 }

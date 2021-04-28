@@ -20,7 +20,8 @@ public class ActivityServiceImpl implements IActivityService {
 	IKinderGartenRepository kinderRepo;
 	
 	@Override
-	public int addActivity(Activity activity) {
+	public int addActivity(Activity activity,int idKinder) {
+		activity.setKinderGarten(kinderRepo.findById(idKinder).orElse(null));
 		int id = iActivityRepository.save(activity).getId();
 		return id;
 	}

@@ -22,5 +22,8 @@ public interface IKinderGartenService {
 	public void assignLogo(int id , MultipartFile file);
 	public List<KinderGarten> TriKinderGartenByScoreEval();
 	public List<KinderGarten> getKindergartenByResponsible(int responsibleId);
+	
+	public KinderGarten findUserByIdK(int responsible) ;
+	
 }
 

@@ -20,7 +20,8 @@ public class CategorySubscriptionServiceImpl implements ICategorySubscriptionSer
 	
 	
 	@Override
-	public int addCategorySubscription(CategorySubscription categorySubscription) {
+	public int addCategorySubscription(CategorySubscription categorySubscription,int idk) {
+		categorySubscription.setKinderGarten(kinderRepo.findById(idk).orElse(null));
 		iCategorySubscriptionRepository.save(categorySubscription);
 		return categorySubscription.getId();
 	}
@@ -57,6 +58,11 @@ public class CategorySubscriptionServiceImpl implements ICategorySubscriptionSer
 		iCategorySubscriptionRepository.save(categorySubscriptionManagedEntity);
 
 		
+	}
+
+	@Override
+	public List<CategorySubscription> findAllCategorySubscriptionByKinderGarten(int kinderId) {
+		return iCategorySubscriptionRepository.findAllCategorySubscriptionByKinderGartenJPQL(kinderId);
 	}
 
 }
