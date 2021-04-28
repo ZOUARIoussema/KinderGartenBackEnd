@@ -23,6 +23,7 @@ import tn.esprit.spring.entity.Child;
 import tn.esprit.spring.entity.Claim;
 import tn.esprit.spring.entity.Comment;
 import tn.esprit.spring.entity.Dictionary;
+import tn.esprit.spring.entity.Event;
 import tn.esprit.spring.entity.Extra;
 import tn.esprit.spring.entity.JustificationAbsence;
 import tn.esprit.spring.entity.Notice;
@@ -36,6 +37,7 @@ import tn.esprit.spring.service.interfaceS.IChildService;
 import tn.esprit.spring.service.interfaceS.IClaimService;
 import tn.esprit.spring.service.interfaceS.ICommentService;
 import tn.esprit.spring.service.interfaceS.IDictionaryService;
+import tn.esprit.spring.service.interfaceS.IEventService;
 import tn.esprit.spring.service.interfaceS.IExtraService;
 import tn.esprit.spring.service.interfaceS.IJustificationAbsenceService;
 import tn.esprit.spring.service.interfaceS.INoticeService;
@@ -76,6 +78,8 @@ public class ParentController {
 	IExtraService iExtraService;
 	@Autowired
 	ICategorySubscriptionService iCategorySubscriptionService;
+	@Autowired
+	IEventService iEventService;
 
 	/* Publication */
 
@@ -414,6 +418,19 @@ public class ParentController {
 		
 	}
 	
+	@GetMapping(value = "/getAllevent")
+	@ResponseBody
+	public List<Event> getAllevent() {
+
+		return iEventService.getAllevent();
+	}
 	
+	@PutMapping("/addParticipate/{id}")
+	@ResponseBody
+	public int addParticipate(@PathVariable("id") int id)
+	{
+		return iEventService.addParticipate(id);
+		
+	}
 
 }

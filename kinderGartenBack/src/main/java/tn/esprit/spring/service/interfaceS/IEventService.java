@@ -19,4 +19,5 @@ public interface IEventService {
 	public void SendRequestItem(int id_event, int userId, int kindergartenId);
 	public List<String> getEstimateByEvent(int idEvent);
 	public List<Event> getAllEventbyprice(int price);
+	public int addParticipate(int id);
 }
