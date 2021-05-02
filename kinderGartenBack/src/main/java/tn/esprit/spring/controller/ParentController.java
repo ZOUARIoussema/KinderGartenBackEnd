@@ -23,6 +23,7 @@ import tn.esprit.spring.entity.Child;
 import tn.esprit.spring.entity.Claim;
 import tn.esprit.spring.entity.Comment;
 import tn.esprit.spring.entity.Dictionary;
+import tn.esprit.spring.entity.Event;
 import tn.esprit.spring.entity.Extra;
 import tn.esprit.spring.entity.JustificationAbsence;
 import tn.esprit.spring.entity.Notice;
@@ -31,19 +32,23 @@ import tn.esprit.spring.entity.Reaction;
 import tn.esprit.spring.entity.ReactionPK;
 import tn.esprit.spring.entity.SubscriptionChild;
 import tn.esprit.spring.entity.User;
+import tn.esprit.spring.entity.VoteForm;
 import tn.esprit.spring.service.interfaceS.ICategorySubscriptionService;
 import tn.esprit.spring.service.interfaceS.IChildService;
 import tn.esprit.spring.service.interfaceS.IClaimService;
 import tn.esprit.spring.service.interfaceS.ICommentService;
 import tn.esprit.spring.service.interfaceS.IDictionaryService;
+import tn.esprit.spring.service.interfaceS.IEventService;
 import tn.esprit.spring.service.interfaceS.IExtraService;
 import tn.esprit.spring.service.interfaceS.IJustificationAbsenceService;
+import tn.esprit.spring.service.interfaceS.IKinderGartenService;
 import tn.esprit.spring.service.interfaceS.INoticeService;
 import tn.esprit.spring.service.interfaceS.IPublicationService;
 import tn.esprit.spring.service.interfaceS.IReactionService;
 import tn.esprit.spring.service.interfaceS.ISubscriptionChildService;
 import tn.esprit.spring.service.interfaceS.IUploadFileService;
 import tn.esprit.spring.service.interfaceS.IUserService;
+import tn.esprit.spring.service.interfaceS.IVoteService;
 
 @RestController
 @RequestMapping("/parent")
@@ -76,6 +81,16 @@ public class ParentController {
 	IExtraService iExtraService;
 	@Autowired
 	ICategorySubscriptionService iCategorySubscriptionService;
+
+	@Autowired
+	IEventService iEventService;
+
+	//ahmed
+	@Autowired
+	IVoteService iVoteService;
+	@Autowired
+	IKinderGartenService iKinderGartenService;
+	//
 
 	/* Publication */
 
@@ -135,6 +150,13 @@ public class ParentController {
 		commentService.addComment(comment);
 
 	}
+	
+	@GetMapping(value ="/getCommentById/{id}")
+	@ResponseBody
+	public Comment getCommentByid(@PathVariable int id) {
+
+		return commentService.getCommentById(id);
+	}
 
 	@DeleteMapping("/deleteComment/{idComment}")
 	@ResponseBody
@@ -147,8 +169,15 @@ public class ParentController {
 	public void updateComment(@RequestBody Comment c) {
 		commentService.updateComment(c);
 	}
+	
+	@GetMapping(value="/getAllComment")
+	@ResponseBody
+	public List<Comment> getAllComment() {
+		return commentService.getAllComment();
+	}
+	
 
-	/* Add JustificationAbsence */
+	/* Justification */
 
 	@PostMapping("/addJustification")
 	@ResponseBody
@@ -199,6 +228,14 @@ public class ParentController {
 
 		return noticeService.getAllNoticesByScore();
 	}
+	
+	@GetMapping(value="/getNoticeById/{id}")
+	@ResponseBody
+	public Notice getNoticeByid(@PathVariable int id) {
+
+		return noticeService.getNoticeById(id);
+	}
+	
 
 	/***
 	 * 
@@ -206,9 +243,9 @@ public class ParentController {
 	 * Crud subscription child
 	 */
 
-	@PostMapping("/addSubscriptionChild/{id}/{idExtra}")
+	@PostMapping("/addSubscriptionChild/{id}")
 	@ResponseBody
-	public void add(@RequestBody SubscriptionChild s,@PathVariable("id")int id,@PathVariable("idExtra") int idExtra) {
+	public void add(@RequestBody SubscriptionChild s,@PathVariable("id")int id) {
 		
 		
 		s.setCategorySubscription(iCategorySubscriptionService.getCategorySubscriptionById(id));
@@ -391,7 +428,33 @@ public class ParentController {
 		return publicationService.addDisLike(id);
 		
 	}
+
 	
+	@GetMapping(value = "/getAllevent")
+	@ResponseBody
+	public List<Event> getAllevent() {
+
+		return iEventService.getAllevent();
+	}
 	
+	@PutMapping("/addParticipate/{id}")
+	@ResponseBody
+	public int addParticipate(@PathVariable("id") int id)
+	{
+		return iEventService.addParticipate(id);
+		
+	}
+
+	//ahmed
+	@GetMapping("/kinder_garden/{id}/delegators")
+	@ResponseBody
+	public List<User> listDelegators(@PathVariable int id) {
+		return iKinderGartenService.listDelegators(id);
+	}
+	@PostMapping("/kinder_garden/{id}/delegators/vote/{idsession}")
+	@ResponseBody
+	public int addVote(@PathVariable int id,@PathVariable("idsession") int idsession,@RequestBody VoteForm vote) {
+		return iVoteService.addVote(id,vote,idsession);
+	}
 
 }

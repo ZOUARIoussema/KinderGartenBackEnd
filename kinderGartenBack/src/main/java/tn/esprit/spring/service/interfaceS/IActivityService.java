@@ -7,7 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 import tn.esprit.spring.entity.Activity;
 
 public interface IActivityService {
-	public int addActivity(Activity activity);
+	public int addActivity(Activity activity,int kinderId);
 	public void updateActivity(String description,String photo,int activityId);
 	public List<Activity> getAllactivity();
 	public void deleteActivityById(int activityId);

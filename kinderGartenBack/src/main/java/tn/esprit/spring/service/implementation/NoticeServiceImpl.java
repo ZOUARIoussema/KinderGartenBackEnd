@@ -39,6 +39,11 @@ public class NoticeServiceImpl implements INoticeService {
 		
 	}
 
+	@Override
+	public Notice getNoticeById(int id) {
+		return noticeRepo.findById(id).orElse(null);
+	}
+
 	
 
 }

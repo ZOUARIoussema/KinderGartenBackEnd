@@ -110,5 +110,8 @@ public class Event implements Serializable {
 	public void setObject(String object) {
 		this.object = object;
 	}
+	public void incrimentParticipate(){
+		this.nParticipate++;
+	}
 
 }

@@ -115,6 +115,14 @@ public class AdminGartenController {
 		return iKinderGartenService.getKindergartenById(kinderId);
 	}
 
+	
+	@GetMapping(value = "/findUserByIdK/{responsible}")
+	@ResponseBody
+	public KinderGarten findUserByIdK(@PathVariable("responsible") int responsible) {
+		return iKinderGartenService.findUserByIdK(responsible);
+	}
+	
+	
 	@GetMapping(value = "/getAllkinder")
 	@ResponseBody
 	public List<KinderGarten> getAllkinder() {
@@ -145,10 +153,10 @@ public class AdminGartenController {
 
 	// Extra ...
 
-	@PostMapping("/addExtra")
+	@PostMapping("/addExtra/{idk}")
 	@ResponseBody
-	public Extra addExtra(@RequestBody Extra extra) {
-		iExtraService.addExtra(extra);
+	public Extra addExtra(@RequestBody Extra extra,@PathVariable("idk") int idk) {
+		iExtraService.addExtra(extra,idk);
 		return extra;
 	}
 
@@ -187,10 +195,10 @@ public class AdminGartenController {
 
 	// categorySubscription...
 
-	@PostMapping("/addCategorySubscription")
+	@PostMapping("/addCategorySubscription/{idk}")
 	@ResponseBody
-	public CategorySubscription addCategorySubscription(@RequestBody CategorySubscription categorySubscription) {
-		iCategorySubscriptionService.addCategorySubscription(categorySubscription);
+	public CategorySubscription addCategorySubscription(@RequestBody CategorySubscription categorySubscription,@PathVariable("idk") int idk) {
+		iCategorySubscriptionService.addCategorySubscription(categorySubscription,idk);
 		return categorySubscription;
 	}
 
@@ -234,10 +242,10 @@ public class AdminGartenController {
 	// Meeting ...
 
 
-	@PostMapping("/addMeeting")
+	@PostMapping("/addMeeting/{idk}")
 	@ResponseBody
-	public Meeting addMeeting(@RequestBody Meeting meeting) {
-		iMeetingService.addMeeting(meeting);
+	public Meeting addMeeting(@RequestBody Meeting meeting,@PathVariable("idk") int idk) {
+		iMeetingService.addMeeting(meeting,idk);
 		return meeting;
 	}
 
@@ -276,10 +284,10 @@ public class AdminGartenController {
 
 	// activity ...
 
-	@PostMapping("/addActivity")
+	@PostMapping("/addActivity/{idk}")
 	@ResponseBody
-	public int addActivity(@RequestBody Activity activity) {
-		return iActivityService.addActivity(activity);
+	public int addActivity(@RequestBody Activity activity,@PathVariable("idk") int idk) {
+		return iActivityService.addActivity(activity,idk);
 	
 	}
 
@@ -377,7 +385,7 @@ public class AdminGartenController {
 
 	@GetMapping(value = "/getEstimateByEvent/{idEvent}")
 	@ResponseBody
-	public List<?> getEstimateByEvent(@PathVariable("idEvent") int idEvent){
+	public List<String> getEstimateByEvent(@PathVariable("idEvent") int idEvent){
 		return iEventService.getEstimateByEvent(idEvent);
 	}
 
@@ -438,10 +446,10 @@ public class AdminGartenController {
 
 	// Category ...
 
-	@PostMapping("/addCategory")
+	@PostMapping("/addCategory/{idk}")
 	@ResponseBody
-	public Category addCategory(@RequestBody Category category) {
-		iCategoryService.addCategory(category);
+	public Category addCategory(@RequestBody Category category,@PathVariable("idk") int idk) {
+		iCategoryService.addCategory(category,idk);
 		return category;
 	}
 
@@ -567,6 +575,32 @@ public class AdminGartenController {
 	public void delegatorsWinner(@PathVariable int id,@PathVariable int sessionVoteId) {
 		iSessionVoteService.delegatorsWinner(id, sessionVoteId);
 	}
+	//zedna
 	
+
+	
+	@GetMapping(value = "/findAllMeetingByKinderGarten/{kinderId}")
+	@ResponseBody
+	public List<Meeting> findAllMeetingByKinderGarten(@PathVariable("kinderId") int kinderId) {
+		return iMeetingService.findAllMeetingByKinderGarten(kinderId);
+	}
+	
+	@GetMapping(value = "/findAllCategoryByKinderGarten/{kinderId}")
+	@ResponseBody
+	public List<Category> findAllCategoryByKinderGarten(@PathVariable("kinderId") int kinderId) {
+		return iCategoryService.findAllCategoryByKinderGarten(kinderId);
+	}
+	
+	@GetMapping(value = "/findAllCategorySubscriptionByKinderGarten/{kinderId}")
+	@ResponseBody
+	public List<CategorySubscription> findAllCategorySubscriptionByKinderGarten(@PathVariable("kinderId") int kinderId) {
+		return iCategorySubscriptionService.findAllCategorySubscriptionByKinderGarten(kinderId);
+	}
+	
+	@GetMapping(value = "/findAllExtraByKinderGarten/{kinderId}")
+	@ResponseBody
+	public List<Extra> findAllExtraByKinderGarten(@PathVariable("kinderId") int kinderId) {
+		return iExtraService.findAllExtraByKinderGarten(kinderId);
+	}
 	
 }

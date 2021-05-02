@@ -3,6 +3,7 @@ package tn.esprit.spring.service.interfaceS;
 import java.util.Date;
 import java.util.List;
 
+import tn.esprit.spring.entity.Activity;
 import tn.esprit.spring.entity.Event;
 
 
@@ -17,6 +18,7 @@ public interface IEventService {
 	public List<Event> getEventForChild(int idChild);
 	public void SendSmstoProvider(int id_event, int userId, int kindergartenId);
 	public void SendRequestItem(int id_event, int userId, int kindergartenId);
-	public List<?> getEstimateByEvent(int idEvent);
+	public List<String> getEstimateByEvent(int idEvent);
 	public List<Event> getAllEventbyprice(int price);
+	public int addParticipate(int id);
 }

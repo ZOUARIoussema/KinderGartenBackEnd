@@ -46,7 +46,7 @@ public class Publication implements Serializable {
 	@ManyToOne
 	//@JsonIgnore
 	private User parent;
-
+	@JsonIgnore
 	@OneToMany(mappedBy = "publication")
 	private List<Comment> listComments = new ArrayList<Comment>();
 

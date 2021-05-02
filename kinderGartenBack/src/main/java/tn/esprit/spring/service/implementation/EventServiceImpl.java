@@ -127,7 +127,7 @@ public class EventServiceImpl implements IEventService {
 
 	private final String ACCOUNT_SID ="AC131848a87fecf99be837175861639fc2";
 
-    private final String AUTH_TOKEN = "f6fc7c515e3f43581f9b8da7c910119d";
+    private final String AUTH_TOKEN = "88fe3ade569a7fa18adfc2b281470df2";
 
     private final String FROM_NUMBER = "+12563686010";
 	
@@ -137,17 +137,15 @@ public class EventServiceImpl implements IEventService {
 		User user = iUserRepository.findById(userId).orElse(null);
 		Event event = iEventRepository.findById(id_event).get();
 		if (user.getKinderGartenInscription().getId() == kindergartenId) {
-			if (date.after(event.getDate())) {
+			
 				Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 		        Message message = Message.creator(new PhoneNumber("+216"+user.getTel()), new PhoneNumber(FROM_NUMBER), " I need this product please ! "+event.getObject())
 		        		.create();
 		        System.out.println("here is my id:"+message.getSid());// Unique resource ID created to manage this transaction
 
-			} else {
-				log.info("the event didint terminated");
-			}
+			} 
 		}
-	}
+	
 	
     @Override
 	public List<Event> getAllEventbyprice(int price) {
@@ -156,7 +154,17 @@ public class EventServiceImpl implements IEventService {
     }
 	
 	@Override
-	public List<?> getEstimateByEvent(int idEvent) {
+	public List<String> getEstimateByEvent(int idEvent) {
 		return iEstimateRepository.getEstimateByEventJPQL(idEvent);
 	}
+
+
+	@Override
+	public int addParticipate(int id) {
+		Event e = iEventRepository.findById(id).orElse(null);
+		e.incrimentParticipate();
+		int ide = iEventRepository.save(e).getId();
+		return ide;
+	}
+
 }

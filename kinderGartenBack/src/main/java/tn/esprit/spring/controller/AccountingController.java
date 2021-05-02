@@ -187,10 +187,10 @@ public class AccountingController {
 	 * report accounting exel
 	 * 
 	 */
-	@PreAuthorize("isAnonymous()")
+	 @PreAuthorize("isAnonymous()")
 	@GetMapping("/export/excel/{date}")
 	public void exportToExcel(HttpServletResponse response,
-			@PathVariable("date") @DateTimeFormat(pattern = "dd/MM/yyyy") Date d) throws IOException {
+			@PathVariable("date") @DateTimeFormat(pattern = "dd-MM-yyyy") Date d) throws IOException {
 		response.setContentType("application/octet-stream");
 		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
 		String currentDateTime = dateFormatter.format(new Date());
@@ -235,5 +235,7 @@ public class AccountingController {
 		fidelityS.transfertPointFidelity(idSub, point);
 
 	}
+	
+	
 
 }

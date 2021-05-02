@@ -24,10 +24,10 @@ public class MeetingServiceImpl implements IMeetingService {
 	@Autowired
 	INotification inotification;
 	@Override
-	public int addMeeting(Meeting meeting) {
-		
+
+	public int addMeeting(Meeting meeting,int idk) {
+		meeting.setKinderGarten(kinderRepo.findById(idk).orElse(null));
 		iMeetingRepository.save(meeting);
-		
 	  return meeting.getId();
 	}
 
@@ -65,11 +65,9 @@ public class MeetingServiceImpl implements IMeetingService {
 	}
 
 	@Override
-	public List<Meeting> getMeetingByKinderGartenAndDate(int kinderId,Date dateStart, Date dateEnd){
-		return iMeetingRepository.getMeetingByKinderGartenAndDateJPQL(kinderId, dateStart, dateEnd);
-		
+
+	public List<Meeting> findAllMeetingByKinderGarten(int kinderId) {
+		return iMeetingRepository.findAllMeetingByKinderGartenJPQL(kinderId);
 	}
-	}
 
-
-
+}
