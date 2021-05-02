@@ -50,7 +50,7 @@ public class Child implements Serializable {
 	private double fidelityPoint;
 
 	@ManyToOne
-	@JsonIgnore
+	//@JsonIgnore
 	private User parent;
 
 	@OneToMany(mappedBy = "child", cascade = { CascadeType.REFRESH })
@@ -66,7 +66,7 @@ public class Child implements Serializable {
 	private List<Category> listInterest = new ArrayList<Category>();
 
 	@ManyToMany
-	@JsonIgnore
+	//@JsonIgnore
 	private List<Event> lisEvents = new ArrayList<Event>();
 
 	public List<Category> getListInterest() {

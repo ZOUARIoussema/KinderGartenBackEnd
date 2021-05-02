@@ -20,7 +20,4 @@ public interface IMeetingRepository extends CrudRepository<Meeting, Integer>  {
 
 	
 	
-	@Query(value="Select * from Meeting  where kinder_garten_id=:kinderId and date_start>=:dateStart and date_end<=:dateEnd  ",nativeQuery=true)
-	public List<Meeting> getMeetingByKinderGartenAndDateJPQL(@Param("kinderId")int kinderId, @Param("dateStart")Date dateStart,@Param("dateEnd")Date dateEnd);
-
 }

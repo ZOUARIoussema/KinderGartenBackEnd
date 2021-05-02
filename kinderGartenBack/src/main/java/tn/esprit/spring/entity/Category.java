@@ -33,12 +33,15 @@ public class Category implements Serializable {
 	private KinderGarten kinderGarten;
 
 	@OneToMany(mappedBy = "category")
+	@JsonIgnore
 	private List<Event> lisEvents = new ArrayList<Event>();
 
 	@OneToMany(mappedBy = "category")
+	@JsonIgnore
 	private List<Club> lisClub = new ArrayList<Club>();
 
 	@ManyToMany(mappedBy = "listInterest")
+	@JsonIgnore
 	private List<Child> listChild = new ArrayList<Child>();
 
 	public List<Child> getListChild() {

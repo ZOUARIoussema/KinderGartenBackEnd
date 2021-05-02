@@ -7,7 +7,7 @@ import tn.esprit.spring.entity.Club;
 
 public interface IClubService {
 	
-	public int addClub(Club club);
+	public void addClub(Club club, int id);
 	public void updateClub(String description,int clubId);
 	public List<Club> getAllclub();
 	public void deleteClubById(int clubId);

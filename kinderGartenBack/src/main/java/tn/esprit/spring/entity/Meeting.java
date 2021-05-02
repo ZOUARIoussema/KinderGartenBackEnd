@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Meeting implements Serializable {
 	
@@ -33,6 +35,7 @@ public class Meeting implements Serializable {
 	private Date dateEnd;
 	
 	@ManyToOne
+	@JsonIgnore
 	private KinderGarten kinderGarten;
 	
 	

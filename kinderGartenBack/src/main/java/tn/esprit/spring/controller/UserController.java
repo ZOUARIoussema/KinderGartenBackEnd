@@ -57,11 +57,9 @@ public class UserController {
 	}
 	
 	
-	@GetMapping("/findUserByEmail/{email}")
-	public User findUserByMail (@PathVariable("email") String email )
-	{
-		return userS.findByEmail(email);
-	}
+	
+	
+	
 	
 	
 	
@@ -124,7 +122,14 @@ public class UserController {
 	}
 	
 
+	@GetMapping("/getParentsByKinderGarten")
+
 	
+	 public List<User> parentsByKinderGarten()
+	{
+		return userS.getParentsByKinderGarten();
+		
+	}
 
 	
 }

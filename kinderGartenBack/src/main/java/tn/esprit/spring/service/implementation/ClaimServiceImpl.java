@@ -1,6 +1,7 @@
 package tn.esprit.spring.service.implementation;
 
  
+
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -63,10 +64,11 @@ public class ClaimServiceImpl implements IClaimService {
 	
 
 	@Override
-	public List<Claim> SearchClaimByParent(int id) {
+	public List<Claim> SearchClaimByParent(String parentname) {
 				
-		return (List<Claim>) claimsRepo.getClaimsByUser(id);
+		List<Claim> listclaims = (List<Claim>) claimsRepo.findAll();
 		
+		return listclaims.stream().filter(c-> c.getParent().getFirstName().toLowerCase().contains(parentname)).collect(Collectors.toList());
 	}
 
 	@Override
@@ -88,7 +90,7 @@ public class ClaimServiceImpl implements IClaimService {
 		 
 	}
 	
-	public List<User> getAllParents()
+	public List<String> getAllParents()
 	{
 		return  claimsRepo.getAllParents();
 	}
@@ -116,7 +118,6 @@ public class ClaimServiceImpl implements IClaimService {
 	@Override
 	public int addClaim(Claim c,int iduser) 
 	{
-		
 		c.setCreation_date(new Date());
 		c.setParent(userrepo.findById(iduser).get());
 		c.setState(StateClaim.InProgress.toString());

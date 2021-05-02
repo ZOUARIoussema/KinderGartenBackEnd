@@ -44,7 +44,7 @@ public class Publication implements Serializable {
 	}
 
 	@ManyToOne
-	@JsonIgnore
+	//@JsonIgnore
 	private User parent;
 
 	@OneToMany(mappedBy = "publication")
@@ -109,5 +109,11 @@ public class Publication implements Serializable {
 	public void setParent(User parent) {
 		this.parent = parent;
 	}
+	 public void incriment() {
+         this.numberLike++;
+     }
+	 public void incrimentDislike() {
+         this.numberDislike++;
+     }
 
 }

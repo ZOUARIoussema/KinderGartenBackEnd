@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Club implements Serializable {
 
@@ -22,7 +24,9 @@ public class Club implements Serializable {
 
 	private String description;
 
+	
 	@ManyToOne
+	@JsonIgnore
 	private Category category;
 
 	public Category getCategory() {

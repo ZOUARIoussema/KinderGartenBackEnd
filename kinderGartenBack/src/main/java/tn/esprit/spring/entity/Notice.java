@@ -28,20 +28,12 @@ public class Notice implements Serializable {
 	private Date dateC;
 	private int score;
 	
-	
-	
-	
+
 	@ManyToOne
-	@JsonIgnore
+	//@JsonIgnore
 	private User parent;
 	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	public User getParent() {
 		return parent;

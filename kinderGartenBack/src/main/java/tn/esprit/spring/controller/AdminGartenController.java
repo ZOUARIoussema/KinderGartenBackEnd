@@ -79,8 +79,7 @@ public class AdminGartenController {
 	IVoteService iVoteService;
 	@Autowired
 	ISessionVoteService iSessionVoteService;
-	@Autowired
-	IEstimateService iEstimateService;
+
 	@Autowired
 	IUploadFileService uploadFileService ;
 
@@ -123,11 +122,18 @@ public class AdminGartenController {
 		return iKinderGartenService.getAllkinder();
 	}
 
+	@GetMapping(value = "/getKindergartenByResponsible/{responsibleId}")
+	@ResponseBody
+	public List<KinderGarten> getKindergartenByResponsible(@PathVariable("responsibleId") int responsibleId) {
+
+		return iKinderGartenService.getKindergartenByResponsible(responsibleId);
+	}
+	
 	@PutMapping(value = "/updateKinderGarten/{id}")
 	@ResponseBody
 	public void updateKinderGarten(@PathVariable("id") int kenderId, @RequestBody KinderGarten kendergarten) {
 		iKinderGartenService.updateKindergarten(kendergarten.getName(), kendergarten.getAdress(),
-				kendergarten.getEmail(), kendergarten.getTel(), kendergarten.getLogo(), kenderId);
+				kendergarten.getEmail(), kendergarten.getTel(), kendergarten.getLogo(),kendergarten.getLongitude(),kendergarten.getLatitude(), kenderId);
 
 	}
 
@@ -226,13 +232,7 @@ public class AdminGartenController {
 	}
 
 	// Meeting ...
-	@GetMapping(value = "/getMeetingByKinderGartenAndDate/{kinderId}/{dateStart}/{dateEnd}")
-	@ResponseBody
-	public List<Meeting> getMeetingByKinderGartenAndDate(@PathVariable("kinderId") int kinderId,
-			@PathVariable("dateStart") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateStart,
-			@PathVariable("dateEnd") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateEnd) {
-		return iMeetingService.getMeetingByKinderGartenAndDate(kinderId, dateStart, dateEnd);
-	}
+
 
 	@PostMapping("/addMeeting")
 	@ResponseBody
@@ -278,9 +278,9 @@ public class AdminGartenController {
 
 	@PostMapping("/addActivity")
 	@ResponseBody
-	public Activity addActivity(@RequestBody Activity activity) {
-		iActivityService.addActivity(activity);
-		return activity;
+	public int addActivity(@RequestBody Activity activity) {
+		return iActivityService.addActivity(activity);
+	
 	}
 
 	@PostMapping("/assignPhoto/{id}")
@@ -336,6 +336,12 @@ public class AdminGartenController {
 
 	// Event...
 	
+	@GetMapping(value = "/getAllEventbyprice/{price}")
+	@ResponseBody
+	public List<Event> getAllEventbyprice(@PathVariable("price") int price){
+		return iEventService.getAllEventbyprice(price);
+	}
+
 	 	@Autowired
 	    private SimpMessagingTemplate webSocket;
 
@@ -384,23 +390,17 @@ public class AdminGartenController {
 	}
 	
 	
-	@GetMapping(value = "/findAllEventByKinderGarten/{kinderId}")
-	@ResponseBody
-	public List<Event> findAllEventByKinderGarten(@PathVariable("kinderId") int kinderId) {
-		return iEventService.findAllEventByKinderGarten(kinderId);
-	}
-	
 	@GetMapping(value = "/getAllEventForToday")
 	@ResponseBody
 	public List<Event> getAllEventForToday(){
 		return iEventService.getAllEventForToday();
 	}
 	
-	@PostMapping("/addEvent")
+	@PostMapping("/addEvent/{id}")
 	@ResponseBody
-	public Event addEvent(@RequestBody Event event) {
-		iEventService.addEvent(event);
-		return event;
+	public void addEvent(@RequestBody Event event,@PathVariable("id") int id) {
+		iEventService.addEvent(event,id);
+		
 	}
 
 	@GetMapping(value = "/getEventById/{eventId}")
@@ -480,17 +480,16 @@ public class AdminGartenController {
 	
 	// Club ...
 
-	@PostMapping("/addClub")
+	@PostMapping("/addClub/{id}")
 	@ResponseBody
-	public Club addClub(@RequestBody Club club) {
-		iClubService.addClub(club);
-		return club;
+	public void addClub(@RequestBody Club club, @PathVariable("id") int id) {
+		iClubService.addClub(club,id);
 	}
 
 	@GetMapping(value = "/getClubById/{clubId}")
 	@ResponseBody
-	public Club getClubById(@PathVariable("clubId") int clubId) {
-		return iClubService.getClubById(clubId);
+	public String getClubById(@PathVariable("clubId") int clubId) {
+		return iClubService.getClubById(clubId).getId()+"";
 	}
 
 	@GetMapping(value = "/getAllclub")
@@ -513,7 +512,7 @@ public class AdminGartenController {
 		iClubService.deleteClubById(clubId);
 	}
 
-	@PutMapping(value = "/affecterClubACategory/{clubId}/{kinderId}")
+	@PutMapping(value = "/affecterClubACategory/{clubId}/{categoryId}")
 	public void affecterClubACategory(@PathVariable("clubId") int clubId, @PathVariable("categoryId") int categoryId) {
 		iClubService.affecterClubACategory(clubId, categoryId);
 
@@ -569,43 +568,5 @@ public class AdminGartenController {
 		iSessionVoteService.delegatorsWinner(id, sessionVoteId);
 	}
 	
-	// Estimate
-
 	
-	@PostMapping("/addEstimate/{providerId}/{kinderId}/{item}/{qte}/{total}")
-	@ResponseBody
-	public void addEstimate(@PathVariable("providerId") int providerId,
-			@PathVariable("kinderId") int kinderId,@PathVariable("item") String item,
-			@PathVariable("qte") int qte,@PathVariable("total") double total) {
-		iEstimateService.addEstimate(providerId, kinderId, item, qte, total);
-	}
-	@GetMapping(value = "/getAllEstimate")
-	@ResponseBody
-	public List<Estimate> getAllEstimate() {
-
-		return iEstimateService.getAllEstimate();
-	}
-	@GetMapping(value = "/getEstimateByKinderAndProvider/{kinderId}/{ProviderId}")
-	@ResponseBody
-	public List<Estimate> getEstimateByKinderAndProvider(@PathVariable("kinderId") int kinderId,@PathVariable("ProviderId")  int ProviderId) {
-		return iEstimateService.getEstimateByKinderAndProvider(kinderId, ProviderId);
-	}
-	
-	@PutMapping(value = "/updateEstimate/{estimateDate}/{iduser}/{idkinder}")
-	@ResponseBody
-	public void updateEstimate(@PathVariable("estimateDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date estimateDate
-			,@PathVariable("iduser") int iduser
-			, @PathVariable("idkinder")int idkinder, @RequestBody Estimate estimate) {
-		iEstimateService.updateEstimate(estimateDate, iduser, idkinder, estimate.getItem(), estimate.getQte(), estimate.getTotal());
-
-	}
-	
-	@DeleteMapping("/deleteEstimate/{estimateDate}/{iduser}/{idkinder}")
-	@ResponseBody
-	public void deleteEstimate(@PathVariable("estimateDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date estimateDate
-			,@PathVariable("iduser") int iduser
-			, @PathVariable("idkinder")int idkinder) {
-		iEstimateService.deleteEstimate(estimateDate, iduser, idkinder);
-		
-	}
 }

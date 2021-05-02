@@ -34,12 +34,12 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
-		http.csrf().disable();
+		 http.csrf().disable();
 		// http.authorizeRequests().antMatchers("/**").permitAll().anyRequest().permitAll();
 
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
 				.antMatchers("/servlet/user/**", "/servlet/accounting/export/excel", "/personalMsg", "/**").permitAll()
-				.anyRequest().authenticated();
+				.anyRequest().authenticated().and().cors();
 
 		http.apply(new JwtTokenConfigurer(tokenProvider));
 

@@ -19,6 +19,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import antlr.collections.impl.LList;
 import tn.esprit.spring.config.mail.EmailRequestDTO;
 import tn.esprit.spring.entity.Child;
 import tn.esprit.spring.entity.ChildVaccine;
@@ -33,23 +34,25 @@ import tn.esprit.spring.service.interfaceS.IMailService;
 @Service
 public class FolderMedicalServiceImpl implements IFolderMedicalService {
 
-	
 	private static Logger logger = LoggerFactory.getLogger(IFolderMedicalService.class);
-	
-	
+
 	@Autowired
 	IFolderMedicalRepository folderR;
 	@Autowired
 	IChildRepository childR;
 	@Autowired
 	IChildVaccineRep childVR;
+	@Autowired
+	IChildVaccineRep childVaccineR;
 
 	@Autowired
 	IMailService mailS;
 
 	@Override
-	public void add(FolderMedical f) {
+	public void add(FolderMedical f, int id) {
 
+		f.setDateC(new Date());
+		f.setChild(childR.findById(id).orElse(null));
 		folderR.save(f);
 
 	}
@@ -67,8 +70,9 @@ public class FolderMedicalServiceImpl implements IFolderMedicalService {
 	}
 
 	@Override
-	public void update(FolderMedical f) {
+	public void update(FolderMedical f, int id) {
 
+		f.setChild(childR.findById(id).orElse(null));
 		folderR.save(f);
 
 	}
@@ -84,14 +88,14 @@ public class FolderMedicalServiceImpl implements IFolderMedicalService {
 	}
 
 	public List<ChildVaccine> listChildVaccineToDo(FolderMedical f, int nbMonth) {
-		
-		logger.info("**** age child  : {}", nbMonth+" (Month)");
+
+		logger.info("**** age child  : {}", nbMonth + " (Month)");
 
 		List<ChildVaccine> list = new ArrayList<ChildVaccine>();
 
 		for (ChildVaccine childVaccine : childVR.findAll()) {
 
-			if ( childVaccine.getMonthNumber()<=nbMonth && f.getLisChildVaccines().contains(childVaccine) == false) {
+			if (childVaccine.getMonthNumber() <= nbMonth && f.getLisChildVaccines().contains(childVaccine) == false) {
 
 				list.add(childVaccine);
 			}
@@ -142,7 +146,7 @@ public class FolderMedicalServiceImpl implements IFolderMedicalService {
 
 	}
 
-	@Scheduled(cron = "0 0 0 1 * ?", zone = "Africa/Tunis")
+	@Scheduled(cron = "0 56 13 01 4 *", zone = "Africa/Tunis")
 	@Override
 	public void alertVaccineChildToDo() {
 
@@ -169,7 +173,40 @@ public class FolderMedicalServiceImpl implements IFolderMedicalService {
 
 	@Override
 	public FolderMedical getFolderById(int id) {
-		return folderR.findById(id).orElse(null);
+		int idChild = folderR.findById(id).orElse(null).getChild().getId();
+		return this.getFolderByChild(idChild);
+	}
+
+	@Override
+	public List<FolderMedical> getAllFolder() {
+
+		return (List<FolderMedical>) folderR.findAll();
+
+	}
+
+	@Override
+	public void addFolderVaccine(int idF, int idV) {
+		FolderMedical f = folderR.findById(idF).orElse(null);
+
+		ChildVaccine v = childVaccineR.findById(idV).orElse(null);
+
+		f.getLisChildVaccines().add(v);
+
+		folderR.save(f);
+
+	}
+
+	@Override
+	public void deleteFolderVaccine(int idF, int idV) {
+
+		FolderMedical f = folderR.findById(idF).orElse(null);
+
+		ChildVaccine v = childVaccineR.findById(idV).orElse(null);
+
+		f.getLisChildVaccines().remove(v);
+
+		folderR.save(f);
+
 	}
 
 }

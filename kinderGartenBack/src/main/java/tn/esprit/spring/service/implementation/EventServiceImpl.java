@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
@@ -26,6 +29,9 @@ import tn.esprit.spring.service.interfaceS.IEventService;
 
 @Service
 public class EventServiceImpl implements IEventService {
+	
+	private static Logger log = LoggerFactory.getLogger(EventServiceImpl.class);
+	
 	@Autowired
 	IEventRepository iEventRepository;
 	@Autowired
@@ -35,19 +41,14 @@ public class EventServiceImpl implements IEventService {
 	@Autowired
 	MailServiceImpl servicemail;
 	@Autowired
- IEstimateRepository iEstimateRepository;
-	@Autowired
-	INotification inotification;;
-		
-	@Override
-	public int addEvent(Event event) {
-		Notification notification=new Notification();
-		notification.setDateN(new Date());
-		iEventRepository.save(event);
-		inotification.save(notification);
-		return event.getId();
-	}
 
+	IEstimateRepository iEstimateRepository;
+	
+	@Override
+	public void addEvent(Event event,int id) {
+		event.setCategory(iCategoryRepository.findById(id).orElse(null));
+		iEventRepository.save(event);
+	}
 	@Override
 	public void updateEvent(String object,String description, Date date, double price, int eventId) {
 		iEventRepository.updateEventJPQL(object, description, date, price, eventId);;
@@ -80,10 +81,6 @@ public class EventServiceImpl implements IEventService {
 		iEventRepository.save(eventManagedEntity);
 	}
 
-	@Override
-	public List<Event> findAllEventByKinderGarten(int kinderId) {
-		return iEventRepository.findAllEventByGartenJPQL(kinderId);
-	}
 
 	@Override
 	public List<Event> getAllEventForToday() {
@@ -123,14 +120,14 @@ public class EventServiceImpl implements IEventService {
 				servicemail.sendSimpleMail(user.getEmail(), event.getCategory().getKinderGarten().getResponsible().getFirstName()+" Hey Provider " + user.getFirstName(),
 						" I need, " + event.getObject()+ " with number of places "+event.getnParticipate() + " ! with price " + event.getPrice());
 			} else {
-				System.out.println("the event didint terminated");
+				log.info("the event didint terminated");
 			}
 		}
 	}
 
 	private final String ACCOUNT_SID ="AC131848a87fecf99be837175861639fc2";
 
-    private final String AUTH_TOKEN = "f8eb2d60e9ae40071d6c750bed8dd417";
+    private final String AUTH_TOKEN = "f6fc7c515e3f43581f9b8da7c910119d";
 
     private final String FROM_NUMBER = "+12563686010";
 	
@@ -147,11 +144,16 @@ public class EventServiceImpl implements IEventService {
 		        System.out.println("here is my id:"+message.getSid());// Unique resource ID created to manage this transaction
 
 			} else {
-				System.out.println("the event didint terminated");
+				log.info("the event didint terminated");
 			}
 		}
 	}
 	
+    @Override
+	public List<Event> getAllEventbyprice(int price) {
+				
+		return iEventRepository.getAllEventbyprice(price);
+    }
 	
 	@Override
 	public List<?> getEstimateByEvent(int idEvent) {

@@ -42,6 +42,7 @@ public class CategorySubscription implements Serializable {
 	
 	
 	@ManyToOne
+	@JsonIgnore
 	private KinderGarten kinderGarten;
 	
 	

@@ -11,12 +11,13 @@ import tn.esprit.spring.entity.SubscriptionChild;
 public interface ISubscriptionChildService {
 	
 	
-	public void addSubscriptionChild(SubscriptionChild s);
+	public SubscriptionChild addSubscriptionChild(SubscriptionChild s);
 	public List<SubscriptionChild> getAllSubscriptionByChild(int id);
 	public void update(SubscriptionChild s);
 	public void delete(int id);
 	public SubscriptionChild getById(int id);
 	public void updateTotalWithParticipateEvent(Child c);
+	public List<SubscriptionChild> getAll();
 	
 	
 

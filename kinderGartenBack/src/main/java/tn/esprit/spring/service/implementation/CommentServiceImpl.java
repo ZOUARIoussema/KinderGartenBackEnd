@@ -44,7 +44,7 @@ public class CommentServiceImpl implements ICommentService {
 		comment.setDate(new Date());
 		commentRepository.save(comment);
 		}
-	}
+}
 
 	@Override
 	public void deleteComment(int commentId) {
@@ -54,7 +54,7 @@ public class CommentServiceImpl implements ICommentService {
 
 	@Override
 	public void updateComment(Comment c) {
-		
+		c.setDate(new Date());
 		commentRepository.save(c);
 		
 	}

@@ -3,6 +3,7 @@ package tn.esprit.spring.service.implementation;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,8 +18,7 @@ import tn.esprit.spring.service.interfaceS.IKinderGartenService;
 @Service
 public class KinderGartenServiceImpl implements IKinderGartenService {
 
-	@Autowired
-	IKinderGartenRepository kinderRepo;
+
 	@Autowired
 	IKinderGartenRepository iKinderGartenRepository;
 	@Autowired
@@ -26,13 +26,16 @@ public class KinderGartenServiceImpl implements IKinderGartenService {
 
 	@Override
 	public int addKindergarten(KinderGarten kendergarten) {
+		//kendergarten.setLongitude(60);
+		//kendergarten.setLatitude(30);
+		kendergarten.setScoreEval(0);
 		iKinderGartenRepository.save(kendergarten);
 		return kendergarten.getId();
 	}
 
 	@Override
-	public void updateKindergarten(String name, String adress, String email, int tel, String logo, int kinderId) {
-		iKinderGartenRepository.updateKindergartenJPQL(name, adress, email, tel, logo, kinderId);
+	public void updateKindergarten(String name, String adress, String email, int tel, String logo,double latitude,double longitude, int kinderId) {
+		iKinderGartenRepository.updateKindergartenJPQL(name, adress, email, tel, logo, latitude, longitude, kinderId);;
 	}
 
 	@Override
@@ -103,6 +106,17 @@ public class KinderGartenServiceImpl implements IKinderGartenService {
 			this.updateKindergarten(k);
 		}
 		
+	}
+
+	@Override
+	public List<KinderGarten> TriKinderGartenByScoreEval() 
+	{
+		return iKinderGartenRepository.TriKinderGartenByScoreEval();
+	}
+
+	@Override
+	public List<KinderGarten> getKindergartenByResponsible(int responsibleId) {
+		return iKinderGartenRepository.getKinderGartenByResponsible(responsibleId);
 	}
 
 }

@@ -72,6 +72,7 @@ public class User implements Serializable {
 	private List<Child> listChilds = new ArrayList<Child>();
 
 	@OneToOne(mappedBy = "visitor")
+	@JsonIgnore
 	private SwitchAccount switchAccount;
 
 	@ManyToOne

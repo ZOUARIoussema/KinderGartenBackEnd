@@ -42,6 +42,7 @@ public class Extra implements Serializable {
 	
 	
 	@ManyToOne
+	@JsonIgnore
 	private KinderGarten kinderGarten;
 	
 	

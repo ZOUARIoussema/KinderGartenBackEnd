@@ -58,6 +58,33 @@ public class PublicationServiceImpl implements IPublicationService {
 		
 	}
 
+	@Override
+	public List<Publication> getPublicationDesc() {
+		return (List<Publication>)publicationRepository.getAllPublicationByNbrLike();
+	}
+
+	@Override
+	public Publication getPublicationById(int id) {
+		return publicationRepository.findById(id).orElse(null);
+	}
+
+	@Override
+	public int addLike(int id) {
+		Publication p= publicationRepository.findById(id).orElse(null);
+		p.incriment();
+		int idp = publicationRepository.save(p).getId();
+		return idp;
+		
+	}
+
+	@Override
+	public int addDisLike(int id) {
+		Publication p= publicationRepository.findById(id).orElse(null);
+		p.incrimentDislike();
+		int idp = publicationRepository.save(p).getId();
+		return idp;
+	}
+
 	
 
 }

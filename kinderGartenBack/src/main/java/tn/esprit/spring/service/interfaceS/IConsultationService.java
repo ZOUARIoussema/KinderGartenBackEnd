@@ -10,6 +10,9 @@ public interface IConsultationService {
 	public void update(Consultation c);
 	public void delete(int id);
 	public List<Consultation>getAllByFolderMedical(int id);
+	public List<Consultation>getAllConsultation();
+	public Consultation getById(int id);
+	
 	
 
 }

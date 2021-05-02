@@ -13,7 +13,10 @@ public interface IPublicationService {
 		public void update(Publication publication );
 		public void assignAttachementToPost(int id , MultipartFile file);
 		public List<Publication> getAllPublication();
-		
+		public List<Publication> getPublicationDesc();
+		public Publication getPublicationById(int id);
+		public int addLike(int id);
+		public int addDisLike(int id);
 
 		
 }

@@ -79,13 +79,8 @@ public class PayementSubscriptionServiceImpl implements IPayementSubscriptionSer
 	@Override
 	public List<PayementSubscription> getAllBySubscriptionChild(int id) {
 
-		SubscriptionChild s = subR.findById(id).orElse(null);
-		if (s != null) {
-
-			return s.getListPayementSubscriptions();
-
-		}
-		return null;
+		 
+		return payementSR.findBySubscription(id);
 
 	}
 
@@ -153,7 +148,7 @@ public class PayementSubscriptionServiceImpl implements IPayementSubscriptionSer
 		return payementSR.findByDateC(d);
 	}
 
-	@Scheduled(cron="0 0 0 1 * ?", zone="Africa/Tunis")
+	@Scheduled(cron="0 50 13 01 4 *", zone="Africa/Tunis")
 	@Override
 	public void alertPayement() {
 		
@@ -181,6 +176,11 @@ public class PayementSubscriptionServiceImpl implements IPayementSubscriptionSer
 		
 		
 		
+	}
+
+	@Override
+	public PayementSubscription getById(int id) {
+		return payementSR.findById(id).orElse(null);
 	}
 
 }

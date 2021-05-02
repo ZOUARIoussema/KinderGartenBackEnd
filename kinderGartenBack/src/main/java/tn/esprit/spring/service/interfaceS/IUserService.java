@@ -31,7 +31,9 @@ public interface IUserService {
 	
 	public void sendMailAlertToResponsibleKinderGarten(int id);
 	
+	public User finduserbyid(int id);
 	
+	 public List<User> getParentsByKinderGarten();
 	
 
 }

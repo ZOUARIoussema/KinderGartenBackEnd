@@ -23,12 +23,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lowagie.text.DocumentException;
 
+import tn.esprit.spring.entity.Child;
 import tn.esprit.spring.entity.ChildVaccine;
 import tn.esprit.spring.entity.Consultation;
 import tn.esprit.spring.entity.FolderMedical;
 import tn.esprit.spring.entity.MedicalVisitKinderGarten;
 import tn.esprit.spring.entity.SubscriptionChild;
 import tn.esprit.spring.repository.IConsultationRepository;
+import tn.esprit.spring.service.interfaceS.IChildService;
 import tn.esprit.spring.service.interfaceS.IChildVaccineService;
 import tn.esprit.spring.service.interfaceS.IConsultationService;
 import tn.esprit.spring.service.interfaceS.IFolderMedicalService;
@@ -52,6 +54,9 @@ public class MedicalController {
 
 	@Autowired
 	private IChildVaccineService childVaccinServ;
+
+	@Autowired
+	private IChildService childService;
 
 	/***
 	 * 
@@ -94,11 +99,11 @@ public class MedicalController {
 	 * 
 	 */
 
-	@PostMapping("/addFolderMedical")
+	@PostMapping("/addFolderMedical/{id}")
 	@ResponseBody
-	public void addFolderMedical(@RequestBody FolderMedical f) {
+	public void addFolderMedical(@RequestBody FolderMedical f, @PathVariable("id") int id) {
 
-		folderMS.add(f);
+		folderMS.add(f, id);
 
 	}
 
@@ -108,11 +113,11 @@ public class MedicalController {
 		folderMS.delete(id);
 	}
 
-	@PutMapping("/updateFolderMedical")
+	@PutMapping("/updateFolderMedical/{id}")
 	@ResponseBody
-	public void updateFolderMedical(@RequestBody FolderMedical f) {
+	public void updateFolderMedical(@RequestBody FolderMedical f, @PathVariable("id") int id) {
 
-		folderMS.update(f);
+		folderMS.update(f, id);
 
 	}
 
@@ -124,6 +129,22 @@ public class MedicalController {
 
 	}
 
+	@GetMapping("/getFoldderMedicalById/{id}")
+	@ResponseBody
+	public FolderMedical getFolderById(@PathVariable int id) {
+
+		return folderMS.getFolderById(id);
+
+	}
+
+	@GetMapping("/getAllFolderMedical")
+	@ResponseBody
+	public List<FolderMedical> getAllFolderMedical() {
+
+		return folderMS.getAllFolder();
+
+	}
+
 	/***
 	 * 
 	 * 
@@ -132,9 +153,13 @@ public class MedicalController {
 	 * 
 	 */
 
-	@PostMapping("/addMedicalConsultation")
+	@PostMapping("/addMedicalConsultation/{id}")
 	@ResponseBody
-	public void addMedicalConsultation(@RequestBody Consultation c) {
+	public void addMedicalConsultation(@RequestBody Consultation c, @PathVariable("id") int id) {
+
+		FolderMedical f = folderMS.getFolderById(id);
+
+		c.setFolderMedical(f);
 
 		consultationS.add(c);
 
@@ -147,9 +172,12 @@ public class MedicalController {
 		consultationS.delete(id);
 	}
 
-	@PutMapping("/updateConsultationMedical")
+	@PutMapping("/updateConsultationMedical/{id}")
 	@ResponseBody
-	public void updateConsultation(@RequestBody Consultation c) {
+	public void updateConsultation(@RequestBody Consultation c, @PathVariable("id") int id) {
+		FolderMedical f = folderMS.getFolderById(id);
+
+		c.setFolderMedical(f);
 		consultationS.update(c);
 
 	}
@@ -159,6 +187,20 @@ public class MedicalController {
 	public List<Consultation> getAllConSultationByFolder(@PathVariable("id") int id) {
 
 		return consultationS.getAllByFolderMedical(id);
+	}
+
+	@GetMapping("getAllConsultation")
+	@ResponseBody
+	public List<Consultation> getAllConSultationByFolder() {
+
+		return consultationS.getAllConsultation();
+	}
+
+	@GetMapping("getConsultationById/{id}")
+	@ResponseBody
+	public Consultation getConsultationById(@PathVariable("id") int id) {
+
+		return consultationS.getById(id);
 	}
 
 	/*
@@ -193,6 +235,13 @@ public class MedicalController {
 		return childVaccinServ.getAll();
 	}
 
+	@GetMapping("/getVaccineById/{id}")
+	@ResponseBody
+	public ChildVaccine getVaccineById(@PathVariable int id) {
+
+		return childVaccinServ.findById(id);
+	}
+
 	@PreAuthorize("isAnonymous()")
 	@GetMapping("/alertVaccineChild/{id}")
 	public void exportToPDF(HttpServletResponse response, @PathVariable("id") int id)
@@ -212,7 +261,30 @@ public class MedicalController {
 			DetailVaccineChild exporter = new DetailVaccineChild(f);
 			exporter.export(response);
 		}
-		
+
+	}
+
+	@GetMapping("/getAllChild")
+	@ResponseBody
+	public List<Child> getAllChild() {
+
+		return childService.getAllChild();
+
+	}
+
+	@PutMapping("/addVaccineFolder/{idF}/{idV}")
+	@ResponseBody
+	public void addVaccineFolder(@PathVariable("idF") int idF, @PathVariable("idV") int idV) {
+
+		folderMS.addFolderVaccine(idF, idV);
+
+	}
+
+	@PutMapping("/deleteVaccineFolder/{idF}/{idV}")
+	@ResponseBody
+	public void deleteVaccineFolder(@PathVariable("idF") int idF, @PathVariable("idV") int idV) {
+
+		folderMS.deleteFolderVaccine(idF, idV);
 
 	}
 

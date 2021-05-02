@@ -178,9 +178,13 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public void update(User u) {
-
+		
+		
+		User userbyid = userR.findById(u.getId()).get();
+			
 		String pwd = new BCryptPasswordEncoder().encode(u.getPassword());
-
+			
+		u.setRole(userbyid.getRole());
 		u.setPassword(pwd);
 		u.setDateC(new Date());
 		u.setStateUser(StateUser.waiting);
@@ -248,6 +252,18 @@ public class UserServiceImpl implements IUserService {
 		userR.save(u).getId();
 		return "parent "+iduser +"added succesfully to kindergarten" +id_kg ;
 		
+	}
+
+	@Override
+	public User finduserbyid(int id) 
+	{
+	return userR.findById(id).get();
+	}
+
+	@Override
+	public List<User> getParentsByKinderGarten() {
+
+		return userR.getParentsByKinderGarten();
 	}
 
 }

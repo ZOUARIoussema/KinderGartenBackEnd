@@ -17,4 +17,6 @@ public interface IStatisticsService {
 	public List<?> NbrChildSubscribed(int year);
 	
 	public void UpdateScoreEvaluation(int idkg);
+	
+	
 }

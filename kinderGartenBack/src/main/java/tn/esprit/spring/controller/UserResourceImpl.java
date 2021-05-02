@@ -14,11 +14,13 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import tn.esprit.spring.config.springSecurity.JwtTokenProvider;
 import tn.esprit.spring.entity.User;
@@ -57,8 +59,14 @@ public class UserResourceImpl {
 		try {
 			Authentication authentication = authenticationManager
 					.authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
+			
 			if (authentication.isAuthenticated()) {
 				String email = user.getEmail();
+					
+				User userauthenticated = userS.findByEmail(user.getEmail());
+				
+				String username = userauthenticated.getFirstName()+" " +userauthenticated.getLastName();
+				jsonObject.put("username", username);
 				jsonObject.put("name", authentication.getName());
 				jsonObject.put("authorities", authentication.getAuthorities());
 				jsonObject.put("token",
@@ -83,6 +91,19 @@ public class UserResourceImpl {
 		
 		
 		userS.add(user);
+	}
+	
+	@GetMapping("/findUser/{iduser}")
+	@ResponseBody
+	public User findUser (@PathVariable("iduser") int id )
+	{
+		return userS.finduserbyid(id);
+	}
+	
+	@GetMapping("/findUserByEmail/{email}")
+	public User findUserByMail (@PathVariable("email") String email )
+	{
+		return userS.findByEmail(email);
 	}
 
 	@PostMapping("/sendSecretKey/{mail}")
